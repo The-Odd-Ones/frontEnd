@@ -1,5 +1,4 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { FlashMessagesModule } from "angular2-flash-messages";
 
 import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing.module";
@@ -18,6 +17,10 @@ import { ValidateService } from "./services/validate/validate.service";
 import { PostsComponent } from "./components/client/posts/posts.component";
 import { PostComponent } from "./components/client/post/post.component";
 import { SettingsComponent } from "./components/settings/settings.component";
+
+import { BubblePostComponent } from './components/client/bubble-post/bubble-post.component';
+import { DateAgoPipe } from './pipes/date-ago.pipe';
+import { RecommendationsComponent } from './components/client/recommendations/recommendations.component';
 import { ReactiveFormsModule } from "@angular/forms";
 import { SearchService } from "./services/search.service";
 import { EventsComponent } from "./components/client/events/events.component";
@@ -42,6 +45,9 @@ import { SearchComponent } from "./components/client/search/search.component";
     EventsComponent,
     EventComponent,
     SafePipe,
+    BubblePostComponent,
+    DateAgoPipe,
+    RecommendationsComponent,
     SearchComponent
   ],
   imports: [
@@ -52,11 +58,9 @@ import { SearchComponent } from "./components/client/search/search.component";
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyAxdE8_g6U861UeDLFIi5h5QybzLyaozwY"
     }),
-    ReactiveFormsModule,
-    FlashMessagesModule.forRoot()
-  ],
+    ReactiveFormsModule  ],
 
-  providers: [ValidateService, SafePipe, SearchService],
+  providers: [ValidateService, SafePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

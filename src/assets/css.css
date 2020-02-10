@@ -1,0 +1,27 @@
+.clickable{
+    cursor: pointer;
+}
+body {
+    font-family: 'Ubuntu', sans-serif;
+    background: rgb(39, 39, 39);
+    color: white;
+}
+
+.card {
+    background: rgb(39, 39, 39);
+    border: rgb(163, 163, 163) 1px solid;
+  }
+  .modal-content {
+    background: rgb(39, 39, 39);
+  }
+
+  input, textarea {
+    background-color : rgb(39, 39, 39);
+    color : white!important
+  }
+
+
+  .hr{
+      background:rgb(163, 163, 163);
+
+  }

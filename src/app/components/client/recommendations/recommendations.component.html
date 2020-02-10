@@ -1,0 +1,60 @@
+<div *ngIf="$users | async as users">
+  <div *ngIf="users.length">
+    <h5 class="my-2">&nbsp;</h5>
+    <h4>&nbsp;</h4>
+    <div class="container p-4 card" style="padding-bottom: 0!important;">
+      <h5 class="text-muted mb-4">Recommendations for you...</h5>
+      <div>
+        <div *ngFor="let user of users" class="media user-follower">
+          <div class="p-1 row">
+            <a class="card-link col-2 p-0 text-center">
+              <img
+                src="https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png"
+                class="ImgProfile mx-4"
+              />
+            </a>
+            <!-- <p class="text-muted">{{ post.createdAt }}</p> -->
+          </div>
+          <div *ngIf="user.username !== current" class="media-body">
+            <a
+              [routerLink]="'/users/' + user.username"
+              routerLinkActive="router-link-active"
+            >
+              {{ user.firstname + " " + user.lastname }}
+            </a>
+            <br /><span class="text-muted username"> @{{ user.username }}</span>
+            <button
+              (click)="unfollow(user)"
+              type="button"
+              class="btn btn-sm btn-primary 
+            pull-right"
+              *ngIf="user.followedByYou"
+              [ngClass]="{ 'btn-danger': hover == user._id }"
+              (mouseenter)="hover = user._id"
+              (mouseleave)="hover = null"
+            >
+              <i class="fa fa-checkmark-round" style="color: white">
+                {{ hover == user._id ? "unfollow" : "Following" }}
+              </i>
+            </button>
+            <button
+              *ngIf="!user.followedByYou"
+              (click)="follow(user)"
+              type="button"
+              class="btn btn-sm btn-primary 
+        pull-right"
+            >
+              <i *ngIf="user.followsYou" class="fa fa-checkmark-round">
+                Follow back
+              </i>
+              <i *ngIf="!user.followsYou" class="fa fa-checkmark-round">
+                Follow
+              </i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

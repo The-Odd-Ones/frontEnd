@@ -1,11 +1,19 @@
 <div class="parent">
-    <p data-toggle="modal" data-target="#communityModal">Change Community</p>
+    <p id="toggleCommunity" data-toggle="modal" data-target="#communityModal">Change Community</p>
     <p data-toggle="modal" data-target="#addPostModal">Add new post</p>
     <p data-toggle="modal" data-target="#makeEventModal">Make an event</p>
 
   <p [routerLink]="['/settings']" routerLinkActive="router-link-active">
     Settings
   </p>
+
+  <p *ngIf="!dark" (click)="darken()">
+    Dark Mode
+  </p>
+  <p *ngIf="dark" (click)="lighten()">
+    Light Mode
+  </p>
+
 </div>
 
 
@@ -102,7 +110,11 @@
           <div class="modal-body">
             <div class="container">
               <div *ngIf="$communities | async as communities " class="row justify-content-center">
-                <div style="cursor: pointer;" (click)="changeCommunity(community)" data-dismiss="modal" *ngFor="let community of communities" class="col-3 m-2">{{community.name}}</div>
+                <ng-container  *ngFor="let community of communities"  >
+                  <span data-dismiss="modal" *ngIf="community.name != currentCommunity" class="col-3 m-2"  style="cursor: pointer;" (click)="changeCommunity(community)" >
+                    {{community.name}}
+                  </span>
+                </ng-container>
               </div>
             </div>
       </div>

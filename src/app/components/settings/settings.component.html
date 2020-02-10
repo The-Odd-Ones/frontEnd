@@ -1,83 +1,168 @@
-<div *ngIf="user" class="container">
-  <div class="main">
-    <div class="main__header">
-      <h2>Your Settings</h2>
-    </div>
-    <div class="main__content">
-      <div class="main__settings-form">
-        <form #settingForm (ngSubmit)="updated(settingForm)">
-          <div
-            #image
-            *ngIf="user.file"
-            class="main__avatar"
-            [ngStyle]="{ 'background-image': 'url(' + user.file + ')' }"
-          >
-            <div class="fa fa-camera" class="main__avatar--overlay">
-              <div class="image-upload">
-                <label for="file-input">
-                  <img
-                    style="margin: 60px; cursor: pointer; width: 30px;"
-                    src="../../../assets/camera.png"
-                  />
-                </label>
-
-                <input
-                  (change)="upload($event, image)"
-                  id="file-input"
-                  type="file"
-                />
-              </div>
-            </div>
-          </div>
-          <div
-            #image
-            *ngIf="!user.file"
-            class="main__avatar"
-            style="background-image:url('https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg')"
-          >
-            <div class="main__avatar--overlay">
-              <div class="image-upload">
-                <label for="file-input">
-                  <img
-                    style="margin: 60px; cursor: pointer; width: 30px;"
-                    src="../../../assets/camera.png"
-                  />
-                </label>
-
-                <input
-                  (change)="upload($event, image)"
-                  id="file-input"
-                  type="file"
-                />
-              </div>
-            </div>
-          </div>
-          <label class="main__input-label">Your name:</label>
-          <input
-            [ngModel]="user.firstname"
-            name="firstname"
-            class="main__input"
-            placeholder="firstname"
-            type="text"
-          />
-          <label class="main__input-label">Your e-mail:</label>
-          <input
-            [ngModel]="user.email"
-            name="email"
-            class="main__input"
-            type="email"
-          />
-          <label class="main__input-label">new password</label>
-          <input ngModel name="password" class="main__input" type="password" />
-
-          <label class="main__input-label"> Biograpghy </label>
-          <textarea ngModel name="bio" class="main__input" type="password">
-          </textarea>
-          <button type="submit" class="btn main__save-button">
-            Save
-          </button>
-        </form>
+<div  *ngIf="user" class=" m-4 p-4">
+  <!-- <div class="main__header"> -->
+  <h2>Settings</h2>
+  <!-- </div> -->
+  <form #settingForm (ngSubmit)="updated(settingForm)">
+    <div
+      #image
+      class="main__avatar"
+      [ngStyle]="{
+        'background-image': user.file
+          ? 'url(' + user.file + ')'
+          : 'url(https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg)'
+      }"
+    >
+      <div class="main__avatar--overlay">
+        <div class="image-upload">
+          <label for="file-input">
+            <img
+              style="margin: 60px; cursor: pointer; width: 30px;"
+              src="../../../assets/camera.png"
+            />
+          </label>
+        </div>
       </div>
     </div>
-  </div>
+    <input
+      style="display: none;"
+      (change)="upload($event, image)"
+      id="file-input"
+      type="file"
+      name="file"
+    />
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label class="main__input-label">Firstname:</label>
+        <input
+          [ngModel]="user.firstname"
+          name="firstname"
+          class="main__input"
+          placeholder="firstname"
+          type="text"
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <label class="main__input-label">lastname:</label>
+        <input
+          [ngModel]="user.lastname"
+          name="lastname"
+          class="main__input"
+          placeholder="lastname"
+          type="text"
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label class="main__input-label">username:</label>
+        <input
+          [ngModel]="user.username"
+          name="username"
+          class="main__input"
+          placeholder="username"
+          type="text"
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <label class="main__input-label">Your e-mail:</label>
+        <input
+          [ngModel]="user.email"
+          name="email"
+          class="main__input"
+          type="email"
+        />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="main__input-label"> Biography </label>
+      <textarea rows="5" [ngModel]="user.bio" name="bio" class="main__input">
+      </textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label class="main__input-label">new password</label>
+        <input
+          ngModel
+          placeholder="********"
+          name="password"
+          class="main__input"
+          type="password"
+        />
+      </div>
+
+      <div class="form-group col-md-6">
+        <label class="main__input-label">new password confirmation</label>
+        <input
+          ngModel
+          placeholder="********"
+          name="confirmation"
+          class="main__input"
+          type="password"
+        />
+      </div>
+    </div>
+
+    <h3>Social Sites Links</h3>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label class="main__input-label">Facebook Account Link</label>
+        <input
+          [ngModel]="user.facebook"
+          name="facebook"
+          class="main__input"
+          type="text"
+        />
+      </div>
+
+      <div class="form-group col-md-6">
+        <label class="main__input-label">Twitter Account Link</label>
+        <input
+          [ngModel]="user.twitter"
+          name="twitter"
+          class="main__input"
+          type="text"
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label class="main__input-label">LinkedIn Account Link</label>
+        <input
+          [ngModel]="user.linkedIn"
+          name="linkedIn"
+          class="main__input"
+          type="text"
+        />
+      </div>
+
+      <div class="form-group col-md-6">
+        <label class="main__input-label">Instagram Account Link</label>
+        <input
+          [ngModel]="user.instagram"
+          name="instagram"
+          class="main__input"
+          type="text"
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label class="main__input-label">password</label>
+        <input
+          ngModel
+          placeholder="********"
+          name="oldpassword"
+          class="main__input"
+          type="password"
+        />
+      </div>
+
+      <div class="form-group col-md-6">
+        <label class="main__input-label"> &nbsp; </label>
+        <button type="submit" class="btn main__save-button">
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
 </div>

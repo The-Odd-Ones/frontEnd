@@ -1,10 +1,16 @@
 <div *ngIf="$posts | async as posts" class="container">
-    <h5 class="text-muted my-2">New Feed</h5>
+    <h5 class="text-muted my-2">Home</h5>
     <div class="row justify-content-around text-center">
         <h4 style="cursor: pointer;" [ngClass]="{'text-muted': status == 'events'}" (click)="status = 'posts'" class="col">Posts</h4 >
         <h4 style="cursor: pointer;" [ngClass]="{'text-muted': status == 'posts'}" (click)="status = 'events'" class="col">Events</h4>
     </div>
-    <app-posts *ngIf="status == 'posts'" [posts]="posts"></app-posts>
-    <app-events *ngIf="status == 'events' && $events | async as events" [events]="events"></app-events>
+    <div *ngIf="status == 'posts'">
+        <h5 style="text-align: center; margin-top: 10px;" *ngIf="!posts.length" class="text-muted">No posts to show 😥</h5>
+        <app-posts  *ngIf="posts.length" [posts]="posts"></app-posts>
+    </div>
+    <div *ngIf="status == 'events' && $events | async as events">
+        <h5 style="text-align: center; margin-top: 10px;" *ngIf="!events.length" class="text-muted">No events to show 😥</h5>
+        <app-events *ngIf="events.length" [events]="events"></app-events>
+    </div>
 
 </div>

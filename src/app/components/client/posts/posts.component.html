@@ -1,109 +1,198 @@
 <div
   *ngIf="posts"
   class="row"
-  style="justify-content: center; display: flex; height: 80vh; overflow-y: scroll;"
+  style="justify-content: center; display: flex;max-height: 80vh;"
+  [ngStyle]="{
+    'overflow-y': bubble ? 'visible' : 'scroll'
+  }"
 >
-  <div  routerLinkActive="router-link-active"  class="card mx-3 col-12" *ngFor="let post of posts">
-    <div class="p-1 row">
-      <a class="card-link col-2 p-0 text-center">
-        <img
-          src="https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png"
-          class="ImgProfile"
-        />
-      </a>
-      <div class="col-10 pl-0">
-        <a
-          style="cursor: pointer;"
-          [routerLink]="'/users/' + post.user.username"
-          routerLinkActive="router-link-active"
-          class="card-link font-weight-bold"
-          >{{ post.user.firstname }} {{ post.user.lastname }}
-        </a>
-        <p [routerLink]="'/posts/' + post._id" class="card-text clickable">{{ post.content }}</p>
-      </div>
-      <!-- <p class="text-muted">{{ post.createdAt }}</p> -->
-    </div>
-    <div class="card-body row p-1">
-      <!-- <div class="shadow"></div> -->
-      <!-- <img src="img_snow.jpg" alt="Snow" style="width:100%;max-width:300px"> -->
-      <div class="col-2 p-0"></div>
-      <div class="col-10 pl-0">
-        <div class="row justify-content-center" *ngIf="post.file">
+    <div
+    *ngFor="let post of posts"
+      routerLinkActive="router-link-active"
+      class="mx-3 col-12"
+      style="border-top:  rgb(214, 214, 214) 1px solid;border-right:  rgb(214, 214, 214) 1px solid;height: fit-content;"
+    >
+      <div class="p-1 row">
+        <a class="card-link col-2 p-0 text-center">
           <img
-            *ngIf="!post.isVideo"
-            src="{{ post.file }}"
-            class="card-img-top mb-4"
-            alt="..."
-            style="width: 100%;height: 330px; object-fit: cover;border-radius: 20px;cursor: pointer;"
-            (click)="imageClick(imgModal, post.file, modalImg)"
+            src="https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png"
+            class="ImgProfile"
           />
-          <iframe
-            *ngIf="post.isVideo"
-            allowfullscreen
-            autoplay="0"
-            [src]="post.file | safe"
-            frameborder="0"
-            style="max-width: 100%;max-height: 330px;border-radius: 20px;cursor: pointer;"
-            class="mb-4"
-          ></iframe>
+        </a>
+        <div class="col-10 pl-0">
+          <a
+            style="cursor: pointer;"
+            [routerLink]="'/users/' + post.user.username"
+            routerLinkActive="router-link-active"
+            class="card-link font-weight-bold"
+            >{{ post.user.firstname }} {{ post.user.lastname }}
+          </a>
+          <p [routerLink]="'/posts/' + post._id" class="card-text clickable">
+            {{ post.content }}
+          </p>
         </div>
-        <div class="d-flex justify-content-around mb-2">
-          <!-- // Like Icon -->
-          <div>
-            <i
-              style="font-size:24px;"
-              [ngStyle]="{ color: post.isLiked ? 'cyan' : 'grey' }"
-              class="fa clickable"
-              (click)="like(post)"
-              >&#xf087;</i
-            >
+        <!-- <p class="text-muted">{{ post.createdAt }}</p> -->
+      </div>
+      <div class="card-body row p-1">
+        <!-- <div class="shadow"></div> -->
+        <!-- <img src="img_snow.jpg" alt="Snow" style="width:100%;max-width:300px"> -->
+        <div class="col-2 p-0"></div>
+        <div class="col-10 pl-0">
+          <div
+            *ngIf="post.file && !post.sharedpost"
+            class="row justify-content-center"
+          >
+            <img
+              *ngIf="!post.isVideo"
+              src="{{ post.file }}"
+              class="card-img-top mb-4"
+              alt="..."
+              style="width: 100%;height: 330px; object-fit: cover;border-radius: 20px;cursor: pointer;"
+              (click)="imageClick(imgModal, post.file, modalImg)"
+            />
+            <!-- <video
+              allowfullscreen
+              autoplay="0"
+              
+              frameborder="0"
+              style="max-width: 100%;max-height: 330px;border-radius: 20px;cursor: pointer;"
+              class="mb-4"
+              ></video> -->
+            <video *ngIf="post.isVideo" width="100%" height="330" controls>
+              <source [src]="post.file | safe" type="video/mp4" />
+              <source [src]="post.file | safe" type="video/avi" />
+              <source [src]="post.file | safe" type="video/mkv" />
+            </video>
           </div>
-                      <!-- // Comment Icon -->
-
-          <div>
-            <i style="font-size:24px" class="fa">&#xf0e5;</i>
+          <div *ngIf="post.sharedpost && !bubble" class=" mb-4">
+            <app-bubble-post [post]="post.sharedpost"></app-bubble-post>
           </div>
-                      <!-- // Share Icon -->
+          <div *ngIf="!bubble" class="d-flex justify-content-around mb-2">
+            <!-- // Like Icon -->
+            <div>
+              <i
+                style="font-size:24px;"
+                [ngStyle]="{ color: post.isLiked ? 'teal' : 'grey' }"
+                class="fa clickable"
+                (click)="like(post)"
+              >
+                <span style="font-size: 16px;">{{ post.likesCount }}</span>
+                &#xf087;</i
+              >
+            </div>
+            <!-- // Comment Icon -->
 
-          <div>
-            <i
-              style="font-size:24px;"
-              [ngStyle]="{ color: post.isLiked ? 'cyan' : 'grey' }"
-              class="fa"
-              >&#xf1e0;</i
-            >
+            <div>
+              <i style="font-size:24px;color: gray;" class="fa">
+                <span style="font-size: 16px;">{{ post.commentsCount }}</span>
+                <span [routerLink]="'/posts/' + post._id" routerLinkActive="router-link-active" class="clickable" > &#xf0e5;</span>
+              </i>
+            </div>
+            <!-- // Share Icon -->
+
+            <div>
+              <i
+                *ngIf="post.isShared"
+                style="font-size:24px; color: teal;"
+                class="fa"
+                (click)="postToShare = post"
+              >
+                <span style="font-size: 16px;">{{ post.sharesCount }}</span>
+                &#xf1e0;</i
+              >
+              <i
+                *ngIf="!post.isShared"
+                style="font-size:24px;color: gray;"
+                class="fa clickable"
+                (click)="postToShare = post"
+                data-toggle="modal"
+                data-target="#sharePostModal"
+              >
+                <span style="font-size: 16px;">{{ post.sharesCount }}</span>
+                &#xf1e0;</i
+              >
+            </div>
+
           </div>
-
-          <!--start nb comment-->
-          <!-- <div class="css-1dbjc4n r-xoduu5 r-1udh08x">
-                          <span
-                            class="css-901oao css-16my406 r-1qd0xha r-ad9z0x r-1n0xq6e r-bcqeeo r-d3hbel r-1wgg2b2 r-axxi2z r-qvutc0"
-                          >
-                            <span
-                              class="css-901oao css-16my406 r-1qd0xha r-ad9z0x r-bcqeeo r-qvutco"
-                              >{{ post.commentsCount }}</span
-                            >
-                          </span> -->
-          <!-- </div> -->
-          <!-- end nb comment-->
         </div>
       </div>
     </div>
-  </div>
 </div>
 
 <!-- The Modal -->
-<div #imgModal id="myModal" class="modal">
+<div #imgModal id="myModal" class="modal img">
   <!-- The Close Button -->
   <span (click)="closeModal(imgModal)" class="close">&times;</span>
 
   <!-- Modal Content (The Image) -->
   <img
     #modalImg
-    class="modal-content"
+    class="modal-content img"
     style="max-height: 400px;object-fit: contain;background: transparent;"
   />
 
   <!-- Modal Caption (Image Text) -->
   <div id="caption"></div>
 </div>
+
+<!-- Add Post Modal -->
+<div
+  *ngIf="!bubble"
+  class="modal fade"
+  id="sharePostModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Share Post</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #sharePostForm="ngForm">
+          <input
+            class="form-control"
+            placeholder="Write something..."
+            type="text"
+            ngModel
+            name="content"
+          />
+        </form>
+        <div *ngIf="postToShare">
+          <app-bubble-post [post]="postToShare"></app-bubble-post>
+          <!-- <app-posts [posts]="[postToShare]" [bubble]="true"></app-posts> -->
+          <!-- <div class="row">
+            <div>
+              hello
+            </div>
+          </div> -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+        <button
+          (click)="share(sharePostForm)"
+          type="button"
+          data-dismiss="modal"
+          class="btn btn-primary"
+        >
+          Share
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Post Modal -->

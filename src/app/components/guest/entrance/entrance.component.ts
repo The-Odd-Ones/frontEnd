@@ -3,7 +3,6 @@ import { NgForm } from "@angular/forms";
 import { HttpService } from "src/app/services/http/http.service";
 import { Router } from "@angular/router";
 import { ValidateService } from "src/app/services/validate/validate.service";
-import { FlashMessagesService } from "angular2-flash-messages";
 declare var Snackbar: any;
 @Component({
   selector: "app-entrance",
@@ -14,9 +13,7 @@ export class EntranceComponent implements OnInit {
   constructor(
     private http: HttpService,
     private router: Router,
-    private validateService: ValidateService,
-    private flashMessage: FlashMessagesService
-  ) {}
+    private validateService: ValidateService  ) {}
   submitSignInForm(form: NgForm) {
     this.http.post("/users/authenticate", form.value).subscribe((data: any) => {
       console.log(data);

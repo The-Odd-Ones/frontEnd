@@ -1,0 +1,67 @@
+<div
+  *ngIf="post"
+  class="row col-12 p-0 m-0 clickable"
+  style="justify-content: center; display: flex; width: 100%"
+  [routerLink]="'/posts/' + post._id"
+  routerLinkActive="router-link-active"
+>
+  <div routerLinkActive="router-link-active" class="card col-12">
+    <div class=" row">
+      <a class="card-link col-12 p-0 p-1">
+        <div class="col-12 pl-0">
+          <img
+            src="https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png"
+            class="ImgProfile mx-2"
+          />
+          <a
+            style="cursor: pointer;"
+            [routerLink]="'/users/' + post.user.username"
+            routerLinkActive="router-link-active"
+            class="card-link font-weight-bold"
+            >{{ post.user.firstname }} {{ post.user.lastname }}
+          </a>
+          <!-- <hr class="my-2" /> -->
+        </div>
+      </a>
+      <p [routerLink]="'/posts/' + post._id" class="card-text clickable mx-2">
+        {{ post.content }}
+      </p>
+      <div
+        *ngIf="post.file && !post.sharedpost"
+        class="col-12 p-0"
+        routerLink=""
+        routerLinkActive="router-link-active"
+      >
+        <img
+          *ngIf="!post.isVideo"
+          src="{{ post.file }}"
+          alt="..."
+          style="width: 100%;height: 330px; object-fit: cover;cursor: pointer;"
+        />
+        <!-- <iframe
+          *ngIf="post.isVideo"
+          allowfullscreen
+          autoplay="0"
+          [src]="post.file | safe"
+          frameborder="0"
+          style="max-width: 100%;max-height: 330px;border-radius: 20px;cursor: pointer;"
+          class="mb-4"
+        ></iframe> -->
+
+        <video
+        style="pointer-events: none;"
+          autopictureinpicture
+          *ngIf="post.isVideo"
+          width="100%"
+          height="330"
+          controls
+        >
+          <source [src]="post.file | safe" type="video/mp4" />
+          <source [src]="post.file | safe" type="video/avi" />
+          <source [src]="post.file | safe" type="video/mkv" />
+        </video>
+      </div>
+      <!-- <p class="text-muted">{{ post.createdAt }}</p> -->
+    </div>
+  </div>
+</div>

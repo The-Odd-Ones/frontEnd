@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import Chart from "chart.js";
 
 // @Component({
 //   selector: "app-main",
@@ -14,7 +15,6 @@ import { Router } from "@angular/router";
 //   }
 //   ngOnInit() {}
 // }
-import Chart from "chart.js";
 
 @Component({
   selector: "app-dashboard",

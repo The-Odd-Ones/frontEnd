@@ -22,12 +22,13 @@ export class ProfileComponent implements OnInit {
   public followings: any = [];
 
   status: String = "posts";
-  profile: boolean;
+  profile: Boolean;
   username: String;
   $user: Observable<Object>;
   current: String = localStorage.username;
 
   ngOnInit() {
+    this.data.extraDiv.next(false)
     this.activatedRoute.params.subscribe(data => {
       this.profile = !data["username"];
       this.username = this.profile ? localStorage.username : data["username"];
@@ -39,8 +40,8 @@ export class ProfileComponent implements OnInit {
           map((one: any) => {
             console.log(one);
 
-            this.http.get(`/users/${one._id}/posts`).subscribe(data => {
-              console.log(data);
+            this.http.get(`/users/${one.result._id}/posts`).subscribe(data => {
+                this.posts = data['result']
             });
 
             return one["result"];
@@ -48,6 +49,12 @@ export class ProfileComponent implements OnInit {
         );
       });
     });
+  }
+
+
+  ngOnDestroy(): void {
+    this.data.extraDiv.next(true)
+    
   }
 
   getFollowers(id) {
@@ -59,7 +66,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getFollowings(id) {
-    this.status = "folowings";
+    this.status = "following";
     this.http.get(`/users/${id}/followings`).subscribe((followings: any) => {
       this.followings = followings.result;
       console.log(followings);

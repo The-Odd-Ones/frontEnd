@@ -422,10 +422,6 @@
   z-index: 999;
 }
 
-.follow-button > span:nth-child(2),
-.follow-button:hover > span:nth-child(1) {
-  display: none;
-}
 
 .follow-button:hover > span:nth-child(2) {
   display: inline;

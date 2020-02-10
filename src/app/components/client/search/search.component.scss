@@ -212,13 +212,14 @@ body {
   background-color: #fff;
   color: #cccccc;
   padding: 6px 10px;
-  width: 120px;
+  width: 180px !important;
+  height: 40px !important;
   border: none;
   margin-top: 1px;
   margin-right: 8px;
   font-family: "Segoe UI Light", "Segoe UI", "Segoe", Tahoma, Helvetica, Arial,
     sans-serif;
-  font-size: 1em;
+  font-size: 1em !important;
   font-weight: bold;
   border: #dddddd solid 2px;
   transition: 0.3s;
@@ -230,7 +231,7 @@ body {
   font-family: "Lato", sans-serif;
   font-size: 1em;
   font-weight: 300;
-  /* transition: 0.2s; */
+   transition: 0.2s; 
 }
 
 .searchbar:focus {
