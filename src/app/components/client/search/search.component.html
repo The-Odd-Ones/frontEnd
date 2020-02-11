@@ -67,13 +67,14 @@
     [formControl]="queryField"
     class="searchbar h-25"
     placeholder="Search..."
+    autocomplete="off"
   />
   <a id="btnSearch" class="btn-search"><i class="fa fa-search"></i></a>
   <ul
-    *ngIf="results"
     class="dropdown-menu w-100 "
     role="menu"
     aria-labelledby="keyword"
+    [ngStyle]="{'display': results? 'inline-block' : 'none'}"
   >
     <li
       class="filter-select-list"
