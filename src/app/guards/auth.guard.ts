@@ -30,7 +30,7 @@ export class AuthGuardClient implements CanActivate, CanActivateChild, CanLoad {
     if(localStorage.getItem("token")){
       return this.http.get("/users/verify").pipe(map((one:any) => {
         if(one.success){
-          if(one.user.admin){
+          if(one.user.isAdmin){
               this.router.navigate(['dashboard'])
               return false
           }else  return true
@@ -79,7 +79,7 @@ export class AuthGuardAdmin implements CanActivate, CanActivateChild, CanLoad {
       if(localStorage.getItem("token")){
         return this.http.get("/users/verify").pipe(map((one:any) => {
             if(one.success){
-              if(one.user.admin){
+              if(one.user.isAdmin){
                   return true
               }else {
                 this.router.navigate(['home'])
@@ -130,7 +130,7 @@ export class AuthGuardGuest implements CanActivate, CanActivateChild, CanLoad {
       if(localStorage.getItem("token")){
         return this.http.get("/users/verify").pipe(map((one:any) => {
           if(one.success){
-            if(one.user.admin){
+            if(one.user.isAdmin){
                 this.router.navigate(['dashboard'])
                 return false
             }else {

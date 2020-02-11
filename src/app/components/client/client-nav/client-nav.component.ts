@@ -20,7 +20,7 @@ export class ClientNavComponent implements OnInit {
 
   $Community: Observable<any>;
   extraDiv:Boolean = true;
-  notifications:Array<Object> = [];
+  // notifications:Array<Object> = [];
  
   results: any[] = [];
   queryField: FormControl = new FormControl();
@@ -29,10 +29,10 @@ export class ClientNavComponent implements OnInit {
     private router: Router, private data: DataService, private http:HttpService, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
-    this.http.get('/notifications').subscribe(data =>{
-      this.notifications = data['result']
-      console.log(this.notifications)
-    })
+    // this.http.get('/notifications').subscribe(data =>{
+    //   this.notifications = data['result']
+    //   console.log(this.notifications)
+    // })
     this.data.extraDiv.subscribe(bool => {
       this.extraDiv = bool
     })
