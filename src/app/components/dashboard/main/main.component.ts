@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import Chart from "chart.js";
+import { HttpService } from 'src/app/services/http/http.service';
 
 // @Component({
 //   selector: "app-main",
@@ -25,14 +26,20 @@ export class DashboardComponent implements OnInit {
   public ctx;
   public datasets: any;
   public data: any;
+  public labels: any;
   public myChartData;
   public clicked: boolean = true;
   public clicked1: boolean = false;
   public clicked2: boolean = false;
 
-  constructor() {}
+  constructor(private http:HttpService) {}
 
   ngOnInit() {
+  
+    // this.http.get('/dashboard/users').subscribe((data: Object) => {
+    //   console.log(data)
+    // })
+this.getPosts()
     var gradientChartOptionsConfigurationWithTooltipBlue: any = {
       maintainAspectRatio: false,
       legend: {
@@ -511,7 +518,30 @@ export class DashboardComponent implements OnInit {
     });
   }
   public updateOptions() {
-    this.myChartData.data.datasets[0].data = this.data;
+    this.myChartData.data.datasets[0].data = this.data
+    this.myChartData.data.labels = this.labels;
+    this.myChartData.options.scales.yAxes[0].ticks.suggestedMax = Math.max(...this.data)
+    this.myChartData.options.scales.yAxes[0].ticks.suggestedMin = 0 
+
     this.myChartData.update();
+  }
+
+  getPosts(){
+    this.http.get('/dashboard/posts').subscribe((data: Array<Object>) => {
+      this.labels = data.map((one:any) => one._id.name )
+      this.data = data.map((one:any) => one.posts )
+      this.updateOptions()
+ 
+     })
+  }
+
+  getEvents(){
+    this.http.get('/dashboard/events').subscribe((data: Array<Object>) => {
+      console.log(data)
+     this.labels = data.map((one:any) => one._id.name )
+     this.data = data.map((one:any) => one.events )
+    
+     this.updateOptions()
+    })
   }
 }
