@@ -13,7 +13,7 @@
 
   <div class="collapse navbar-collapse container" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
-      <li *ngIf="$Community | async as community"  class="nav-item">
+      <li *ngIf="$Community | async as community" class="nav-item">
         <a
           class="navbar-brand"
           routerLink="/home"
@@ -96,9 +96,8 @@
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
           </form> -->
     <ul class="navbar-nav ml-auto">
-      <li class="dropdown nav-item">
-        <a style="cursor: pointer;" class="nav-link"
-          >
+      <!-- <li class="dropdown nav-item">
+        <a style="cursor: pointer;" class="nav-link">
           <div
             id="dropdownMenuButton"
             data-toggle="dropdown"
@@ -112,14 +111,19 @@
             ></i>
             <span class="badge">{{ notifications.length }}</span>
           </div>
-        
+
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <ul class="list-group list-group-flush py-0" style="max-height: 300px; width: 250px; overflow-y: scroll;overflow-x: hidden;">
-              <li *ngIf="!notifications.length" class="text-muted"> No notifications yet </li>
+            <ul
+              class="list-group list-group-flush py-0"
+              style="max-height: 300px; width: 250px; overflow-y: scroll;overflow-x: hidden;"
+            >
+              <li *ngIf="!notifications.length" class="text-muted">
+                No notifications yet
+              </li>
               <li
                 *ngFor="let notification of notifications"
                 class="dropdown-item list-group-item"
-                [ngStyle]="{'background': notification.seen?'white' : '#eee'}"
+                [ngStyle]="{ background: notification.seen ? 'white' : '#eee' }"
               >
                 {{
                   notification.sender.firstname +
@@ -129,26 +133,29 @@
                     notification.type +
                     " your "
                 }}
-                <span [routerLink]="['/posts/', notification.post._id]" routerLinkActive="router-link-active" >post</span>
+                <span
+                  [routerLink]="['/posts/', notification.post._id]"
+                  routerLinkActive="router-link-active"
+                  >post</span
+                >
               </li>
             </ul>
           </div>
+        </a>
+      </li> -->
 
-           </a>
-      </li>
-      
       <li class="nav-item">
         <a style="cursor: pointer;" class="nav-link" (click)="logout()"
-          ><i style="font-size: 24px;" class="fa fa-sign-out"></i> </a
-        >
+          ><i style="font-size: 24px;" class="fa fa-sign-out"></i>
+        </a>
       </li>
     </ul>
   </div>
 </nav>
 <div style="display: flex;">
-  <div  style="flex:1"></div>
-  <app-sidebar  style="flex: 2;"></app-sidebar>
-  <div [ngStyle]="{'flex': extraDiv?8:13}">
+  <div style="flex:1"></div>
+  <app-sidebar style="flex: 2;"></app-sidebar>
+  <div [ngStyle]="{ flex: extraDiv ? 8 : 13 }">
     <router-outlet></router-outlet>
   </div>
   <div *ngIf="extraDiv" style="flex: 5;" class="mx-4">
