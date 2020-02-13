@@ -3,6 +3,7 @@ import { NgForm } from "@angular/forms";
 import { HttpService } from "src/app/services/http/http.service";
 import { Router } from "@angular/router";
 import { ValidateService } from "src/app/services/validate/validate.service";
+
 declare var Snackbar: any;
 @Component({
   selector: "app-entrance",
@@ -13,7 +14,8 @@ export class EntranceComponent implements OnInit {
   constructor(
     private http: HttpService,
     private router: Router,
-    private validateService: ValidateService  ) {}
+    private validateService: ValidateService
+  ) {}
   submitSignInForm(form: NgForm) {
     this.http.post("/users/authenticate", form.value).subscribe((data: any) => {
       console.log(data);
@@ -51,6 +53,7 @@ export class EntranceComponent implements OnInit {
       });
       return false;
     }
+
     this.http.post("/users/register", form.value).subscribe((data: any) => {
       console.log(form.value);
       if (!data.success) {
@@ -60,7 +63,10 @@ export class EntranceComponent implements OnInit {
           pos: "top-center"
         });
       } else {
-        this.submitSignInForm(form);
+        localStorage.setItem("token", data["token"]);
+        localStorage.setItem("username", data.user.username);
+        localStorage.setItem("id", data.user._id);
+        location.reload();
       }
     });
   }

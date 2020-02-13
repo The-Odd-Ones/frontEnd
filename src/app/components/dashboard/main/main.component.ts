@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import Chart from "chart.js";
-import { HttpService } from 'src/app/services/http/http.service';
+import { HttpService } from "src/app/services/http/http.service";
+import { NgForm } from "@angular/forms";
 
 // @Component({
 //   selector: "app-main",
@@ -28,18 +29,16 @@ export class DashboardComponent implements OnInit {
   public data: any;
   public labels: any;
   public myChartData;
+  public results: any;
   public clicked: boolean = true;
   public clicked1: boolean = false;
   public clicked2: boolean = false;
 
-  constructor(private http:HttpService) {}
+  constructor(private http: HttpService) {}
 
   ngOnInit() {
-  
-    // this.http.get('/dashboard/users').subscribe((data: Object) => {
-    //   console.log(data)
-    // })
-this.getPosts()
+    this.getCommunities();
+    this.getPosts();
     var gradientChartOptionsConfigurationWithTooltipBlue: any = {
       maintainAspectRatio: false,
       legend: {
@@ -518,30 +517,61 @@ this.getPosts()
     });
   }
   public updateOptions() {
-    this.myChartData.data.datasets[0].data = this.data
+    this.myChartData.data.datasets[0].data = this.data;
     this.myChartData.data.labels = this.labels;
-    this.myChartData.options.scales.yAxes[0].ticks.suggestedMax = Math.max(...this.data)
-    this.myChartData.options.scales.yAxes[0].ticks.suggestedMin = 0 
+    this.myChartData.options.scales.yAxes[0].ticks.suggestedMax = Math.max(
+      ...this.data
+    );
+    this.myChartData.options.scales.yAxes[0].ticks.suggestedMin = 0;
 
     this.myChartData.update();
   }
 
-  getPosts(){
-    this.http.get('/dashboard/posts').subscribe((data: Array<Object>) => {
-      this.labels = data.map((one:any) => one._id.name )
-      this.data = data.map((one:any) => one.posts )
-      this.updateOptions()
- 
-     })
+  getPosts() {
+    this.http.get("/dashboard/posts").subscribe((data: Array<Object>) => {
+      this.labels = data.map((one: any) => one._id.name);
+      this.data = data.map((one: any) => one.posts);
+      this.updateOptions();
+    });
   }
 
-  getEvents(){
-    this.http.get('/dashboard/events').subscribe((data: Array<Object>) => {
-      console.log(data)
-     this.labels = data.map((one:any) => one._id.name )
-     this.data = data.map((one:any) => one.events )
-    
-     this.updateOptions()
-    })
+  getEvents() {
+    this.http.get("/dashboard/events").subscribe((data: Array<Object>) => {
+      console.log(data);
+      this.labels = data.map((one: any) => one._id.name);
+      this.data = data.map((one: any) => one.events);
+
+      this.updateOptions();
+    });
+  }
+  getCommunities() {
+    this.http.get("/dashboard/communities").subscribe(data => {
+      this.results = data["result"];
+      console.log(this.results);
+    });
+  }
+
+  createCommunity(form: NgForm) {
+    this.http.post("/dashboard/createCommunity", form.value).subscribe(data => {
+      this.results.unshift(data["result"]);
+    });
+  }
+
+  deactivate(id, val) {
+    if (val) {
+      console.log("gonna deactivate");
+      this.http
+        .get(`/dashboard/communities/${id}/deactivate`)
+        .subscribe(data => {
+          console.log(data);
+        });
+    }
+    if (!val) {
+      console.log("gonna activate");
+
+      this.http.get(`/dashboard/communities/${id}/activate`).subscribe(data => {
+        console.log(data);
+      });
+    }
   }
 }

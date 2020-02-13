@@ -1,0 +1,22 @@
+.form {
+  display: flex;
+  justify-content: center;
+  margin: 250px;
+  background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
+  padding-top: 50px;
+}
+h1 {
+  position: fixed;
+  color: white;
+}
+h3 {
+  margin: 60px;
+  color: white;
+}
+input {
+  border: 2px solid white;
+  border-radius: 5%;
+  margin: 120px;
+  margin-left: -280px;
+  background-color: #6d6f99;
+}

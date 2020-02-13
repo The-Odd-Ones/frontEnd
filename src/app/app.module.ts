@@ -18,15 +18,21 @@ import { PostsComponent } from "./components/client/posts/posts.component";
 import { PostComponent } from "./components/client/post/post.component";
 import { SettingsComponent } from "./components/settings/settings.component";
 
-import { BubblePostComponent } from './components/client/bubble-post/bubble-post.component';
-import { DateAgoPipe } from './pipes/date-ago.pipe';
-import { RecommendationsComponent } from './components/client/recommendations/recommendations.component';
+import { BubblePostComponent } from "./components/client/bubble-post/bubble-post.component";
+import { DateAgoPipe } from "./pipes/date-ago.pipe";
+import { RecommendationsComponent } from "./components/client/recommendations/recommendations.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { SearchService } from "./services/search.service";
 import { EventsComponent } from "./components/client/events/events.component";
 import { EventComponent } from "./components/client/event/event.component";
 import { SafePipe } from "./pipes/safe.pipe";
 import { SearchComponent } from "./components/client/search/search.component";
+import { AngularFireAuth, AngularFireAuthModule } from "angularfire2/auth";
+import { AngularFireModule } from "@angular/fire";
+import { AngularFireDatabaseModule } from "@angular/fire/database";
+import { environment } from "../environments/environment";
+import { firebase } from "../environments/firebase";
+import { VerifyComponent } from './components/shared/verify/verify.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +54,8 @@ import { SearchComponent } from "./components/client/search/search.component";
     BubblePostComponent,
     DateAgoPipe,
     RecommendationsComponent,
-    SearchComponent
+    SearchComponent,
+    VerifyComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +65,8 @@ import { SearchComponent } from "./components/client/search/search.component";
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyAxdE8_g6U861UeDLFIi5h5QybzLyaozwY"
     }),
-    ReactiveFormsModule  ],
+    ReactiveFormsModule
+  ],
 
   providers: [ValidateService, SafePipe],
   bootstrap: [AppComponent]
