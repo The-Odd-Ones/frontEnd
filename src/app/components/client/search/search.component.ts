@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { HttpService } from "src/app/services/http/http.service";
 import { FormControl } from "@angular/forms";
 import { of } from "rxjs";
 import { SearchService } from "src/app/services/search.service";
@@ -13,10 +12,7 @@ import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 export class SearchComponent implements OnInit {
   results: any;
   queryField: FormControl = new FormControl();
-  constructor(
-    private http: HttpService,
-    private searchService: SearchService
-  ) {}
+  constructor(private searchService: SearchService) {}
 
   ngOnInit() {
     this.queryField.valueChanges

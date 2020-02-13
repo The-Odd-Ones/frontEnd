@@ -1,71 +1,11 @@
-<!-- <div class="container">
-  <input
-    #car
-    type="text"
-    maxlength="12"
-    placeholder="Search..."
-    class="searchbar"
-  />
-  <img
-    (click)="search(car.value)"
-    src="https://images-na.ssl-images-amazon.com/images/I/41gYkruZM2L.png"
-    alt="Magnifying Glass"
-    class="button"
-  />
-</div> -->
-<!-- <section class="filter-wrapper">
-  <div class="keyword-wrapper">
-    <input
-      [formControl]="queryField"
-      type="text"
-      id="keyword"
-      placeholder="Search for artists..."
-      autofocus
-    />
-  </div>
-  <ul class="filter-select">
-    <li *ngFor="let result of results" class="filter-select-list">
-      <img
-        *ngIf="result.image"
-        src="{{ result.image }}"
-        alt=""
-        width="50"
-        height="50"
-      />
-      <img
-        *ngIf="!result.image"
-        src="https://capenetworks.com/static/images/testimonials/user-icon.svg"
-        alt=""
-        width="50"
-        height="50"
-      />
-      <p class="artist-name">{{ result.name }}</p>
-      <span class="tags"> {{ result.username }} </span>
-    </li>
-  </ul>
-</section> -->
 <form class="form-inline d-flex dropdown w-100">
-  <!-- <input
-    class="form-control form-control-sm"
-    placeholder="Search"
-    data-toggle="dropdown"
-  /> -->
-  <!-- <input
-    class="form-control form-control-sm"
-    [formControl]="queryField"
-    data-toggle="dropdown"
-    placeholder="Search"
-    type="text"
-    id="keyword"
-    placeholder="Search.."
-  /> -->
-
   <input
+    autocomplete="off"
     data-toggle="dropdown"
     #search
     id="keyword"
     [formControl]="queryField"
-    class="searchbar h-25"
+    class="searchbar"
     placeholder="Search..."
     autocomplete="off"
   />
@@ -74,8 +14,16 @@
     class="dropdown-menu w-100 "
     role="menu"
     aria-labelledby="keyword"
-    [ngStyle]="{'display': results? 'inline-block' : 'none'}"
+    [ngStyle]="{ display: results ? 'inline-block' : 'none' }"
   >
+    <li *ngIf="results">
+      <p
+        style="display: flex; justify-content: center; margin-top: 15px;"
+        *ngIf="!results.length"
+      >
+        CAN'T FIND USER
+      </p>
+    </li>
     <li
       class="filter-select-list"
       role="presentation"
@@ -97,28 +45,7 @@
       }}</a>
       <span class="tags"> {{ result.username }} </span>
     </li>
-    <!-- <li
-      class="filter-select-list"
-      *ngFor="let result of results"
-      role="presentation"
-    >
-      <img
-        *ngIf="result.image"
-        src="{{ result.image }}"
-        alt=""
-        width="50"
-        height="50"
-      />
-      <img
-        *ngIf="!result.image"
-        src="https://capenetworks.com/static/images/testimonials/user-icon.svg"
-        alt=""
-        width="50"
-        height="50"
-      />
-      <p class="artist-name">{{ result.name }}</p>
-      <span class="tags"> {{ result.username }} </span>
-    </li> -->
+
     <div class="dropdown-divider"></div>
   </ul>
 </form>
