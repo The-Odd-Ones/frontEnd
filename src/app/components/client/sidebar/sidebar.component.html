@@ -71,6 +71,18 @@
 
           <input class="form-control my-2" placeholder="title..." type="text" ngModel name="title">
           <textarea ngModel name="description" placeholder="write description here..." class="form-control my-2" rows="10"></textarea>
+          <div class="form-group row">
+            <label for="example-datetime-local-input" class="col-4 col-form-label">Starting time</label>
+            <div class="col-8">
+              <input [ngModel]="date | date:'YYYY-MM-DD'" name="start" class="form-control" type="datetime-local" value="2011-08-19T13:45:00" id="example-datetime-local-input">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="example-datetime-local-input" class="col-4 col-form-label">Ending time</label>
+            <div class="col-8">
+              <input [ngModel]="date | date:'YYYY-MM-DD'" name="end" class="form-control" type="datetime-local" value="2011-08-19T13:45:00" id="example-datetime-local-input">
+            </div>
+          </div>
           <input class="my-2" type="file" ngModel name="file">
           <app-maps [changeable]="true" [lat]="lat" [lng]="lng"></app-maps>
 

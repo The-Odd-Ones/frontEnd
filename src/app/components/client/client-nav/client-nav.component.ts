@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router, ActivatedRoute } from "@angular/router";
 import { DataService } from "src/app/services/data/data.service";
 import { Observable } from "rxjs";
-import { HttpService } from 'src/app/services/http/http.service';
+import { HttpService } from "src/app/services/http/http.service";
 import { FormControl } from "@angular/forms";
 import { of } from "rxjs";
 import { SearchService } from "src/app/services/search.service";
@@ -17,35 +17,47 @@ export class ClientNavComponent implements OnInit {
     localStorage.clear();
     this.router.navigate([""]);
   }
-
+  unseenCount: Number;
   $Community: Observable<any>;
-  extraDiv:Boolean = true;
-  // notifications:Array<Object> = [];
- 
+  extraDiv: Boolean = true;
+  notifications: Array<Object> = [];
+  seen() {
+    if (this.unseenCount) {
+      this.http.get("/notifications/seen").subscribe(data => {
+        if (data["success"]) this.unseenCount = 0;
+      });
+    }
+  }
   results: any[] = [];
   queryField: FormControl = new FormControl();
   constructor(
     private searchService: SearchService,
-    private router: Router, private data: DataService, private http:HttpService, private activatedRoute: ActivatedRoute) {}
+    private router: Router,
+    private data: DataService,
+    private http: HttpService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    // this.http.get('/notifications').subscribe(data =>{
-    //   this.notifications = data['result']
-    //   console.log(this.notifications)
-    // })
     this.data.extraDiv.subscribe(bool => {
-      this.extraDiv = bool
-    })
-    this.data.Community.subscribe(data =>{
-      this.http.get('/communities/check').subscribe((data:any) => {
-        if(data.success){
-          this.$Community = this.data.Community
-        }else{
-          this.data.noCommunity.next()
+      this.extraDiv = bool;
+    });
+    this.data.Community.subscribe(data => {
+      this.http.get("/notifications").subscribe(data => {
+        if (data["success"]) {
+          this.notifications = data["result"];
+          this.unseenCount = data["unseenCount"];
         }
-      })
+      });
 
-    })
+      this.http.get("/communities/check").subscribe((data: any) => {
+        if (data.success) {
+          this.$Community = this.data.Community;
+        } else {
+          this.data.noCommunity.next();
+        }
+      });
+    });
     this.queryField.valueChanges
       .pipe(
         debounceTime(500),
@@ -65,10 +77,3 @@ export class ClientNavComponent implements OnInit {
       });
   }
 }
-
-
-
-
-
-
-

@@ -81,9 +81,7 @@
 /*------------------------------------------------*/
 /*    Profile Page
 /*------------------------------------------------*/
-.user-profile {
-  padding-bottom: 30px;
-}
+
 
 .profile-header-background {
   margin: -30px -30px 0 -30px;
@@ -136,7 +134,6 @@
 }
 
 .profile-info-right .tab-content {
-  padding: 30px 0;
   background-color: transparent;
 }
 @media screen and (max-width: 768px) {
@@ -321,7 +318,8 @@
 }
 
 .tab-content {
-  padding: 30px 15px 15px 15px;
+  // padding: 30px 15px 15px 15px;
+  padding-top: 10px;
   background-color: #fff;
 }
 
@@ -369,9 +367,7 @@
   z-index: 1;
 }
 
-.nav-pills-custom-minimal {
-  border-bottom: 1px solid #ccc;
-}
+
 .nav-pills-custom-minimal > li > a {
   -moz-border-radius: 0;
   -webkit-border-radius: 0;

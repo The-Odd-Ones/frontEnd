@@ -25,30 +25,34 @@ export class ProfileComponent implements OnInit {
   profile: Boolean;
   username: String;
   $user: Observable<Object>;
-  current: String = localStorage.username;
+  currentUser:any;
 
   ngOnInit() {
     this.data.extraDiv.next(false)
-    this.activatedRoute.params.subscribe(data => {
-      this.profile = !data["username"];
-      this.username = this.profile ? localStorage.username : data["username"];
-      if (data["username"] === localStorage.username) {
-        this.router.navigate(["profile"]);
-      }
-      this.data.Community.subscribe(data => {
-        this.$user = this.http.get(`/users/${this.username}`).pipe(
-          map((one: any) => {
-            console.log(one);
-
-            this.http.get(`/users/${one.result._id}/posts`).subscribe(data => {
-                this.posts = data['result']
-            });
-
-            return one["result"];
-          })
-        );
-      });
-    });
+    this.http.get('/users/profile').subscribe((data:any) =>{
+       this.currentUser = data.result
+       this.activatedRoute.params.subscribe(data => {
+         this.profile = !data["username"];
+         this.username = this.profile ? this.currentUser.username : data["username"];
+         if (data["username"] === this.currentUser.username) {
+           this.router.navigate(["profile"]);
+         }
+         this.data.Community.subscribe(data => {
+           this.$user = this.http.get(`/users/${this.username}`).pipe(
+             map((one: any) => {
+               console.log(one);
+   
+               this.http.get(`/users/${one.result._id}/posts`).subscribe(data => {
+                   this.posts = data['result']
+               });
+   
+               return one["result"];
+             })
+           );
+         });
+       });
+      
+      })
   }
 
 
@@ -73,16 +77,31 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  follow(user) {
+  follow(user, pageUser) {
     this.http.get(`/users/${user._id}/follow`).subscribe((data: any) => {
-      user.followedByYou = true;
-      user.followersCount++;
+      if(this.profile){
+        pageUser.followingsCount++;
+        user.followedByYou = true;
+      }else{
+        user.followedByYou = true;
+        user.followersCount++;
+
+      }
     });
   }
-  unfollow(user) {
+  unfollow(user,pageUser) {
     this.http.get(`/users/${user._id}/unfollow`).subscribe((data: any) => {
-      user.followedByYou = false;
-      user.followersCount--;
+      
+      if(this.profile){
+        pageUser.followingsCount--;
+        user.followedByYou = false;
+        console.log(user)
+      }else{
+        user.followedByYou = false;
+        user.followersCount--;
+
+      }
+
     });
   }
 }

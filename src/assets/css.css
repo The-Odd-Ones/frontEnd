@@ -15,8 +15,8 @@ body {
     background: rgb(39, 39, 39);
   }
 
-  input, textarea {
-    background-color : rgb(39, 39, 39);
+  input, textarea, .unique {
+    background-color : rgb(39, 39, 39)!important;
     color : white!important
   }
 
