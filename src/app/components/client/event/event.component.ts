@@ -1,5 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
 import { ActivatedRoute, Params } from "@angular/router";
 import { EventsComponent } from "../events/events.component";
 import { HttpService } from "src/app/services/http/http.service";
@@ -13,6 +12,8 @@ export class EventComponent implements OnInit {
   event: any;
   posts: any= [];
   postsState:boolean = false;
+  user:any;
+  friends:any;
   constructor(
     private activatedRoute: ActivatedRoute,
     private http: HttpService
@@ -20,9 +21,12 @@ export class EventComponent implements OnInit {
 
   addPost(form) {
     var formData = new FormData(form);
-    this.http.post(`/events/${this.event._id}/posts`, formData).subscribe(data => {
-      console.log(data["result"]);
-      console.log(data);
+    this.http.post(`/events/${this.event._id}/posts`, formData).subscribe((data:any) => {
+      if(data.success){
+        this.posts.unshift(data.result)
+        form.reset()
+
+      }
     });
   }
 
@@ -69,8 +73,26 @@ export class EventComponent implements OnInit {
       } 
     })
   }
-
+  invitations:Object = {};
+  change(ele){
+    if(this.invitations[ele]) delete this.invitations[ele]
+    else this.invitations[ele] = true
+  }
+  invite(){
+    let invite = Object.keys(this.invitations)
+    this.http.post(`/events/${this.event._id}/invite`, {invite}).subscribe(data => console.log(data))
+  }
   ngOnInit() {
+    this.http.get('/users/profile').subscribe((data:any) => {
+      if(data.success){
+        this.user = data.result
+        this.http.get('/users/friends').subscribe((data: any) => {
+          if(data.success) this.friends = data.result
+
+          // this.event = data["result"];
+        });
+      }
+    });
     this.activatedRoute.params.subscribe((params: Params) => {
       this.http.get(`/events/${params.id}`).subscribe(data => {
         console.log(data["result"])

@@ -5,8 +5,12 @@
     style="background-image:url('https://previews.123rf.com/images/cristinabagiuiani/cristinabagiuiani1504/cristinabagiuiani150400017/39349451-map-location-app-design-illustration-.jpg');"
   ></div> -->
 
-  <app-maps [changeable]="false" [lat]="event.location.coordinates[0]" [lng]="event.location.coordinates[1]"></app-maps >
-  <div class="main main-raised">
+  <app-maps
+    [changeable]="false"
+    [lat]="event.location.coordinates[0]"
+    [lng]="event.location.coordinates[1]"
+  ></app-maps>
+  <div class="main main-raised unique">
     <div class="profile-content">
       <div class="container" style="height: fit-content;">
         <div class="row">
@@ -47,63 +51,63 @@
           <div class="d-flex justify-content-around py-4">
             <!-- // Like Icon -->
             <div>
-              <i
-                style="font-size:24px;"
-                class="fa clickable"
-                > <span style="font-size: 16px;">
+              <i style="font-size:24px;" class="fa clickable">
+                <span style="font-size: 16px;">
                   <!-- {{post.likesCount}} -->
                 </span>
-                <span class="mx-4">{{event.likesCount}}</span>
+                <span class="mx-4">{{ event.likesCount }}</span>
                 <span
-                [ngStyle]="{ color: event.isLiked ? 'teal' : 'grey' }"
-                (click)="like(event)"
-                
-                >&#xf087;</span
-                  >
-                
-                
-                </i
+                  [ngStyle]="{ color: event.isLiked ? 'teal' : 'grey' }"
+                  (click)="like(event)"
+                  >&#xf087;</span
                 >
-              </div>
+              </i>
+            </div>
 
-              <!-- // dislike  -->
-              <div>
-                <i
-                  style="font-size:24px;"
-                  class="fa clickable"
-                  > <span style="font-size: 16px;">
-                    <!-- {{post.likesCount}} -->
-                  </span>
-                  <span class="mx-4">{{event.dislikesCount}}</span>
-                  <span
+            <!-- // dislike  -->
+            <div>
+              <i style="font-size:24px;" class="fa clickable">
+                <span style="font-size: 16px;">
+                  <!-- {{post.likesCount}} -->
+                </span>
+                <span class="mx-4">{{ event.dislikesCount }}</span>
+                <span
                   [ngStyle]="{ color: event.isDisliked ? 'teal' : 'grey' }"
                   (click)="dislike(event)"
                   >&#xf088;</span
-                    >
-                  
-                  
-                  </i
-                  >
-                  <!-- [ngStyle]="{ color: post.isLiked ? 'teal' : 'grey' }" -->
-                  <!-- (click)="like(post)" -->
-                </div>
+                >
+              </i>
+              <!-- [ngStyle]="{ color: post.isLiked ? 'teal' : 'grey' }" -->
+              <!-- (click)="like(post)" -->
+            </div>
             <div>
-              <i style="font-size:24px;color: gray;" class="fa"> <span style="font-size: 16px;">
-                <!-- {{post.commentsCount}} -->
-              </span>
-              <span class="clickable" (click)="postsState = true"> 
-                posts
-              </span> 
+              <i
+                style="font-size:24px;"
+                data-toggle="modal"
+                data-target="#invite"
+                class="fa clickable"
+              >
+                <span style="font-size: 16px;"> </span>
+                <span style="color: gray;">&#xf1d9;</span>
+              </i>
+              <!-- [ngStyle]="{ color: post.isLiked ? 'teal' : 'grey' }" -->
+              <!-- (click)="like(post)" -->
+            </div>
+            <div>
+              <i style="font-size:24px;color: gray;" class="fa">
+                <span style="font-size: 16px;">
+                  <!-- {{post.commentsCount}} -->
+                </span>
+                <span class="clickable" (click)="postsState = true">
+                  posts
+                </span>
               </i>
             </div>
-            
-                        <!-- // Comment Icon -->
-     
-            
-       
+
+            <!-- // Comment Icon -->
           </div>
         </div>
-        
+
         <!-- <div class="tab-content tab-space" *ngFor="let post of posts">
           <div class="tab-pane active text-center gallery" id="studio">
               
@@ -116,67 +120,197 @@
       </div>
     </div>
   </div>
-
-  
-  
 </div>
 <div *ngIf="postsState" class="container">
   <div class="row">
     <img
-    width="70"
-    height="70"
-    src="{{ event.file }}"
-    alt="Circle Image"
-    style="object-fit: cover;"
-    class="img-raised rounded-circle img-fluid mx-4 my-2"
+      width="70"
+      height="70"
+      src="{{ event.file }}"
+      alt="Circle Image"
+      style="object-fit: cover;"
+      class="img-raised rounded-circle img-fluid mx-4 my-2"
+    />
+    <div
+      style="display: flex; flex-direction: column; justify-content: center;"
     >
-    <div style="display: flex; flex-direction: column; justify-content: center;">
-      <h3 style="vertical-align: middle;" class="title my-1">{{ event.title }}</h3>
-      <p (click)="postsState = false" class="text-muted clickable">see details</p>
+      <h3 style="vertical-align: middle;" class="title my-1">
+        {{ event.title }}
+      </h3>
+      <p (click)="postsState = false" class="text-muted clickable">
+        see details
+      </p>
     </div>
     <div class="col"></div>
-    <div style="display: flex; flex-direction: column; justify-content: center;">
-      <i style="font-size:35px;" class="fa mx-4"> <span style="font-size: 16px;">
-        <!-- {{post.commentsCount}} -->
-      </span>
-      <span class="clickable" data-toggle="modal" data-target="#addPostToEventModal"> 
-        &#xf067;
-    </span> 
+    <div
+      style="display: flex; flex-direction: column; justify-content: center;"
+    >
+      <i style="font-size:35px;" class="fa mx-4">
+        <span style="font-size: 16px;">
+          <!-- {{post.commentsCount}} -->
+        </span>
+        <span
+          class="clickable"
+          (click)="invitations = {}"
+          data-toggle="modal"
+          data-target="#addPostToEventModal"
+        >
+          &#xf067;
+        </span>
       </i>
-
     </div>
-
   </div>
   <app-posts [posts]="posts"></app-posts>
-  
 </div>
 
+<!-- Add Post Modal -->
+<div
+  class="modal fade"
+  id="addPostToEventModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Add a post to the event
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #addPostToEventForm>
+          <input
+            class="form-control"
+            placeholder="Write something..."
+            type="text"
+            ngModel
+            name="content"
+          />
+          <input class="my-2" type="file" ngModel name="file" />
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+        <button
+          (click)="addPost(addPostToEventForm)"
+          type="button"
+          data-dismiss="modal"
+          class="btn btn-primary"
+        >
+          Add
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
+<!-- Add Post Modal -->
 
-  <!-- Add Post Modal -->
-  <div class="modal fade" id="addPostToEventModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div  class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add a post to the event</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form #addPostToEventForm>
+<!-- Button trigger modal -->
 
-            <input class="form-control" placeholder="Write something..." type="text" ngModel name="content">
-            <input class="my-2" type="file" ngModel name="file">
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="invite"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="inviteLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="inviteLabel">Invite</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="friends" class="modal-body">
+        <div class="container p-4 card" style="padding-bottom: 0!important;">
+          <div>
+            <div *ngFor="let friend of friends; let i = index" class="media user-follower">
+              <div class="p-1 row">
+                <a class="card-link col-2 p-0 text-center">
+                  <img
+                  [src]=" friend.follower.file?  friend.follower.file : 'https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png'"
+                  class="ImgProfile mx-4"
+                  />
+                </a>
+                <!-- <p class="text-muted">{{ post.createdAt }}</p> -->
+              </div>
+              <div style="display: flex;width: 100%;">
+                <div style="flex: 8;">
+                  <a
+                    [routerLink]="'/users/' + friend.follower.username"
+                    routerLinkActive="router-link-active"
+                  >
+                    {{ friend.follower.firstname + " " + friend.follower.lastname }}
+                  </a>
+                  <br /><span class="text-muted username"> @{{ friend.follower.username }}</span>
+  
+                </div>
+                  <div style="flex: 2;" class="custom-control custom-checkbox pull-right col-1">
+                    <input type="checkbox" (change)="change($event.target.id)" class="custom-control-input " id="{{friend.follower._id}}" >
+                    <label class="custom-control-label" for="{{friend.follower._id}}"></label>
+                  </div>
 
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button (click)="addPost(addPostToEventForm)" type="button" data-dismiss="modal" class="btn btn-primary">Add</button>
+              </div>
+                <!-- <button
+                (click)="unfollow(friend.followers,i)"
+                type="button"
+                class="btn btn-sm btn-primary 
+                pull-right"
+                *ngIf="friend.follower.followedByYou"
+                [ngClass]="{ 'btn-danger': hover == friend.follower._id }"
+                (mouseenter)="hover = friend.follower._id"
+                (mouseleave)="hover = null"
+                >
+                <i class="fa fa-checkmark-round" style="color: white">
+                  {{ hover == friend.follower._id ? "unfollow" : "Following" }}
+                </i>
+              </button> -->
+                                            <!-- 
+                <button
+                  *ngIf="!friend.follower.followedByYou"
+                  (click)="follow(friend.followers,i)"
+                  type="button"
+                  class="btn btn-sm btn-primary 
+            pull-right"
+                >
+                  <i *ngIf="friend.follower.followsYou" class="fa fa-checkmark-round">
+                    Follow back
+                  </i>
+                  <i *ngIf="!friend.follower.followsYou" class="fa fa-checkmark-round">
+                    Follow
+                  </i>
+                </button> -->
+            </div>
+          </div>
         </div>
       </div>
-    </div >
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="invite()">Invite</button>
+      </div>
+    </div>
   </div>
-
-  <!-- Add Post Modal -->
+</div>

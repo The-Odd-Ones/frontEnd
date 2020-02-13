@@ -4,18 +4,22 @@
   style="overflow-y: scroll; overflow-x: hidden; height: 90vh; display: flex;"
 >
   <div style="flex: 5;" *ngIf="$user | async as user">
-    <div class="user-profile">
-      <div class="profile-header-background"></div>
-      <div class="row">
+    <div class="user-profile" >
+      <div class="profile-header-background">
+        <img
+          src="http://demo.thedevelovers.com/dashboard/queenadmin-1.2/assets/img/city.jpg"
+          alt="Profile Header Background"
+          style="height: 165px;"
+        />
+      </div>
+      <div class="row" >
         <div class="col-md-4">
           <div class="profile-info-left">
             <div *ngIf="user.file" class="text-center">
-              <img
-                src="{{ user.file }}"
-                alt="Avatar"
-                class="avatar img-circle"
-              />
-              <h3>{{ user.firstname + " " + user.lastname }}</h3>
+              <img src="{{ user.file }}" alt="Avatar" class="avatar img-circle" />
+              <h4 class="mt-2">{{ user.firstname + " " + user.lastname }}</h4>
+              <p class="text-muted">@{{ user.username }}</p>
+
             </div>
             <!-- if theres no picture -->
             <div class="text-center" *ngIf="!user.file">
@@ -70,17 +74,8 @@
                 {{ user.bio }}
               </p>
             </div>
+           
             <div class="section">
-              <h3 class="ml-2">Statistics</h3>
-              <p>
-                <span class="badge"> {{ user.followingsCount }}</span> Following
-              </p>
-              <p>
-                <span class="badge"> {{ user.followersCount }}</span> Followers
-              </p>
-            </div>
-            <div class="section">
-              <h3 class="ml-2">Social</h3>
               <ul class="list-unstyled list-social d-flex justify-content-left">
                 <li *ngIf="user.twitter" class="mx-2">
                   <a target="_blank" [href]="user.twitter"
@@ -132,17 +127,16 @@
                   *ngFor="let follower of followers"
                   class="media user-follower"
                 >
-                  <div class="p-1 row">
-                    <a class="card-link col-2 p-0 text-center">
-                      <img
-                        src="https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png"
-                        class="ImgProfile mx-4"
-                      />
-                    </a>
+                <div  class="p-1 row">
+                  <a class="card-link col-2 p-0 text-center">
+                    <img
+                    src="https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png"
+                    class="ImgProfile mx-4"
+                    />
+                  </a>
                     <!-- <p class="text-muted">{{ post.createdAt }}</p> -->
                   </div>
                   <div
-                    *ngIf="follower.follower.username !== current"
                     class="media-body"
                   >
                     <a
@@ -158,46 +152,32 @@
                     <br /><span class="text-muted username">
                       @{{ follower.follower.username }}</span
                     >
-                    <button
-                      (click)="unfollow(follower.follower)"
-                      type="button"
-                      class="btn btn-sm btn-primary 
-                      pull-right"
-                      *ngIf="follower.follower.followedByYou"
-                      [ngClass]="{
-                        'btn-danger': hover == follower.follower._id
-                      }"
-                      (mouseenter)="hover = follower.follower._id"
-                      (mouseleave)="hover = null"
-                    >
-                      <i class="fa fa-checkmark-round" style="color: white">
-                        {{
-                          hover == follower.follower._id
-                            ? "unfollow"
-                            : "Following"
-                        }}
-                      </i>
+                    <ng-container *ngIf="follower.follower.username !== currentUser.username">
+
+                      <button
+                        (click)="unfollow(follower.follower,user)"
+                        type="button"
+                        class="btn btn-sm btn-primary 
+                        pull-right"
+                        *ngIf="follower.follower.followedByYou"
+                        [ngClass]="{'btn-danger': hover == follower.follower._id}"
+                        (mouseenter)="hover = follower.follower._id" (mouseleave)="hover = null" 
+                      >
+                      <i  class="fa fa-checkmark-round"   style="color: white"> {{hover == follower.follower._id? 'unfollow' : 'Following'}} </i>
                     </button>
                     <button
-                      *ngIf="!follower.follower.followedByYou"
-                      (click)="follow(follower.follower)"
-                      type="button"
-                      class="btn btn-sm btn-primary 
-                  pull-right"
-                    >
-                      <i
-                        *ngIf="follower.follower.followsYou"
-                        class="fa fa-checkmark-round"
-                      >
-                        Follow back
-                      </i>
-                      <i
-                        *ngIf="!follower.follower.followsYou"
-                        class="fa fa-checkmark-round"
-                      >
-                        Follow
-                      </i>
-                    </button>
+                    *ngIf="!follower.follower.followedByYou"
+                    (click)="follow(follower.follower, user)"
+                    type="button"
+                    class="btn btn-sm btn-primary 
+                    pull-right"
+                  >
+                  <i *ngIf="follower.follower.followsYou " class="fa fa-checkmark-round"> Follow back </i>
+                  <i *ngIf="!follower.follower.followsYou" class="fa fa-checkmark-round"> Follow </i>
+                </button>
+                    </ng-container>
+                    
+
                   </div>
                 </div>
               </div>
@@ -219,7 +199,7 @@
                     <!-- <p class="text-muted">{{ post.createdAt }}</p> -->
                   </div>
                   <div
-                    *ngIf="following.followed.username !== current"
+                    *ngIf="following.followed.username !== currentUser.username"
                     class="media-body"
                   >
                     <a [routerLink]="'/users/' + following.followed.username"
@@ -232,15 +212,39 @@
                         @{{ following.followed.username }}
                       </span></a
                     >
-                    <button
-                      (click)="unfollow(following.followed)"
+                    <!-- <button
+                      (click)="unfollow(following.followed,user)"
                       type="button"
                       class="btn btn-sm btn-danger pull-right"
                     >
                       <i class="fa fa-close-round">
                         unfollow
                       </i>
-                    </button>
+                    </button> -->
+                    <ng-container *ngIf="following.followed.username !== currentUser.username">
+
+                    <button
+                    (click)="unfollow(following.followed,user)"
+                    type="button"
+                    class="btn btn-sm btn-primary 
+                    pull-right"
+                    *ngIf="following.followed.followedByYou"
+                    [ngClass]="{'btn-danger': hover == following.followed._id}"
+                    (mouseenter)="hover = following.followed._id" (mouseleave)="hover = null" 
+                  >
+                  <i  class="fa fa-close-round"   style="color: white"> {{hover == following.followed._id? 'unfollow' : 'Following'}} </i>
+                </button>
+                <button
+                *ngIf="!following.followed.followedByYou"
+                (click)="follow(following.followed, user)"
+                type="button"
+                class="btn btn-sm btn-primary 
+                pull-right"
+              >
+              <i *ngIf="following.followed.followsYou " class="fa fa-checkmark-round"> Follow back </i>
+              <i *ngIf="!following.followed.followsYou" class="fa fa-checkmark-round"> Follow </i>
+            </button>
+            </ng-container>
                   </div>
                 </div>
               </div>
@@ -251,5 +255,6 @@
       </div>
     </div>
   </div>
-  <div style="flex: 2;"></div>
+  <div style="flex: 1;"></div>
+
 </div>

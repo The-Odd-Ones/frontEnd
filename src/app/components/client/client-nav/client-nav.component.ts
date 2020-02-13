@@ -17,11 +17,17 @@ export class ClientNavComponent implements OnInit {
     localStorage.clear();
     this.router.navigate([""]);
   }
-
+  unseenCount: Number;
   $Community: Observable<any>;
   extraDiv: Boolean = true;
-  // notifications:Array<Object> = [];
-
+  notifications: Array<Object> = [];
+  seen() {
+    if (this.unseenCount) {
+      this.http.get("/notifications/seen").subscribe(data => {
+        if (data["success"]) this.unseenCount = 0;
+      });
+    }
+  }
   results: any[] = [];
   queryField: FormControl = new FormControl();
   constructor(
@@ -33,21 +39,17 @@ export class ClientNavComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.http.get('/notifications').subscribe(data =>{
-    //   this.notifications = data['result']
-    //   console.log(this.notifications)
-    // })
     this.data.extraDiv.subscribe(bool => {
       this.extraDiv = bool;
     });
-    // this.data.Community.subscribe(data => {
-    //   this.http.get("/notifications").subscribe(data => {
-    //     this.notifications = data["result"];
-    //     console.log(this.notifications);
-    //     console.log(data);
-    //   });
-    // });
     this.data.Community.subscribe(data => {
+      this.http.get("/notifications").subscribe(data => {
+        if (data["success"]) {
+          this.notifications = data["result"];
+          this.unseenCount = data["unseenCount"];
+        }
+      });
+
       this.http.get("/communities/check").subscribe((data: any) => {
         if (data.success) {
           this.$Community = this.data.Community;

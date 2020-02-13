@@ -18,5 +18,31 @@ export class RecommendationsComponent implements OnInit {
       
     })
   }
+  disappear:Object={};
+  follow(users, i) {
+    this.http.get(`/users/${users[i]._id}/follow`).subscribe((data: any) => {
+      if(data.success){
+        this.disappear[i] = true
+        users[i].followedByYou = true 
+        setTimeout(()=>{
+        if(this.disappear[i]){
+          users.splice(i,1)
+        }
+        delete this.disappear[i]
+        }, 2000)
+        
+      } 
+    });
+  }
+
+  unfollow(users,i) {
+    this.http.get(`/users/${users[i]._id}/unfollow`).subscribe((data: any) => {
+      if(data.success){
+        users[i].followedByYou = false;
+        this.disappear[i] = false
+
+      }
+    });
+  }
 
 }

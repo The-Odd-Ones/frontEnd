@@ -16,7 +16,7 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     this.data.extraDiv.next(false)
-    this.http.get(`/users/${localStorage.username}`).subscribe((one: any) => {
+    this.http.get('/users/profile').subscribe((one: any) => {
       this.user = one.result;
       console.log(this.user);
     });

@@ -27,9 +27,7 @@ import { EventsComponent } from "./components/client/events/events.component";
 import { EventComponent } from "./components/client/event/event.component";
 import { SafePipe } from "./pipes/safe.pipe";
 import { SearchComponent } from "./components/client/search/search.component";
-import { AngularFireAuth, AngularFireAuthModule } from "angularfire2/auth";
-import { AngularFireModule } from "@angular/fire";
-import { AngularFireDatabaseModule } from "@angular/fire/database";
+
 import { environment } from "../environments/environment";
 import { firebase } from "../environments/firebase";
 import { VerifyComponent } from './components/shared/verify/verify.component';

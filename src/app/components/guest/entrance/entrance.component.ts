@@ -21,8 +21,6 @@ export class EntranceComponent implements OnInit {
       console.log(data);
       if (data["success"]) {
         localStorage.setItem("token", data["token"]);
-        localStorage.setItem("username", data.user.username);
-        localStorage.setItem("id", data.user._id);
         location.reload();
       } else {
         Snackbar.show({

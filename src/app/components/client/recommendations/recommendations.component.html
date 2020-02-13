@@ -5,12 +5,12 @@
     <div class="container p-4 card" style="padding-bottom: 0!important;">
       <h5 class="text-muted mb-4">Recommendations for you...</h5>
       <div>
-        <div *ngFor="let user of users" class="media user-follower">
+        <div *ngFor="let user of users; let i = index" class="media user-follower">
           <div class="p-1 row">
             <a class="card-link col-2 p-0 text-center">
               <img
-                src="https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png"
-                class="ImgProfile mx-4"
+              [src]=" user.file?  user.file : 'https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png'"
+              class="ImgProfile mx-4"
               />
             </a>
             <!-- <p class="text-muted">{{ post.createdAt }}</p> -->
@@ -24,7 +24,7 @@
             </a>
             <br /><span class="text-muted username"> @{{ user.username }}</span>
             <button
-              (click)="unfollow(user)"
+              (click)="unfollow(users,i)"
               type="button"
               class="btn btn-sm btn-primary 
             pull-right"
@@ -39,7 +39,7 @@
             </button>
             <button
               *ngIf="!user.followedByYou"
-              (click)="follow(user)"
+              (click)="follow(users,i)"
               type="button"
               class="btn btn-sm btn-primary 
         pull-right"

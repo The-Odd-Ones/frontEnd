@@ -37,6 +37,25 @@ export class DashboardComponent implements OnInit {
   constructor(private http: HttpService) {}
 
   ngOnInit() {
+  
+    this.http.get('/dashboard/users').subscribe((data: Object) => {
+      var months = [
+        "JAN",
+        "FEB",
+        "MAR",
+        "APR",
+        "MAY",
+        "JUN",
+        "JUL",
+        "AUG",
+        "SEP",
+        "OCT",
+        "NOV",
+        "DEC"
+      ]
+      console.log(data['result'].map(one => (months[new Date(one._id).getMonth()])))
+    })
+this.getPosts()
     this.getCommunities();
     this.getPosts();
     var gradientChartOptionsConfigurationWithTooltipBlue: any = {

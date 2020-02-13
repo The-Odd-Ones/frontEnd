@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { HttpService } from 'src/app/services/http/http.service';
+import { DataService } from 'src/app/services/data/data.service';
 
 @Component({
   selector: "app-events",
@@ -7,8 +8,8 @@ import { HttpService } from 'src/app/services/http/http.service';
   styleUrls: ["./events.component.scss"]
 })
 export class EventsComponent implements OnInit {
-  @Input() events;
-  constructor(private http: HttpService) {}
+  @Input() events = []
+  constructor(private http: HttpService,private data : DataService) {}
   hover:String = null;
   enroll(event){
     this.http.get(`/events/${event._id}/enrollment`).subscribe(data => {
@@ -28,6 +29,19 @@ export class EventsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.data.eventPusher.subscribe((data:Object)=>{
+      if(/home/.test(location.href) || /profile/.test(location.href)){
+        this.events.unshift(data)
+      }
 
+    })
+    navigator.geolocation.getCurrentPosition((data: any) => {
+      if(data){
+        this.http.post('/events/nearby', {coordinates: [data.coords.latitude,data.coords.longitude]}).subscribe((one:any) => {
+          console.log(one)
+        })
+      }
+  
+    });
   }
 }
