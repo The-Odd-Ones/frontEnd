@@ -14,15 +14,14 @@ export class SidebarComponent implements OnInit {
   currentCommunity: String = localStorage.community;
   lat: Number;
   lng: Number;
-  dark:Boolean;
+  dark: Boolean;
   $communities: Observable<any>;
 
   changeCommunity(community) {
-    document.getElementById("toggleCommunity").click()
+    document.getElementById("toggleCommunity").click();
     localStorage.setItem("community", community.name);
-    this.currentCommunity = community.name
+    this.currentCommunity = community.name;
     this.data.Community.next(community.name);
-
   }
   constructor(private http: HttpService, private data: DataService) {}
   addPost(form) {
@@ -44,17 +43,17 @@ export class SidebarComponent implements OnInit {
     });
   }
 
-  darken(){
-    localStorage.setItem('darkMode' , 'notNull')
-    this.data.dark.next(true)
+  darken() {
+    localStorage.setItem("darkMode", "notNull");
+    this.data.dark.next(true);
   }
-  lighten(){
-    localStorage.removeItem('darkMode')
-    this.data.dark.next(false)
+  lighten() {
+    localStorage.removeItem("darkMode");
+    this.data.dark.next(false);
   }
 
   ngOnInit() {
-    this.data.dark.subscribe(data => this.dark = data)
+    this.data.dark.subscribe(data => (this.dark = data));
     this.data.noCommunity.subscribe(data =>
       document.getElementById("toggleCommunity").click()
     );
@@ -65,6 +64,5 @@ export class SidebarComponent implements OnInit {
       this.lat = data.coords.latitude;
       this.lng = data.coords.longitude;
     });
-   
   }
 }

@@ -19,9 +19,9 @@ export class ClientNavComponent implements OnInit {
   }
 
   $Community: Observable<any>;
-  extraDiv:Boolean = true;
+  extraDiv: Boolean = true;
   // notifications:Array<Object> = [];
- 
+
   results: any[] = [];
   queryField: FormControl = new FormControl();
   constructor(
@@ -33,13 +33,10 @@ export class ClientNavComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-<<<<<<< HEAD
-=======
     // this.http.get('/notifications').subscribe(data =>{
     //   this.notifications = data['result']
     //   console.log(this.notifications)
     // })
->>>>>>> 22906424ed597350ff05bab44825000d628c50d5
     this.data.extraDiv.subscribe(bool => {
       this.extraDiv = bool;
     });
