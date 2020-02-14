@@ -8,10 +8,11 @@
     class="searchbar"
     placeholder="Search..."
     autocomplete="off"
-  />
+    />
+    <!-- (focusout)="search.value = ''; results = null" -->
   <a id="btnSearch" class="btn-search"><i class="fa fa-search"></i></a>
   <ul
-    class="dropdown-menu w-100 "
+    class="dropdown-menu unique w-100 "
     role="menu"
     aria-labelledby="keyword"
     [ngStyle]="{ display: results ? 'inline-block' : 'none' }"
@@ -40,12 +41,12 @@
         height="50"
       />
 
-      <a class="artist-name" role="menuitem" tabindex="-1" [routerLink]="['/users/', result.username]" routerLinkActive="router-link-active" >{{
+      <a class="artist-name" [routerLink]="['/users/', result.username]" routerLinkActive="router-link-active" >{{
         result.name
       }}</a>
       <span class="tags"> {{ result.username }} </span>
+      <div *ngIf="results.length > 1" class="dropdown-divider"></div>
     </li>
 
-    <div class="dropdown-divider"></div>
   </ul>
 </form>

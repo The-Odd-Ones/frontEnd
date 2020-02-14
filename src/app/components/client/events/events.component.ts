@@ -35,13 +35,6 @@ export class EventsComponent implements OnInit {
       }
 
     })
-    navigator.geolocation.getCurrentPosition((data: any) => {
-      if(data){
-        this.http.post('/events/nearby', {coordinates: [data.coords.latitude,data.coords.longitude]}).subscribe((one:any) => {
-          console.log(one)
-        })
-      }
-  
-    });
+    
   }
 }

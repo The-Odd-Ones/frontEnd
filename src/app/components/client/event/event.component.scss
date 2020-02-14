@@ -127,8 +127,9 @@ a .material-icons {
 }
 
 .profile-page .profile img {
-  max-width: 160px;
-  width: 100%;
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
   margin: 0 auto;
   -webkit-transform: translate3d(0, -50%, 0);
   -moz-transform: translate3d(0, -50%, 0);
