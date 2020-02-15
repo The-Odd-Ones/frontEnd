@@ -13,39 +13,10 @@ import { DataService } from 'src/app/services/data/data.service';
 })
 export class PostsComponent implements OnInit {
 
-  fetching:Boolean = false;
-  done:Boolean = false;
   onScroll(target){
-    if(target.scrollTop / target.scrollHeight > 0.5 && !this.fetching && !this.done){
-      if(/home/.test(location.href)){
-        this.http.get('/posts', `?page=${this.posts.length}`).subscribe((data:any) => {
-          if(data.noCommunity){
-            this.data.noCommunity.next()
-            return null
-  
-          }else {
-            data.posts.map(post =>{ 
-              if(post.file){
-                if(/video\/upload/.test(post.file)){
-                  post.isVideo = true
-                }
-              }else if(post.sharedpost){
-                if(post.sharedpost.file){
-                  if(/video\/upload/.test(post.sharedpost.file)){
-                    post.sharedpost.isVideo = true
-                  }
-                }
-              }
-              return post
-            })
-            this.posts = [...this.posts, ...data.posts]
-            this.fetching = false
-            if(!data.posts.length) this.done = true
-  
-          } 
-        })
-      }
-      this.fetching = true
+    if(target.scrollTop / target.scrollHeight > 0.5 && !this.data.fetching && !this.data.done){
+        this.data.scrolled.next(location.href)
+        this.data.fetching = true
 
     }
   }
@@ -103,15 +74,9 @@ share(form:NgForm){
   user: any;
 
   ngOnInit() {
-    console.log(this.posts.length)
     this.http.get('/users/profile').subscribe(data =>{
       this.user = data['result']
     })
-    this.data.postPusher.subscribe((data:Object)=>{
-      if(/home/.test(location.href) || /profile/.test(location.href)){
-        this.posts.unshift(data)
-      }
-
-    })
+    
   }
 }

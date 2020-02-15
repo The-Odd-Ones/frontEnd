@@ -14,6 +14,23 @@ export class EventComponent implements OnInit {
   postsState:boolean = false;
   user:any;
   friends:any;
+  hover:String = null;
+  enroll(){
+    this.http.get(`/events/${this.event._id}/enrollment`).subscribe(data => {
+      if(data['success']){
+        if(data['created']){
+          this.event.isEnrolled = true; 
+          this.event.enrollsCount++
+        } 
+        if(data['removed']){
+          this.event.isEnrolled = false; 
+          this.event.enrollsCount--
+    
+        } 
+    
+      } 
+    })
+  }
   constructor(
     private activatedRoute: ActivatedRoute,
     private http: HttpService

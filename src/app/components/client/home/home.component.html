@@ -1,4 +1,4 @@
-<div *ngIf="$posts | async as posts" class="container">
+<div *ngIf="posts" class="container">
     <h5 class="text-muted my-2">Home</h5>
     <div class="row justify-content-around text-center">
         <h4 style="cursor: pointer;" [ngClass]="{'text-muted': status == 'events'}" (click)="status = 'posts'" class="col">Posts</h4 >

@@ -25,9 +25,48 @@ export class ProfileComponent implements OnInit {
   profile: Boolean;
   username: String;
   $user: Observable<Object>;
+  id : any;
   currentUser:any;
+  getPosts(id){
+    this.http.get(`/users/${id}/posts`, `?page=${this.posts.length}`).subscribe((data:any) => {
+      if(data.noCommunity){
+        this.data.noCommunity.next()
+        return null
 
+      }else {
+        data.result.map(post =>{ 
+          if(post.file){
+            if(/video\/upload/.test(post.file)){
+              post.isVideo = true
+            }
+          }else if(post.sharedpost){
+            if(post.sharedpost.file){
+              if(/video\/upload/.test(post.sharedpost.file)){
+                post.sharedpost.isVideo = true
+              }
+            }
+          }
+          return post
+        })
+        this.posts = [...this.posts, ...data.result]
+        this.data.fetching = false
+        if(!data.result.length) this.data.done = true
+
+      } 
+    })
+  }
   ngOnInit() {
+
+    this.data.postPusher.subscribe((data:Object)=>{
+      if(/profile/.test(location.href)){
+        this.posts.unshift(data)
+      }
+
+    })
+    this.data.scrolled.subscribe(data =>{
+        this.getPosts(this.id)
+    })
+
     this.data.extraDiv.next(false)
     this.http.get('/users/profile').subscribe((data:any) =>{
        this.currentUser = data.result
@@ -35,22 +74,20 @@ export class ProfileComponent implements OnInit {
          this.profile = !data["username"];
          this.username = this.profile ? this.currentUser.username : data["username"];
          if (data["username"] === this.currentUser.username) {
-           this.router.navigate(["profile"]);
+           this.router.navigate(["profile"], {replaceUrl:true});
          }
          this.data.Community.subscribe(data => {
-           this.$user = this.http.get(`/users/${this.username}`).pipe(
-             map((one: any) => {
-               console.log(one);
-   
-               this.http.get(`/users/${one.result._id}/posts`).subscribe(data => {
-                   this.posts = data['result']
-               });
-   
-               return one["result"];
-             })
-           );
-         });
-       });
+         this.posts = []
+         this.data.done = false
+         this.$user = this.http.get(`/users/${this.username}`).pipe(
+          map((one: any) => {
+            this.id = one.result._id 
+            this.getPosts(this.id)
+            return one["result"];
+          })
+        );
+          
+        });       });
       
       })
   }
@@ -58,6 +95,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnDestroy(): void {
     this.data.extraDiv.next(true)
+    this.data.done = false
     
   }
 
@@ -104,4 +142,5 @@ export class ProfileComponent implements OnInit {
 
     });
   }
+  
 }

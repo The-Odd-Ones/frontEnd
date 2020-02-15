@@ -14,20 +14,21 @@
         >Diff: {{(event.likesCount | number) < (event.dislikesCount | number)?
          (event.dislikesCount | number) - (event.likesCount | number):
           (event.likesCount | number) - (event.dislikesCount | number)}}</em> -->
-          <div style="display: flex;">
             <a  routerLink="/events/{{ event._id }}"><h5 class="card-title">{{ event.title }}</h5></a>
-            <span style="vertical-align: bottom;" class="text-muted mx-2">{{event.start | date}}</span>
           
-          </div>
         <p style="height: 70px;overflow: hidden;" class="card-text text-muted">
           {{ event.description }}
         </p>
         <div style="display: flex;">
-          <button *ngIf="!event.isEnrolled" (click)="enroll(event)" class="btn btn-outline-primary"> Go </button>
+          <button *ngIf="!event.isEnrolled" (click)="enroll()" class="btn btn-outline-primary"> Go </button>
           <a (mouseenter)="hover = event._id" (mouseleave)="hover = null" *ngIf="event.isEnrolled" class="btn btn-primary" (click)="enroll(event)" [ngClass]="{'btn-danger': hover == event._id}"  style="color: white"> {{hover == event._id? 'Leave' : 'Going'}} </a>
           <div style="display: flex; flex-direction: column; justify-content: center;">
             <p class="mx-2 my-0">{{event.enrollsCount}} <i class="fa fa-users"></i></p>
           </div>
+          <div style="display: flex; flex-direction: column; justify-content: center;">
+
+          <span style=" font-size: 10px;" class="text-muted">{{event.start | date}}</span>
+</div>
         </div>
       </div>
   </div>
