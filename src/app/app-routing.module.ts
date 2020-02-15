@@ -5,7 +5,8 @@ import {
   AuthGuardClient,
   AuthGuardGuest,
   AuthGuardAdmin,
-  AuthGuardVerify
+  AuthGuardVerify,
+  AuthGuardCommunity
 } from "./guards/auth.guard";
 import { EntranceComponent } from "./components/guest/entrance/entrance.component";
 import { ClientNavComponent } from "./components/client/client-nav/client-nav.component";
@@ -15,6 +16,7 @@ import { SettingsComponent } from "./components/settings/settings.component";
 import { PostComponent } from "./components/client/post/post.component";
 import { EventComponent } from "./components/client/event/event.component";
 import { VerifyComponent } from "./components/shared/verify/verify.component";
+import { CommunityComponent } from "./components/community/community.component";
 
 const routes: Routes = [
   { path: "", component: EntranceComponent, canActivate: [AuthGuardGuest] },
@@ -36,7 +38,16 @@ const routes: Routes = [
     component: DashboardComponent,
     canActivate: [AuthGuardAdmin]
   },
-  { path: "verify", component: VerifyComponent, canActivate: [AuthGuardVerify] }
+  {
+    path: "verify",
+    component: VerifyComponent,
+    canActivate: [AuthGuardVerify]
+  },
+  {
+    path: "community",
+    component: CommunityComponent,
+    canActivate: [AuthGuardCommunity]
+  }
 ];
 
 @NgModule({

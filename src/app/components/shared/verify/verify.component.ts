@@ -34,4 +34,13 @@ export class VerifyComponent implements OnInit {
         }
       });
   }
+
+  cancel() {
+    this.http.delete("/users/cancelverification").subscribe(data => {
+      if (data["success"]) {
+        localStorage.clear();
+        location.reload();
+      }
+    });
+  }
 }

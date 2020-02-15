@@ -14,7 +14,7 @@ export class SidebarComponent implements OnInit {
   currentCommunity: String = localStorage.community;
   lat: Number;
   lng: Number;
-  dark:Boolean;
+  dark: Boolean;
   date: Date = new Date();
   $communities: Observable<any>;
 
@@ -27,24 +27,27 @@ export class SidebarComponent implements OnInit {
   constructor(private http: HttpService, private data: DataService) {}
   addPost(form) {
     var formData = new FormData(form);
-    this.http.post("/posts", formData).subscribe((data:any) => {
-      if(data.success){
-       this.data.postPusher.next(data.result);
-       form.reset()
+    this.http.post("/posts", formData).subscribe((data: any) => {
+      if (data.success) {
+        this.data.postPusher.next(data.result);
+        form.reset();
       }
     });
   }
   makeEvent(form) {
+    console.log("before request");
     var formData = new FormData(form);
+    console.log(formData);
     formData.append(
       "location",
       JSON.stringify({ coordinates: this.data.makeEventLocation })
     );
-    this.http.post("/events", formData).subscribe((data:any) => {
+
+    this.http.post("/events", formData).subscribe((data: any) => {
       console.log(data);
-      if(data.success){
+      if (data.success) {
         this.data.eventPusher.next(data.result);
-        form.reset()
+        form.reset();
       }
     });
   }
