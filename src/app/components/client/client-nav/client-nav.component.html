@@ -1,4 +1,7 @@
-<nav class="navbar navbar-expand-lg  shadow-sm p-3 mb-1">
+<nav
+  class="navbar navbar-expand-lg  shadow-sm p-3 mb-1"
+  style="border: 1px solid #f8c296; box-shadow: none !important; border-top: none; border-left: none; border-right: none;"
+>
   <button
     class="navbar-toggler"
     type="button"
@@ -18,11 +21,13 @@
           class="navbar-brand"
           routerLink="/home"
           routerLinkActive="router-link-active"
+          style="color:  #1723b1;"
           >{{ community }}</a
         >
       </li>
       <li class="nav-item">
         <a
+          style="color:  #1723b1;"
           class="nav-link"
           routerLink="/profile"
           routerLinkActive="router-link-active"
@@ -96,8 +101,8 @@
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
           </form> -->
     <ul class="navbar-nav ml-auto">
-      <li class="dropdown nav-item" >
-        <a style="cursor: pointer;"  class="nav-link">
+      <li class="dropdown nav-item">
+        <a style="cursor: pointer;" class="nav-link">
           <div
             (click)="seen()"
             id="dropdownMenuButton"
@@ -109,7 +114,7 @@
             <i
               style="font-size: 24px;"
               class="fa fa-bell-o clickable notification-Icon"
-              [ngStyle]="{'color': unseenCount? '#18BC9C' : 'grey'}"
+              [ngStyle]="{ color: unseenCount ? '#18BC9C' : 'white' }"
             ></i>
             <span *ngIf="unseenCount" class="badge">{{ unseenCount }}</span>
           </div>
@@ -128,34 +133,57 @@
                 style="white-space: initial;cursor: initial;display: flex;"
                 [ngStyle]="{ background: notification.seen ? 'white' : '#eee' }"
               >
-              <img class="mx-1" style="flex: 1;" width="30" height="30"
-               [src]="notification.sender.file?notification.sender.file : 'https://pbs.twimg.com/profile_images/3631668507/b5f41fd1baa859609cea79347a063c5c.jpeg'">
-              <div style="flex: 7;" >
-                <span class="font-weight-bold clickable" [routerLink]="['/users', notification.sender.username]" routerLinkActive="router-link-active" >{{
-                    notification.sender.firstname +
-                      " " +
-                      notification.sender.lastname
-                  }}</span>
+                <img
+                  class="mx-1"
+                  style="flex: 1;"
+                  width="30"
+                  height="30"
+                  [src]="
+                    notification.sender.file
+                      ? notification.sender.file
+                      : 'https://pbs.twimg.com/profile_images/3631668507/b5f41fd1baa859609cea79347a063c5c.jpeg'
+                  "
+                />
+                <div style="flex: 7;">
+                  <span
+                    class="font-weight-bold clickable"
+                    [routerLink]="['/users', notification.sender.username]"
+                    routerLinkActive="router-link-active"
+                    >{{
+                      notification.sender.firstname +
+                        " " +
+                        notification.sender.lastname
+                    }}</span
+                  >
                   <span *ngIf="notification.type == 'like'"> liked your </span>
-                  <span *ngIf="notification.type == 'comment'"> commented on your </span>
-                  <span *ngIf="notification.type == 'share'"> shared your </span>
-                  <span *ngIf="notification.type == 'follow'"> followed you </span>
-                  <span *ngIf="notification.type == 'invite'"> invited you to attend an </span>
+                  <span *ngIf="notification.type == 'comment'">
+                    commented on your
+                  </span>
+                  <span *ngIf="notification.type == 'share'">
+                    shared your
+                  </span>
+                  <span *ngIf="notification.type == 'follow'">
+                    followed you
+                  </span>
+                  <span *ngIf="notification.type == 'invite'">
+                    invited you to attend an
+                  </span>
 
                   <span
-                  *ngIf="notification.post"
+                    *ngIf="notification.post"
                     [routerLink]="['/posts/', notification.post._id]"
                     routerLinkActive="router-link-active"
                     class="font-weight-bold clickable"
-                    >post</span>
-                    <span
-                  *ngIf="notification.event"
+                    >post</span
+                  >
+                  <span
+                    *ngIf="notification.event"
                     [routerLink]="['/events/', notification.event._id]"
                     routerLinkActive="router-link-active"
                     class="font-weight-bold clickable"
-                    >event</span>
-
-              </div> 
+                    >event</span
+                  >
+                </div>
               </li>
             </ul>
           </div>

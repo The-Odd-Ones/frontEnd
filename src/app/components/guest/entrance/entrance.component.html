@@ -1,8 +1,9 @@
 <!-- Navbar Menu  ---->
+
 <section id="nav-bar">
   <nav class="navbar navbar-expand-lg navbar-light">
     <h2
-      style="margin-left: 5%; color:#404E88; font-weight: 600; font-size: large;"
+      style="margin-left: 5%; margin-bottom: 0; color: #1723b1; font-family: 'Galada', cursive; font-size: 40px"
     >
       Community
     </h2>
@@ -19,11 +20,11 @@
       <i class="fa fa-bars"></i>
     </button>
     <br />
-    <!-- <p>Join Us! We Will Make Your Life Better</p> -->
+
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item my-3">
-          <a class="nav-link" href="#top"
+          <a class="nav-link" href="#home"
             >Home <span class="sr-only">(current)</span></a
           >
         </li>
@@ -45,188 +46,183 @@
 </section>
 <!-- <p>Join Us! We Will Make Your Life Better</p> -->
 <!--- Banner Hero section ------->
-<section class="banner">
-  <!-- <div class="container"> -->
-  <div class="col-md-1">
-    <!-- <p class="promo-title">Community</p> -->
-    <div class="text">
-      <p class="join-title">Join Us! We Will Make Your Life Better</p>
-    </div>
+<div style="height: 90vh; overflow: hidden;">
+  <section id="home" class="banner">
+    <!-- <div class="container"> -->
+    <div class="col-md-2 m-5">
+      <!-- <p class="promo-title">Community</p> -->
+      <div class="text">
+        <h2 class="join-title">
+          Connect. Grow. Bond.
+        </h2>
+        <p class="join-content">
+          community is a platform for awesome people in a diverse eniviroment to
+          share fruitful content, <br />
+          and interact with compelete open-mindness.
+        </p>
+      </div>
 
-    <!-- <a href="#" class="link-play">
+      <!-- <a href="#" class="link-play">
               <img src="svg/play.svg" alt="" class="play-btn">Watch Tutorials
             </a> -->
-  </div>
-  <!-- <div class="col-md-6">
+    </div>
+    <!-- <div class="col-md-6">
               <img src="svg/undraw_email_campaign_qa8y.svg" alt="" class="img-fluid">
             </div> -->
-  <!-- </div> -->
-  <!--- Background wave Hero ---->
-  <!-- <img src="images/ground@-min.png" class="bottom-img" alt=""> -->
-</section>
+    <!-- </div> -->
+    <!--- Background wave Hero ---->
+    <!-- <img src="images/ground@-min.png" class="bottom-img" alt=""> -->
+  </section>
 
-<!--- Services ---->
-<section id="login" class="mb-4">
-  <h3 class="title text-center">Login</h3>
-  <div class="container mt-4">
-    <form #signInForm="ngForm" (ngSubmit)="submitSignInForm(signInForm)">
-      <div class="form-group">
-        <label for="logInUserName">username</label>
-        <input
-          ngModel
-          name="username"
-          type="text"
-          class="form-control"
-          id="logInUserName"
-          aria-describedby="emailHelp"
-          placeholder="Enter email"
-          required
-        />
-      </div>
-      <div class="form-group">
-        <label for="logInPassword">Password</label>
-        <input
-          ngModel
-          name="password"
-          type="password"
-          class="form-control"
-          id="logInPassword"
-          placeholder="Password"
-        />
-      </div>
+  <!--- Services ---->
 
-      <button type="submit" class="btn btn-primary" style="color: white;">
-        Submit
-      </button>
-    </form>
+  <!--- About Section ------>
+  <div class="cont" id="login">
+    <div class="form sign-in">
+      <h2 class="user">
+        Hey, welcome back!
+      </h2>
+      <form #signInForm="ngForm" (ngSubmit)="submitSignInForm(signInForm)">
+        <label for="logInUserName">
+          <span> username </span>
+          <input
+            ngModel
+            name="username"
+            type="text"
+            id="logInUserName"
+            aria-describedby="emailHelp"
+            required
+          />
+        </label>
+        <label for="logInPassword">
+          <span>Password</span>
+          <input ngModel name="password" type="password" id="logInPassword" />
+        </label>
+        <p class="forgot-pass">Forgot password?</p>
+
+        <button type="submit" class="submit">Sign In</button>
+      </form>
+    </div>
   </div>
-</section>
-<!--- About Section ------>
-<section id="signup">
-  <div class="container mt-4">
-    <h3 class="title text-center">Signup</h3>
-    <form #signUpForm="ngForm" (ngSubmit)="submitSignUpForm(signUpForm)">
-      <fieldset>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="firstname">Firstname</label>
+  <!-- section-->
+
+  <!-- Footer ------>
+  <div class="cont" id="signup">
+    <div class="form sign-up">
+      <h2 class="user">
+        Sign up
+      </h2>
+      <form #signUpForm="ngForm" (ngSubmit)="submitSignUpForm(signUpForm)">
+        <div style="display: flex; justify-content: space-around;">
+          <label>
+            <span> First name </span>
             <input
               ngModel
               name="firstname"
-              type="email"
-              class="form-control"
-              id="firstname"
-              placeholder="Firstname"
+              type="text"
+              aria-describedby="emailHelp"
+              required
             />
-          </div>
-          <div class="form-group col-md-6">
-            <label for="lastname">Lastname</label>
-            <input
-              ngModel
-              name="lastname"
-              type="email"
-              class="form-control"
-              id="lastname"
-              placeholder="Lastname"
-            />
-          </div>
+          </label>
+          <label>
+            <span>Last name </span>
+            <input ngModel name="lastname" type="text" id="logInPassword" />
+          </label>
         </div>
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <label for="username">Username</label>
-            <input
-              ngModel
-              name="username"
-              type="email"
-              class="form-control"
-              id="username"
-              placeholder="Username"
-            />
-          </div>
-          <div class="form-group col-md-6">
-            <label for="email">Email</label>
+        <div style="display: flex; justify-content: space-around;">
+          <label>
+            <span> Email </span>
             <input
               ngModel
               name="email"
               type="email"
-              class="form-control"
-              id="email"
-              placeholder="Email"
+              aria-describedby="emailHelp"
+              required
             />
-          </div>
+          </label>
+          <label>
+            <span> username </span>
+            <input
+              ngModel
+              name="username"
+              type="text"
+              aria-describedby="emailHelp"
+              required
+            />
+          </label>
+        </div>
+        <div style="display: flex; justify-content: space-around;">
+          <label>
+            <span> password </span>
+            <input
+              ngModel
+              name="password"
+              type="password"
+              aria-describedby="emailHelp"
+              required
+            />
+          </label>
         </div>
 
-        <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input
-            ngModel
-            name="password"
-            type="password"
-            class="form-control"
-            id="exampleInputPassword1"
-            placeholder="Password"
-          />
-        </div>
-
-        <button type="submit" class="btn btn-primary" style="color: white;">
-          Submit
-        </button>
-      </fieldset>
-    </form>
+        <button type="submit" class="submit">Sign Up</button>
+      </form>
+      <!-- <button type="button" class="fb-btn">
+      Connect with <span>facebook</span>
+    </button> -->
+    </div>
   </div>
-</section>
-<!-- Footer ------>
-<section id="footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 footer-box">
-        <!-- <img src="images/webiz-logo.png" alt=""> -->
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
-        </p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      </div>
-      <div class="col-md-4 footer-box">
-        <p id="contact"><b>OUR OFFICE</b></p>
-        <p><i class="fa fa-map-marker"></i>Holloway Road, London</p>
-        <p><i class="fa fa-phone"></i>+44 074 675 86 965</p>
-        <p><i class="fa fa-envelope-o"></i>info@examle.com</p>
-      </div>
-      <div class="col-md-4 footer-box">
-        <p><b>SUBSCRIBE NEWSLETTER</b></p>
-        <input type="email" class="form-control" placeholder="Your Email" />
-        <button type="button" class="btn btn-primary" name="button">
-          Subscribe
-        </button>
+  <section id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 footer-box">
+          <!-- <img src="images/webiz-logo.png" alt=""> -->
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <div class="col-md-4 footer-box">
+          <p id="contact"><b>OUR OFFICE</b></p>
+          <p><i class="fa fa-map-marker"></i>Holloway Road, London</p>
+          <p><i class="fa fa-phone"></i>+44 074 675 86 965</p>
+          <p><i class="fa fa-envelope-o"></i>info@examle.com</p>
+        </div>
+        <div class="col-md-4 footer-box">
+          <p><b>SUBSCRIBE NEWSLETTER</b></p>
+          <input type="email" class="form-control" placeholder="Your Email" />
+          <button type="button" class="btn btn-primary" name="button">
+            Subscribe
+          </button>
 
-        <div id="social">
-          <!-- <p>Find Us On Social Media</p> -->
-          <!-- <div class="social-icons">
+          <div id="social">
+            <!-- <p>Find Us On Social Media</p> -->
+            <!-- <div class="social-icons">
                           <a href="#" class="svg-icons"><img src="svg/facebook-logo.svg" alt=""></a>
                           <a href="#" class="svg-icons"><img src="svg/instagram_.svg" alt=""></a>
                           <a href="#" class="svg-icons"><img src="svg/twitter-logo.svg" alt=""></a>
                           <a href="#" class="svg-icons"><img src="svg/whatsapp.svg" alt=""></a>
                        </div> -->
+          </div>
+        </div>
+        <div class="col-md-6 ">
+          <p class="copyright">
+            Copyright © 2019. All rights reserved | Designed by
+            <a href="https://www.salvatoremandis.it/index-eng.html"
+              >Salvatore Mandis</a
+            >
+          </p>
+        </div>
+        <div class="col-md-6 text-right">
+          <p class="copyright">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Cookie Policy</a>
+            <a href="#">Terms & Conditions</a>
+          </p>
         </div>
       </div>
-      <div class="col-md-6 ">
-        <p class="copyright">
-          Copyright © 2019. All rights reserved | Designed by
-          <a href="https://www.salvatoremandis.it/index-eng.html"
-            >Salvatore Mandis</a
-          >
-        </p>
-      </div>
-      <div class="col-md-6 text-right">
-        <p class="copyright">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Cookie Policy</a>
-          <a href="#">Terms & Conditions</a>
-        </p>
-      </div>
+      <br />
     </div>
-    <br />
-  </div>
-</section>
+  </section>
+</div>
 <!--- Smooth Scroll js ---------->

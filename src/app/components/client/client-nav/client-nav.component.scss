@@ -1,13 +1,8 @@
-
-
-
 .notification {
-    text-decoration: none;
-    position: relative;
-    display: inline-block;
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
 }
-
-
 
 .notification .badge {
   position: absolute;
@@ -15,14 +10,14 @@
   right: -6px;
   padding: 3px 5px;
   border-radius: 50%;
-  background: #18BC9C;
+  background: #18bc9c;
   color: white;
 }
 
 .notification-Icon:hover {
-  color: #18BC9C;
+  color: #18bc9c;
 }
-.dropdown-menu{
-    margin: 0;
-    padding: 0;
+.dropdown-menu {
+  margin: 0;
+  padding: 0;
 }

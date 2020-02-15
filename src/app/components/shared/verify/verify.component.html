@@ -1,9 +1,20 @@
 <div class="form">
-  <h1>Email has been sent for Verification</h1>
-  <h3>insert code here</h3>
-
   <div class="text">
-    <input [(ngModel)]="key" type="text" />
-    <button (click)="verify()" type="submit">Submit</button>
+    <div (click)="cancel()" class="cross">X</div>
+    <h2 class="join-title">
+      Is it really you?
+    </h2>
+
+    <p class="join-content">
+      Email has been sent for verification
+    </p>
+
+    <div>
+      <input [(ngModel)]="key" type="text" placeholder="insert code here" />
+
+      <button (click)="verify()" style="margin: 12px;" type="submit">
+        send
+      </button>
+    </div>
   </div>
 </div>

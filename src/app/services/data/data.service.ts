@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject, Observable } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, Subject, Observable } from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class DataService {
   fetching:Boolean = false;
