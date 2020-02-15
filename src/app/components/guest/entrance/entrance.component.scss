@@ -53,14 +53,20 @@
 }
 /* --------- Banner ---------- */
 .banner {
-  background-image: url("../../../../assets/community2.jpg");
+  background-image: url("../../../../assets/community.png");
 
-  margin-bottom: 50px;
+  margin-bottom: 60px;
   background-repeat: no-repeat;
-  // background-size: contain;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   object-fit: none;
-  padding-bottom: 40%;
+  height: 100%;
+
   margin-top: auto;
+  padding: 300px;
   display: flex;
   justify-content: center;
   background-position: center;
@@ -76,8 +82,8 @@
   position: relative;
   width: 1000px;
 
-  margin-left: -300px;
-  margin-top: -20px;
+  margin-left: -600px;
+  margin-top: -300px;
 }
 .join-title {
   display: flex;
@@ -90,13 +96,15 @@
 .join-content {
   font-family: "Inconsolata", monospace;
   color: #1723b1;
+  margin-top: -15px;
+  margin-left: 20px;
 }
 .link-play {
   text-decoration: none;
 }
 .link-play:hover {
   color: #58f0ff;
-  text-decoration: none !important;
+  text-decoration: none;
 }
 .play-btn {
   width: 45px;
@@ -225,21 +233,12 @@
   font-size: 15px;
 }
 .copyright a {
-  text-decoration: none;
   color: #fff;
 }
 .copyright a:hover {
-  text-decoration: none;
   color: #1723b1;
 }
 // alert messages
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
 
 body {
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
@@ -333,18 +332,6 @@ button {
   width: $imgW;
   height: 100%;
   padding-top: 360px;
-
-  &:before {
-    content: "";
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: $contW;
-    height: 100%;
-    background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/142996/sections-3.jpg");
-    background-size: cover;
-    transition: transform $switchAT ease-in-out;
-  }
 
   &:after {
     content: "";
