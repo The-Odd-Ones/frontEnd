@@ -6,11 +6,7 @@
   <div style="flex: 5;" *ngIf="$user | async as user">
     <div class="user-profile" >
       <div class="profile-header-background">
-        <img
-          src="http://demo.thedevelovers.com/dashboard/queenadmin-1.2/assets/img/city.jpg"
-          alt="Profile Header Background"
-          style="height: 165px;"
-        />
+        
       </div>
       <div class="row" >
         <div class="col-md-4">
@@ -70,6 +66,9 @@
             </div>
             <div class="section">
               <h3 class="ml-2">About Me</h3>
+              <p class="text-muted" *ngIf="!user.bio">
+                no bio
+              </p>
               <p>
                 {{ user.bio }}
               </p>

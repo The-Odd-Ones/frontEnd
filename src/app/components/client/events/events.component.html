@@ -4,17 +4,22 @@
   <div
     *ngFor="let event of events"
     class="card col-5"
-    style="margin: 20px;"
+    style="margin: 20px; height: 400px;"
+    
   >
-      <img height="200px" width="100%" src="{{ event.file }}" class="card-img-top" alt="Event Image" style="object-fit: contain;" />
+      <img height="200px" width="100%" [src]=" event.file? event.file : 'https://www.belfercenter.org/themes/belfer/images/event-default-img-med.png'" class="card-img-top" alt="Event Image" style="object-fit: contain;" />
       <div class="card-body">
         <!-- <em style="float:right"
         [ngStyle]="{'color': (event.likesCount | number) > (event.dislikesCount | number)? 'blue' : (event.likesCount | number) == (event.dislikesCount | number)?'grey' : 'red' }"
         >Diff: {{(event.likesCount | number) < (event.dislikesCount | number)?
          (event.dislikesCount | number) - (event.likesCount | number):
           (event.likesCount | number) - (event.dislikesCount | number)}}</em> -->
-        <a routerLink="/events/{{ event._id }}"><h5 class="card-title">{{ event.title }}</h5></a>
-        <p class="card-text text-muted">
+          <div style="display: flex;">
+            <a  routerLink="/events/{{ event._id }}"><h5 class="card-title">{{ event.title }}</h5></a>
+            <span style="vertical-align: bottom;" class="text-muted mx-2">{{event.start | date}}</span>
+          
+          </div>
+        <p style="height: 70px;overflow: hidden;" class="card-text text-muted">
           {{ event.description }}
         </p>
         <div style="display: flex;">

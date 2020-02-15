@@ -11,10 +11,6 @@ import { NgForm } from "@angular/forms";
 // })
 // export class MainComponent implements OnInit {
 //   constructor(private router: Router) {}
-//   logout() {
-//     localStorage.clear();
-//     this.router.navigate([""]);
-//   }
 //   ngOnInit() {}
 // }
 
@@ -33,28 +29,19 @@ export class DashboardComponent implements OnInit {
   public clicked: boolean = true;
   public clicked1: boolean = false;
   public clicked2: boolean = false;
-
-  constructor(private http: HttpService) {}
-
+  public usersChart;
+  
+  constructor(private http: HttpService, private router :Router) {}
+  
+  logout() {
+    localStorage.clear();
+    this.router.navigate([""]);
+  }
   ngOnInit() {
   
-    this.http.get('/dashboard/users').subscribe((data: Object) => {
-      var months = [
-        "JAN",
-        "FEB",
-        "MAR",
-        "APR",
-        "MAY",
-        "JUN",
-        "JUL",
-        "AUG",
-        "SEP",
-        "OCT",
-        "NOV",
-        "DEC"
-      ]
-      console.log(data['result'].map(one => (months[new Date(one._id).getMonth()])))
-    })
+
+    
+
 this.getPosts()
     this.getCommunities();
     this.getPosts();
@@ -510,7 +497,7 @@ this.getPosts()
     gradientStroke.addColorStop(0.4, "rgba(29,140,248,0.0)");
     gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
 
-    var myChart = new Chart(this.ctx, {
+    this.usersChart = new Chart(this.ctx, {
       type: "bar",
       responsive: true,
       legend: {
@@ -520,7 +507,7 @@ this.getPosts()
         labels: ["USA", "GER", "AUS", "UK", "RO", "BR"],
         datasets: [
           {
-            label: "Countries",
+            label: "Users",
             fill: true,
             backgroundColor: gradientStroke,
             hoverBackgroundColor: gradientStroke,
@@ -534,23 +521,39 @@ this.getPosts()
       },
       options: gradientBarChartConfiguration
     });
+    console.log(this.usersChart)
+    this.http.get('/dashboard/users').subscribe((data: Object) => {
+     
+      this.labels = data['result'].map(one => (new Date(one._id).getDate()))
+      this.data = data['result'].map(one => one.users)
+      this.updateOptions(this.usersChart, 'Users');
+    })
   }
-  public updateOptions() {
-    this.myChartData.data.datasets[0].data = this.data;
-    this.myChartData.data.labels = this.labels;
-    this.myChartData.options.scales.yAxes[0].ticks.suggestedMax = Math.max(
+  public updateOptions(chart,labelName) {
+    chart.data.datasets[0].data = this.data;
+    chart.data.labels = this.labels;
+    chart.data.datasets[0].label = labelName;
+    chart.options.scales.yAxes[0].ticks.suggestedMax = Math.max(
       ...this.data
     );
-    this.myChartData.options.scales.yAxes[0].ticks.suggestedMin = 0;
+    chart.options.scales.yAxes[0].ticks.suggestedMin = 0;
 
-    this.myChartData.update();
+    chart.update();
   }
 
   getPosts() {
     this.http.get("/dashboard/posts").subscribe((data: Array<Object>) => {
       this.labels = data.map((one: any) => one._id.name);
       this.data = data.map((one: any) => one.posts);
-      this.updateOptions();
+      this.updateOptions(this.myChartData,'Posts');
+    });
+  }
+
+  getLikes() {
+    this.http.get("/dashboard/likes").subscribe((data: Array<Object>) => {
+      this.labels = data.map((one: any) => one._id.name);
+      this.data = data.map((one: any) => one.likes);
+      this.updateOptions(this.myChartData,'Likes');
     });
   }
 
@@ -560,7 +563,7 @@ this.getPosts()
       this.labels = data.map((one: any) => one._id.name);
       this.data = data.map((one: any) => one.events);
 
-      this.updateOptions();
+      this.updateOptions(this.myChartData,'Events');
     });
   }
   getCommunities() {
@@ -594,3 +597,19 @@ this.getPosts()
     }
   }
 }
+
+
+ // var months = [
+      //   "JAN",
+      //   "FEB",
+      //   "MAR",
+      //   "APR",
+      //   "MAY",
+      //   "JUN",
+      //   "JUL",
+      //   "AUG",
+      //   "SEP",
+      //   "OCT",
+      //   "NOV",
+      //   "DEC"
+      // ]

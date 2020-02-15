@@ -46,7 +46,6 @@ export class PostsComponent implements OnInit {
         })
       }
       this.fetching = true
-      this.http.get('')
 
     }
   }

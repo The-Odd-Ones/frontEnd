@@ -31,8 +31,8 @@
             [routerLink]="'/users/' + post.user.username"
             routerLinkActive="router-link-active"
             class="card-link font-weight-bold"
-            >{{ post.user.firstname }} {{ post.user.lastname }}
-          </a>
+            >{{ post.user.firstname }} {{ post.user.lastname }} 
+          </a> <span class="text-muted">{{post._id | dateAgo}}</span>
           <p [routerLink]="'/posts/' + post._id" class="card-text clickable">
             {{ post.content }}
           </p>

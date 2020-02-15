@@ -19,10 +19,19 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     
     this.data.Community.subscribe(community=>{
-      this.$events = this.http.get('/events').pipe(map((one:any) => {
-        console.log(one)
-        return one.result
-      }))
+      navigator.geolocation.getCurrentPosition((data: any) => {
+        if(data){
+          this.$events = this.http.post('/events/nearby', {coordinates: [data.coords.latitude,data.coords.longitude]}).pipe(map((one:any) => {
+            return one.result
+          }))
+        }else {
+          this.$events = this.http.get('/events').pipe(map((one:any) => {
+            return one.result
+          }))
+
+        }
+    
+      });
       this.$posts = this.http.get('/posts').pipe(map((data:any) => {
         if(data.noCommunity){
           this.data.noCommunity.next()

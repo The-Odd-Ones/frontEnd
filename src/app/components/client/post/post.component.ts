@@ -11,6 +11,7 @@ import { NgForm } from '@angular/forms';
 export class PostComponent implements OnInit {
 
   post:any;
+  user:any;
   commentContent:String= "";
   comment(){
     if(this.commentContent){
@@ -90,9 +91,23 @@ export class PostComponent implements OnInit {
       //   console.log(data)
       // })
       }
+      toBeRemoved;
+      toBeRemovedIndex;
+      remove(){
+        this.http.get(`/comments/${this.toBeRemoved._id}/remove`).subscribe(data =>{
+          console.log(data)
+          if(data['success']){
+            this.post.comments.splice(this.toBeRemovedIndex,1)
+            this.post.commentsCount--
+          } 
+        })  
+      }
 
 
   ngOnInit() {
+    this.http.get('/users/profile').subscribe(data =>{
+      this.user = data['result']
+    })
     this.activatedRoute.params.subscribe(param => {
       this.http.get(`/posts/${param["id"]}`).subscribe((data:any)=>{
         let post = data.result
