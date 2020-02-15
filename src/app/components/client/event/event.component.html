@@ -18,27 +18,53 @@
             <div class="profile">
               <div class="avatar">
                 <img
-                [src]=" event.file? event.file : 'https://www.belfercenter.org/themes/belfer/images/event-default-img-med.png'"
+                  [src]="
+                    event.file
+                      ? event.file
+                      : 'https://www.belfercenter.org/themes/belfer/images/event-default-img-med.png'
+                  "
                   alt="Circle Image"
                   class="img-raised rounded-circle img-fluid"
                 />
               </div>
               <div class="name">
                 <h3 class="title my-1">{{ event.title }}</h3>
-                <!-- <h6>Community</h6> -->
-                <!-- <a href="#pablo" class="btn btn-just-icon btn-link btn-dribbble"
-                  ><i class="fa fa-dribbble"></i
-                ></a>
-                <a href="#pablo" class="btn btn-just-icon btn-link btn-twitter"
-                  ><i class="fa fa-twitter"></i
-                ></a>
-                <a
-                  href="#pablo"
-                  class="btn btn-just-icon btn-link btn-pinterest"
-                  ><i class="fa fa-pinterest"></i
-                ></a> -->
               </div>
             </div>
+          </div>
+        </div>
+        <div style="display: flex;">
+          <button
+            *ngIf="!event.isEnrolled"
+            (click)="enroll(event)"
+            class="btn btn-sm btn-outline-primary"
+          >
+            Go
+          </button>
+          <a
+            (mouseenter)="hover = event._id"
+            (mouseleave)="hover = null"
+            *ngIf="event.isEnrolled"
+            class="btn btn-sm btn-primary"
+            (click)="enroll(event)"
+            [ngClass]="{ 'btn-danger': hover == event._id }"
+            style="color: white"
+          >
+            {{ hover == event._id ? "Leave" : "Going" }}
+          </a>
+          <div
+            style="display: flex; flex-direction: column; justify-content: center;"
+          >
+            <p class="mx-2 my-0">
+              {{ event.enrollsCount }} <i class="fa fa-users"></i>
+            </p>
+          </div>
+          <div
+            style="display: flex; flex-direction: column; justify-content: center;"
+          >
+            <span style=" font-size: 10px;" class="text-muted">{{
+              event.start | date
+            }}</span>
           </div>
         </div>
         <div style="height: fit-content;" class="description text-center">
@@ -245,12 +271,19 @@
       <div *ngIf="friends" class="modal-body">
         <div class="container p-4 card" style="padding-bottom: 0!important;">
           <div>
-            <div *ngFor="let friend of friends; let i = index" class="media user-follower">
+            <div
+              *ngFor="let friend of friends; let i = index"
+              class="media user-follower"
+            >
               <div class="p-1 row">
                 <a class="card-link col-2 p-0 text-center">
                   <img
-                  [src]=" friend.follower.file?  friend.follower.file : 'https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png'"
-                  class="ImgProfile mx-4"
+                    [src]="
+                      friend.follower.file
+                        ? friend.follower.file
+                        : 'https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png'
+                    "
+                    class="ImgProfile mx-4"
                   />
                 </a>
                 <!-- <p class="text-muted">{{ post.createdAt }}</p> -->
@@ -261,18 +294,31 @@
                     [routerLink]="'/users/' + friend.follower.username"
                     routerLinkActive="router-link-active"
                   >
-                    {{ friend.follower.firstname + " " + friend.follower.lastname }}
+                    {{
+                      friend.follower.firstname + " " + friend.follower.lastname
+                    }}
                   </a>
-                  <br /><span class="text-muted username"> @{{ friend.follower.username }}</span>
-  
+                  <br /><span class="text-muted username">
+                    @{{ friend.follower.username }}</span
+                  >
                 </div>
-                  <div style="flex: 2;" class="custom-control custom-checkbox pull-right col-1">
-                    <input type="checkbox" (change)="change($event.target.id)" class="custom-control-input " id="{{friend.follower._id}}" >
-                    <label class="custom-control-label" for="{{friend.follower._id}}"></label>
-                  </div>
-
+                <div
+                  style="flex: 2;"
+                  class="custom-control custom-checkbox pull-right col-1"
+                >
+                  <input
+                    type="checkbox"
+                    (change)="change($event.target.id)"
+                    class="custom-control-input "
+                    id="{{ friend.follower._id }}"
+                  />
+                  <label
+                    class="custom-control-label"
+                    for="{{ friend.follower._id }}"
+                  ></label>
+                </div>
               </div>
-                <!-- <button
+              <!-- <button
                 (click)="unfollow(friend.followers,i)"
                 type="button"
                 class="btn btn-sm btn-primary 
@@ -286,7 +332,7 @@
                   {{ hover == friend.follower._id ? "unfollow" : "Following" }}
                 </i>
               </button> -->
-                                            <!-- 
+              <!-- 
                 <button
                   *ngIf="!friend.follower.followedByYou"
                   (click)="follow(friend.followers,i)"
@@ -309,7 +355,14 @@
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
           Close
         </button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="invite()">Invite</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-dismiss="modal"
+          (click)="invite()"
+        >
+          Invite
+        </button>
       </div>
     </div>
   </div>

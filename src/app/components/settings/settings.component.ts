@@ -26,6 +26,7 @@ export class SettingsComponent implements OnInit {
     var formData = new FormData(form);
 
     this.http.patch(`/users/settings`, formData).subscribe(data => {
+      console.log(data)
       Snackbar.show({
         text: data['msg'],
         width: "200px",

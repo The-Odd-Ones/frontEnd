@@ -116,6 +116,7 @@ header {
 
 .main__avatar {
   background-size: cover;
+  background-position: center;
   width: 150px;
   height: 150px;
   display: block;
@@ -123,7 +124,7 @@ header {
   // vertical-align: middle;
   margin: 20px auto;
   border-radius: 50%;
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 .main__avatar:hover .main__avatar--overlay {
@@ -231,4 +232,10 @@ footer {
   footer {
     text-align: center;
   }
+}
+ img.avatar {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
 }
