@@ -4,6 +4,11 @@
 
   <div class="text">
     <input [(ngModel)]="key" type="text" />
-    <button (click)="verify()" type="submit">Submit</button>
+    <button (click)="cancel()" class="btn btn-dark" type="submit">
+      Cancel
+    </button>
+    <button (click)="verify()" type="submit" class="btn btn-dark">
+      Submit
+    </button>
   </div>
 </div>
