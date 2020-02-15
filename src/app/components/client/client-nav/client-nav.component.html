@@ -121,12 +121,12 @@
               class="list-group py-0"
               style="max-height: 300px; width: 250px; overflow-y: scroll;overflow-x: hidden;"
             >
-              <li *ngIf="!notifications.length" class="text-muted">
+              <li *ngIf="!notifications.length" class="text-muted unique">
                 No notifications yet
               </li>
               <li
                 *ngFor="let notification of notifications"
-                class=" list-group-item p-1"
+                class=" list-group-item p-1 unique"
                 style="white-space: initial;cursor: initial;display: flex;"
                 [ngStyle]="{ background: notification.seen ? 'white' : '#eee' }"
               >
