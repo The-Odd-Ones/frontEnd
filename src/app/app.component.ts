@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from "@angular/core";
-import { DataService } from './services/data/data.service';
-
+import { DataService } from "./services/data/data.service";
 
 @Component({
   selector: "app-root",
@@ -11,32 +10,22 @@ import { DataService } from './services/data/data.service';
     '(document:storage)': 'onStorageChange($event)'
   }
 })
-
-
 export class AppComponent implements OnInit {
-  
-
   ngOnInit() {
-    
-    
     this.data.dark.subscribe(data => {
-      if(data){
+      if (data) {
         var newStyle = document.createElement("link");
-        newStyle.setAttribute('href',"assets/css.css")
-        newStyle.setAttribute('rel',"stylesheet")
-        document.getElementById('link').appendChild(newStyle)
-        
-      }else{
-        var child = document.getElementById("link").firstChild
-        if(child) document.getElementById("link").removeChild(child)
-        
-   }
-})
+        newStyle.setAttribute("href", "assets/css.css");
+        newStyle.setAttribute("rel", "stylesheet");
+        document.getElementById("link").appendChild(newStyle);
+      } else {
+        var child = document.getElementById("link").firstChild;
+        if (child) document.getElementById("link").removeChild(child);
+      }
+    });
   }
 
   constructor(private data: DataService) {}
-
-    
 
   title = "web-frontEnd";
 }

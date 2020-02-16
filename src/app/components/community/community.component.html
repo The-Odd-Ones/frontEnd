@@ -1,1 +1,31 @@
-<h1>klsjx</h1>
+<div style="display: flex; justify-content: center;">
+  <div class="fullscreen" style="flex: 2;"></div>
+  <!-- <div ></div> -->
+  <div
+    style="display: flex; flex-direction: column;justify-content: center; height: 100vh;flex: 2; background-color: #8794C7;"
+  >
+    <h1
+      style="text-align: center; margin: 50px;font-family: 'Galada', 'cursive'; font-weight: bold; font-size: 90px;"
+    >
+      So, Which one do you <br />
+      belong to?
+    </h1>
+
+    <div style="display: flex; justify-content: center;">
+      <div
+        *ngIf="$communities | async as communities"
+        style="width: 60%;"
+        class="row mx-2 justify-content-around text-center"
+      >
+        <div
+          (click)="changeCommunity(community)"
+          *ngFor="let community of communities"
+          class="col-3 m-2 py-1"
+          style="border: 2px solid black; border-radius: 6%; cursor: pointer; font-family:  'Inconsolata', 'monospace';"
+        >
+          {{ community.name }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
