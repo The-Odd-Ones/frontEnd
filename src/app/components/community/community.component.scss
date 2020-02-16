@@ -1,0 +1,39 @@
+.fullscreen {
+  background-image: url("../../../assets/cool.gif");
+  background-repeat: no-repeat;
+  object-fit: none;
+  background-position: center;
+  background-size: cover;
+}
+// .row {
+//   display: flex;
+//   background-color: white;
+//   border: 2px solid black;
+//   padding: 100px;
+//   margin: auto 200px;
+//   margin-top: 390px;
+//   justify-content: space-between;
+// }
+
+//   float: right;
+//   width: 30%;
+//   height: 30%;
+// }
+// .col-1 {
+//   background-color: white;
+//   border: 2px solid black;
+
+//   float: right;
+//   width: 40%;
+// }
+// .col-2 {
+//   background-color: white;
+//   border: 2px solid black;
+
+//   float: right;
+//   width: 40%;
+// }
+.col-3:hover {
+  background-color: black;
+  color: white;
+}
