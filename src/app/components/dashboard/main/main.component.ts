@@ -25,24 +25,76 @@ export class DashboardComponent implements OnInit {
   public data: any;
   public labels: any;
   public myChartData;
-  public results: any;
+  public communities: any;
   public clicked: boolean = true;
   public clicked1: boolean = false;
   public clicked2: boolean = false;
   public usersChart;
-  
+  public activityChart;
+  public models;
+  public documents;
+  public indexes;
+  public modelToBeModified;
+  public activeAvg;
+  public registerAvg;
+  public  months = [
+      "JAN",
+      "FEB",
+      "MAR",
+      "APR",
+      "MAY",
+      "JUN",
+      "JUL",
+      "AUG",
+      "SEP",
+      "OCT",
+      "NOV",
+      "DEC"
+    ]
   constructor(private http: HttpService, private router :Router) {}
   
   logout() {
     localStorage.clear();
     this.router.navigate([""]);
   }
+  getIndexes(model){
+    this.modelToBeModified = model
+    this.http.get(`/dashboard/models/${model.name}/indexes`).subscribe((data: any) => {
+      if(data.success) this.indexes = data.result
+    });
+  }
+  getDocuments(model){
+    this.modelToBeModified = model
+    this.http.get(`/dashboard/models/${model.name}/documents`).subscribe((data: any) => {
+      if(data.success) this.documents = data.result
+    });
+  }
+
+
+  getNotIndexes(model){
+    this.modelToBeModified = model
+    this.http.get(`/dashboard/models/${model.name}/notindexes`).subscribe((data: any) => {
+      if(data.success) this.documents = data.result
+    });
+  }
+
+  addIndex(document,i){
+    this.http.post(`/dashboard/models/${this.modelToBeModified.name}/indexes` , {document}).subscribe((data: any) => {
+      if(data.success) this.documents.splice(i,1)
+    });
+  }
+  removeIndex(document,i){
+    this.http.delete(`/dashboard/models/${this.modelToBeModified.name}/indexes/${document}`).subscribe((data: any) => {
+      if(data.success) this.indexes.splice(i,1)
+    });
+  }
   ngOnInit() {
   
-
+    this.http.get("/dashboard/models").subscribe((data: any) => {
+      if(data.success) this.models = data.result
+    });
     
 
-this.getPosts()
     this.getCommunities();
     this.getPosts();
     var gradientChartOptionsConfigurationWithTooltipBlue: any = {
@@ -425,7 +477,7 @@ this.getPosts()
       ]
     };
 
-    var myChart = new Chart(this.ctx, {
+    this.activityChart = new Chart(this.ctx, {
       type: "line",
       data: data,
       options: gradientChartOptionsConfigurationWithTooltipGreen
@@ -521,13 +573,14 @@ this.getPosts()
       },
       options: gradientBarChartConfiguration
     });
-    console.log(this.usersChart)
     this.http.get('/dashboard/users').subscribe((data: Object) => {
      
       this.labels = data['result'].map(one => (new Date(one._id).getDate()))
       this.data = data['result'].map(one => one.users)
+      this.registerAvg = Math.floor(this.data.reduce((one,acc)=>acc + one) / this.data.length)
       this.updateOptions(this.usersChart, 'Users');
     })
+    
   }
   public updateOptions(chart,labelName) {
     chart.data.datasets[0].data = this.data;
@@ -539,6 +592,23 @@ this.getPosts()
     chart.options.scales.yAxes[0].ticks.suggestedMin = 0;
 
     chart.update();
+  }
+  communityActivity:any;
+  activityData:Boolean = true;
+  getActivities(community){
+    this.http.get(`/dashboard/communities/${community._id}/activity`).subscribe((data: Object) => {
+      this.communityActivity = community.name
+      if(!data['result'].length){
+        this.activityData = false
+        return
+      }
+      this.activityData = true
+      this.labels = data['result'].map(one => (this.months[new Date(one._id).getMonth()] + ' - ' + new Date(one._id).getDate()))
+      this.data = data['result'].map(one => one.users)
+      this.activeAvg = Math.floor(this.data.reduce((one,acc)=>acc + one) / this.data.length)
+      this.updateOptions(this.activityChart, 'Users');
+     
+     })
   }
 
   getPosts() {
@@ -559,7 +629,6 @@ this.getPosts()
 
   getEvents() {
     this.http.get("/dashboard/events").subscribe((data: Array<Object>) => {
-      console.log(data);
       this.labels = data.map((one: any) => one._id.name);
       this.data = data.map((one: any) => one.events);
 
@@ -568,48 +637,34 @@ this.getPosts()
   }
   getCommunities() {
     this.http.get("/dashboard/communities").subscribe(data => {
-      this.results = data["result"];
-      console.log(this.results);
+      this.communities = data["result"];
+      this.getActivities( this.communities[0])
     });
   }
 
   createCommunity(form: NgForm) {
     this.http.post("/dashboard/createCommunity", form.value).subscribe(data => {
-      this.results.unshift(data["result"]);
+      this.communities.unshift(data["result"]);
     });
   }
 
-  deactivate(id, val) {
-    if (val) {
-      console.log("gonna deactivate");
-      this.http
-        .get(`/dashboard/communities/${id}/deactivate`)
-        .subscribe(data => {
-          console.log(data);
-        });
-    }
-    if (!val) {
-      console.log("gonna activate");
-
-      this.http.get(`/dashboard/communities/${id}/activate`).subscribe(data => {
-        console.log(data);
+  deactivate(community) {
+    if (community.deactivated) {
+      this.http.get(`/dashboard/communities/${community._id}/activate`).subscribe(data => {
+        community.deactivated = false
       });
+    }else{
+      this.http
+        .get(`/dashboard/communities/${community._id}/deactivate`)
+        .subscribe(data => {
+          community.deactivated = true
+        });
+      
     }
+
+    
   }
 }
 
 
- // var months = [
-      //   "JAN",
-      //   "FEB",
-      //   "MAR",
-      //   "APR",
-      //   "MAY",
-      //   "JUN",
-      //   "JUL",
-      //   "AUG",
-      //   "SEP",
-      //   "OCT",
-      //   "NOV",
-      //   "DEC"
-      // ]
+ 
