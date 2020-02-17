@@ -109,7 +109,7 @@
     </div>
   </div>
   <div class=" row">
-    <div class=" col-lg-4">
+    <div style="display: none;" class=" col-lg-4">
       <div class=" card card-chart">
         <div class=" card-header">
           <h5 class=" card-category">Total Shipments</h5>
@@ -122,29 +122,41 @@
         </div>
       </div>
     </div>
-    <div class=" col-lg-4">
+    <div class=" col-lg-6">
       <div class=" card card-chart">
         <div class=" card-header">
           <h5 class=" card-category">Daily Registerations</h5>
-          <h3 class=" card-title">
-            <i class=" tim-icons icon-delivery-fast text-info"> </i> Users
-          </h3>
+          <h5 class=" card-title text-muted">
+            <i class=" tim-icons icon-delivery-fast text-info"> </i> AVG: {{registerAvg}}
+          </h5>
         </div>
         <div class=" card-body">
           <div class=" chart-area"><canvas id="CountryChart"> </canvas></div>
         </div>
       </div>
     </div>
-    <div class=" col-lg-4">
+    <div class=" col-lg-6">
       <div class=" card card-chart">
-        <div class=" card-header">
-          <h5 class=" card-category">Completed Tasks</h5>
-          <h3 class=" card-title">
-            <i class=" tim-icons icon-send text-success"> </i> 12,100K
-          </h3>
+        <div class=" card-header" style="display: flex;justify-content: space-between;">
+          <div>
+            <h5 class=" card-category">Daily Active Users</h5>
+            <h5 *ngIf="activityData" class=" card-title text-muted">
+              <i class=" tim-icons icon-send text-success"> </i> AVG: {{activeAvg}}
+            </h5>
+
+          </div>
+          <div *ngIf="communities" class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{communityActivity}}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a *ngFor="let community of communities" (click)="getActivities(community)" class="dropdown-item">{{community.name}}</a>
+            </div>
+          </div>
         </div>
         <div class=" card-body">
-          <div class=" chart-area"><canvas id="chartLineGreen"> </canvas></div>
+          <div [ngStyle]="{'display': activityData?'inline-block' : 'none'}" class=" chart-area"><canvas id="chartLineGreen"> </canvas></div>
+          <h4 class="text-muted" *ngIf="!activityData">No activity 😢</h4>
         </div>
       </div>
     </div>
@@ -162,7 +174,7 @@
             >
               <h2>+</h2>
             </button>
-            community
+            communities
           </h2>
         </div>
 
@@ -220,46 +232,34 @@
             </div>
           </div>
         </div>
-        <div class=" card-body">
+        <div style="height: 500px;overflow-y: scroll;overflow-x: hidden;" class=" card-body">
           <div class=" table-full-width table-responsive">
             <table class=" table">
-              <tbody>
-                <tr *ngFor="let community of results">
-                  <td>
-                    <div class=" form-check">
-                      <label class=" form-check-label">
-                        <input
-                          #check
-                          class=" form-check-input"
-                          type="checkbox"
-                          value=""
-                          [checked]="community.deactivated"
-                          (change)="deactivate(community._id, check.checked)"
-                        />
+              <thead class=" text-primary">
+                <tr>
+                  <th >Name</th>
+                  <th class="text-center">Deactivated</th>
+                  
 
-                        <span class=" form-check-sign">
-                          <span class=" check"> </span>
-                        </span>
-                      </label>
-                    </div>
-                  </td>
+                </tr>
+              </thead>
+              <tbody >
+                <tr *ngFor="let community of communities">
                   <td>
-                    <p class=" title">{{ community.name }}</p>
-                    <p class=" text-muted">
-                      Dwuamish Head, Seattle, WA 8:47 AM
-                    </p>
+                    {{ community.name }}
+                    
                   </td>
-                  <td class=" td-actions text-right">
-                    <button
-                      class=" btn btn-link"
-                      type="button"
-                      placement="left"
-                      ngbTooltip="Edit Task"
-                      container="body"
-                    >
-                      <i class=" tim-icons icon-pencil"> </i>
-                    </button>
+                  <td style="vertical-align: middle!important;">
+                    <div
+                    (click)="deactivate(community)"
+                    class="m-auto clickable"  style="background: white;height: 10px;width: 10px;border: 1px solid black;padding: 1px;">
+                      <div *ngIf="community.deactivated" class="m-auto" style="background: black;height: 100%;width: 100%;">
+
+                      </div>
+                    </div>
+                    
                   </td>
+                  
                 </tr>
               </tbody>
             </table>
@@ -267,69 +267,78 @@
         </div>
       </div>
     </div>
-    <div class=" col-lg-6 col-md-12">
+    <div  class=" col-lg-6 col-md-12">
       <div class=" card">
         <div class=" card-header">
-          <h4 class=" card-title">Simple Table</h4>
+          <h2 class=" card-title">Models</h2>
         </div>
-        <div class=" card-body">
+        <div style="height: 500px;overflow-y: scroll;overflow-x: hidden;" class=" card-body">
           <div class=" table-responsive">
             <table class=" table tablesorter" id="">
               <thead class=" text-primary">
                 <tr>
-                  <th>Name</th>
-                  <th>Country</th>
-                  <th>City</th>
-                  <th class=" text-center">Salary</th>
+                  <th class=" text-center">Name</th>
+                  <th class=" text-center">Add Index</th>
+                  <th class=" text-center">Remove Index</th>
+                  <th class=" text-center">Documents Count</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>Dakota Rice</td>
-                  <td>Niger</td>
-                  <td>Oud-Turnhout</td>
-                  <td class=" text-center">$36,738</td>
-                </tr>
-                <tr>
-                  <td>Minerva Hooper</td>
-                  <td>CuraÃ§ao</td>
-                  <td>Sinaai-Waas</td>
-                  <td class=" text-center">$23,789</td>
-                </tr>
-                <tr>
-                  <td>Sage Rodriguez</td>
-                  <td>Netherlands</td>
-                  <td>Baileux</td>
-                  <td class=" text-center">$56,142</td>
-                </tr>
-                <tr>
-                  <td>Philip Chaney</td>
-                  <td>Korea, South</td>
-                  <td>Overland Park</td>
-                  <td class=" text-center">$38,735</td>
-                </tr>
-                <tr>
-                  <td>Doris Greene</td>
-                  <td>Malawi</td>
-                  <td>Feldkirchen in KÃ¤rnten</td>
-                  <td class=" text-center">$63,542</td>
-                </tr>
-                <tr>
-                  <td>Mason Porter</td>
-                  <td>Chile</td>
-                  <td>Gloucester</td>
-                  <td class=" text-center">$78,615</td>
-                </tr>
-                <tr>
-                  <td>Jon Porter</td>
-                  <td>Portugal</td>
-                  <td>Gloucester</td>
-                  <td class=" text-center">$98,615</td>
+              <tbody *ngIf="models">
+                <tr *ngFor="let model of models">
+                  <td class=" text-center">{{model.name}}</td>
+                  <td (click)="getNotIndexes(model)" data-toggle="modal" data-target="#addIndex" class="clickable text-center"> ➕ </td>
+                  <td (click)="getIndexes(model)" data-toggle="modal" data-target="#removeIndex" class="clickable text-center"> ✖ </td>
+                  <td  class="text-center"> {{model.documents}} </td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- // Add Index Model // -->
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="addIndex" tabindex="-1" role="dialog" aria-labelledby="addIndexLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addIndexLabel">Click To Add</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="documents" class="modal-body row justify-content-around text-center">
+        <div *ngFor="let document of documents;let i = index" (click)="addIndex(document,i)" class="col-3 m-3 clickable">
+          {{document}}
+        </div>
+        <h4 *ngIf="!documents.length" class="text-muted m-auto">No indexes to be added</h4>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="removeIndex" tabindex="-1" role="dialog" aria-labelledby="removeIndexLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="removeIndexLabel">Click To Remove</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div *ngIf="indexes" class="modal-body row justify-content-around text-center">
+        <div *ngFor="let index of indexes;let i = index" (click)="removeIndex(index.name, i)" class="col-3 m-3 clickable">
+          {{index.name}}
+        </div>
+        <h4 *ngIf="!indexes.length" class="text-muted m-auto">No indexes to be removed</h4>
       </div>
     </div>
   </div>

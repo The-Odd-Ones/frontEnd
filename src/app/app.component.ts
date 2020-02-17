@@ -5,7 +5,10 @@ import { DataService } from "./services/data/data.service";
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  host :  {
+    '(document:storage)': 'onStorageChange($event)'
+  }
 })
 export class AppComponent implements OnInit {
   ngOnInit() {
