@@ -1,27 +1,34 @@
-.clickable{
-    cursor: pointer;
+.clickable {
+  cursor: pointer;
 }
 body {
-    font-family: 'Ubuntu', sans-serif;
-    background: rgb(39, 39, 39);
-    color: white;
+  background: rgb(39, 39, 39);
+  color: white;
 }
 
 .card {
-    background: rgb(39, 39, 39);
-    border: rgb(163, 163, 163) 1px solid;
-  }
-  .modal-content {
-    background: rgb(39, 39, 39);
-  }
+  background: rgb(39, 39, 39);
+  border: rgb(163, 163, 163) 1px solid;
+}
+.modal-content {
+  background: rgb(39, 39, 39);
+}
 
-  input, textarea, .unique {
-    background-color : rgb(39, 39, 39)!important;
-    color : white!important
-  }
+input,
+textarea,
+.unique {
+  background-color: rgb(39, 39, 39) !important;
+  color: white !important;
+}
 
-
-  .hr{
-      background:rgb(163, 163, 163);
-
-  }
+.hr {
+  background: rgb(163, 163, 163);
+}
+button {
+  color: black !important;
+  background-color: black !important;
+}
+button:hover {
+  border: 1px solid white !important;
+  color: white !important;
+}

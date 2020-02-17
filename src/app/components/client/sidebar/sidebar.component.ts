@@ -4,6 +4,7 @@ import { HttpService } from "src/app/services/http/http.service";
 import { DataService } from "src/app/services/data/data.service";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
+declare var Snackbar: any;
 
 @Component({
   selector: "app-sidebar",
@@ -25,12 +26,22 @@ export class SidebarComponent implements OnInit {
     this.data.Community.next(community.name);
   }
   constructor(private http: HttpService, private data: DataService) {}
-  addPost(form) {
+  addPost(form, div) {
     var formData = new FormData(form);
     this.http.post("/posts", formData).subscribe((data: any) => {
+      console.log(data);
       if (data.success) {
         this.data.postPusher.next(data.result);
+
+        div.click();
         form.reset();
+      } else {
+        Snackbar.show({
+          text: "write something",
+          width: "200px",
+          pos: "top-center",
+          actionTextColor: "#BF223C"
+        });
       }
     });
   }
@@ -73,5 +84,13 @@ export class SidebarComponent implements OnInit {
       this.lat = data.coords.latitude;
       this.lng = data.coords.longitude;
     });
+  }
+  upload(e: any, img) {
+    console.log(e);
+    var input = e.target;
+
+    if (input.files && input.files[0]) {
+      img.src = `${URL.createObjectURL(input.files[0])}`;
+    }
   }
 }

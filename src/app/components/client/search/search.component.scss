@@ -104,9 +104,7 @@ body {
   outline: none;
   transition: border 0.5s ease-in-out;
 }
-#keyword:focus {
-  border-color: #f8c296;
-}
+
 #keyword-button {
   position: absolute;
   right: 26%;
@@ -234,17 +232,17 @@ body {
   transition: 0.2s;
 }
 
-.searchbar:focus {
-  width: 400px !important;
-  font-family: "Segoe UI Light", "Segoe UI", "Segoe", Tahoma, Helvetica, Arial,
-    sans-serif;
-  font-size: 1em;
-  font-weight: bold;
-  transition: 0.3s;
-  /* Stops the input box from inheriting the styling from the inputs on the request form */
-  border: #dddddd solid 2px;
-  outline: none;
-}
+// .searchbar{
+//   width: 400px !important;
+//   font-family: "Segoe UI Light", "Segoe UI", "Segoe", Tahoma, Helvetica, Arial,
+//     sans-serif;
+//   font-size: 1em;
+//   font-weight: bold;
+//   transition: 0.3s;
+//   /* Stops the input box from inheriting the styling from the inputs on the request form */
+//   border: #dddddd solid 2px;
+//   outline: none;
+// }
 
 .btn-search {
   cursor: pointer;

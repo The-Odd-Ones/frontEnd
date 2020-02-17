@@ -1,4 +1,4 @@
-<div  *ngIf="user" class=" m-4 p-4">
+<div *ngIf="user" class=" m-4 p-4">
   <!-- <div class="main__header"> -->
   <h2>Settings</h2>
   <!-- </div> -->
@@ -9,10 +9,9 @@
       [ngStyle]="{
         'background-image': user.file
           ? 'url(' + user.file + ')'
-          : 'url(https://moonvillageassociation.org/wp-content/uploads/2018/06/default-profile-picture1.jpg)'
+          : 'url(https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png)'
       }"
     >
-    
       <div class="main__avatar--overlay">
         <div class="image-upload">
           <label for="file-input">
@@ -25,7 +24,7 @@
       </div>
     </div>
     <input
-      style="display: none;"
+      style="display: none; "
       (change)="upload($event, image)"
       id="file-input"
       type="file"
@@ -35,6 +34,7 @@
       <div class="form-group col-md-6">
         <label class="main__input-label">Firstname:</label>
         <input
+          style="border-color: #f8c296;"
           [ngModel]="user.firstname"
           name="firstname"
           class="main__input"
@@ -45,6 +45,7 @@
       <div class="form-group col-md-6">
         <label class="main__input-label">lastname:</label>
         <input
+          style="border-color: #f8c296;"
           [ngModel]="user.lastname"
           name="lastname"
           class="main__input"
@@ -57,6 +58,7 @@
       <div class="form-group col-md-6">
         <label class="main__input-label">username:</label>
         <input
+          style="border-color: #f8c296;"
           [ngModel]="user.username"
           name="username"
           class="main__input"
@@ -67,6 +69,7 @@
       <div class="form-group col-md-6">
         <label class="main__input-label">Your e-mail:</label>
         <input
+          style="border-color: #f8c296;"
           [ngModel]="user.email"
           name="email"
           class="main__input"
@@ -76,13 +79,20 @@
     </div>
     <div class="form-group">
       <label class="main__input-label"> Biography </label>
-      <textarea rows="5" [ngModel]="user.bio" name="bio" class="main__input">
+      <textarea
+        rows="5"
+        style="border-color: #f8c296;"
+        [ngModel]="user.bio"
+        name="bio"
+        class="main__input"
+      >
       </textarea>
     </div>
     <div class="form-row">
       <div class="form-group col-md-6">
         <label class="main__input-label">new password</label>
         <input
+          style="border-color: #f8c296;"
           ngModel
           placeholder="********"
           name="password"
@@ -94,6 +104,7 @@
       <div class="form-group col-md-6">
         <label class="main__input-label">new password confirmation</label>
         <input
+          style="border-color: #f8c296;"
           ngModel
           placeholder="********"
           name="confirmation"
@@ -108,6 +119,7 @@
       <div class="form-group col-md-6">
         <label class="main__input-label">Facebook Account Link</label>
         <input
+          style="border-color: #f8c296;"
           [ngModel]="user.facebook"
           name="facebook"
           class="main__input"
@@ -118,6 +130,7 @@
       <div class="form-group col-md-6">
         <label class="main__input-label">Twitter Account Link</label>
         <input
+          style="border-color: #f8c296;"
           [ngModel]="user.twitter"
           name="twitter"
           class="main__input"
@@ -129,6 +142,7 @@
       <div class="form-group col-md-6">
         <label class="main__input-label">LinkedIn Account Link</label>
         <input
+          style="border-color: #f8c296;"
           [ngModel]="user.linkedIn"
           name="linkedIn"
           class="main__input"
@@ -139,6 +153,7 @@
       <div class="form-group col-md-6">
         <label class="main__input-label">Instagram Account Link</label>
         <input
+          style="border-color: #f8c296;"
           [ngModel]="user.instagram"
           name="instagram"
           class="main__input"
@@ -150,6 +165,7 @@
       <div class="form-group col-md-6">
         <label class="main__input-label">password</label>
         <input
+          style="border-color: #f8c296;"
           ngModel
           placeholder="********"
           name="oldpassword"
@@ -160,7 +176,11 @@
 
       <div class="form-group col-md-6">
         <label class="main__input-label"> &nbsp; </label>
-        <button type="submit" class="btn main__save-button">
+        <button
+          type="submit"
+          style="background-color: transparent; border:1px solid #f8c296;"
+          class="btn main__save-button"
+        >
           Save
         </button>
       </div>

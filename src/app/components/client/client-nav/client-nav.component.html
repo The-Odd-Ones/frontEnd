@@ -18,22 +18,14 @@
     <ul class="navbar-nav mr-auto">
       <li *ngIf="$Community | async as community" class="nav-item">
         <a
-          class="navbar-brand"
+          class="navbar-brand unique"
           routerLink="/home"
           routerLinkActive="router-link-active"
-          style="color:  #1723b1;"
+          style="color:  #1723b1; font-family: 'Inconsolata', 'monospace'; font-size: 35px; font-weight: bold;"
           >{{ community }}</a
         >
       </li>
-      <li class="nav-item">
-        <a
-          style="color:  #1723b1;"
-          class="nav-link"
-          routerLink="/profile"
-          routerLinkActive="router-link-active"
-          >Profile</a
-        >
-      </li>
+
       <!-- <li class="nav-item">
           <a class="nav-link" href="#">Pricing</a>
         </li>
@@ -113,8 +105,8 @@
           >
             <i
               style="font-size: 24px;"
-              class="fa fa-bell-o clickable notification-Icon"
-              [ngStyle]="{ color: unseenCount ? '#18BC9C' : 'white' }"
+              class="fa fa-bell-o clickable notification-Icon unique"
+              [ngStyle]="{ color: unseenCount ? '#18BC9C' : '#1723b1' }"
             ></i>
             <span *ngIf="unseenCount" class="badge">{{ unseenCount }}</span>
           </div>

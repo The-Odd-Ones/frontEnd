@@ -1,43 +1,39 @@
-.clickable{
-    cursor: pointer;
+.clickable {
+  cursor: pointer;
 }
 body {
-    // font-family: 'Ubuntu', sans-serif;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    // background: rgb(39, 39, 39);
-    // color: white;
+  // font-family: 'Ubuntu', sans-serif;
+  font-family: "Inconsolata", "monospace";
+  // background: rgb(39, 39, 39);
+  // color: white;
 }
 
-
-
 ::-webkit-scrollbar {
-    width: 10px;
-  }
-  .shadow {
-    position: absolute;
-    background: black;
-    width: 90%;
-    height: 330px;
-    opacity: 0.2;
-    cursor: pointer;
-  }
-  /* Track */
-  ::-webkit-scrollbar-track {
-    box-shadow:  rgb(185, 185, 185); 
-    // border-radius: 10px;
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: rgb(104, 104, 104); 
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #472086; 
-  }
-  
-  
+  width: 10px;
+}
+.shadow {
+  position: absolute;
+  background: black;
+  width: 90%;
+  height: 330px;
+  opacity: 0.2;
+  cursor: pointer;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: rgb(185, 185, 185);
+  // border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(104, 104, 104);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #472086;
+}
 
 // .card {
 //     background: rgb(39, 39, 39);
@@ -52,9 +48,7 @@ body {
 //     color : white!important
 //   }
 
-
 //   .hr{
 //       background:rgb(163, 163, 163);
-
 
 //   }
