@@ -8,8 +8,8 @@
     class="searchbar"
     placeholder="Search..."
     autocomplete="off"
-    />
-    <!-- (focusout)="search.value = ''; results = null" -->
+  />
+  <!-- (focusout)="search.value = ''; results = null" -->
   <a id="btnSearch" class="btn-search"><i class="fa fa-search"></i></a>
   <ul
     class="dropdown-menu unique w-100 "
@@ -19,10 +19,10 @@
   >
     <li *ngIf="results">
       <p
-        style="display: flex; justify-content: center; margin-top: 15px;"
+        style="display: flex; justify-content: center; margin-top: 15px; font-family:'Inconsolata', 'monospace ;"
         *ngIf="!results.length"
       >
-        CAN'T FIND USER
+        not found
       </p>
     </li>
     <li
@@ -34,19 +34,21 @@
         [src]="
           result.image
             ? result.image
-            : 'https://capenetworks.com/static/images/testimonials/user-icon.svg'
+            : 'https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png'
         "
         alt=""
         width="50"
         height="50"
       />
 
-      <a class="artist-name" [routerLink]="['/users/', result.username]" routerLinkActive="router-link-active" >{{
-        result.name
-      }}</a>
+      <a
+        class="artist-name"
+        [routerLink]="['/users/', result.username]"
+        routerLinkActive="router-link-active"
+        >{{ result.name }}</a
+      >
       <span class="tags"> {{ result.username }} </span>
       <div *ngIf="results.length > 1" class="dropdown-divider"></div>
     </li>
-
   </ul>
 </form>

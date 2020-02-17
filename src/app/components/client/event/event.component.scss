@@ -1,6 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-
 .h6,
 h6 {
   font-size: 0.75rem !important;
@@ -103,8 +102,6 @@ a .material-icons {
   align-items: center;
 }
 
-
-
 .header-filter::before {
   background: rgba(0, 0, 0, 0.5);
 }
@@ -155,7 +152,8 @@ a .material-icons {
   min-height: 32px;
   color: #3c4858;
   font-weight: 700;
-  font-family: "Roboto Slab", "Times New Roman", serif;
+  font-family: "Inconsolata", "monospace";
+  font-weight: bold;
 }
 
 .profile-page .description {
@@ -163,6 +161,7 @@ a .material-icons {
   max-width: 600px;
   color: #999;
   font-weight: 300;
+  font-family: "Inconsolata", "monospace";
 }
 
 p {
@@ -375,7 +374,6 @@ footer p a:hover {
   color: #9f26aa;
   text-decoration: none;
 }
-
 
 ////////////////////////////////////////////////
 // .h6,
@@ -804,8 +802,6 @@ footer p a:hover {
   z-index: 999;
 }
 
-
-
 .follow-button:hover > span:nth-child(2) {
   display: inline;
 }
@@ -818,5 +814,3 @@ footer p a:hover {
   font-family: sans-serif;
   cursor: pointer;
 }
-
-
