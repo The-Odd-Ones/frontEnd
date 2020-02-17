@@ -1,12 +1,12 @@
-
-
-
 <!-- ///new // -->
-  
 
-  <div  routerLinkActive="router-link-active"  class="card mx-3 col-12" *ngIf="post">
-    <div class="p-1 row">
-      <a class="card-link col-12 p-0 p-1">
+<div
+  style="border-color: #f8c296; border-top: none;"
+  routerLinkActive="router-link-active"
+  class="card  my-2 col-12"
+  *ngIf="post"
+>    <div class="p-1 row">
+      <a class="card-link col-12  p-1">
         <div class="col-12 pl-0">
           <img
           [src]="
@@ -32,69 +32,99 @@
       <div  class="col-12 text-center"></div>
       <div style="width: 100%;" *ngIf="post.file && !post.sharedpost">
         <img
-          *ngIf="!post.isVideo"
-          src="{{ post.file }}"
-          class="card-img-top mb-4"
-          alt="..."
-          style="width: 100%;max-height: 600px; object-fit: contain;border-radius: 20px;cursor: pointer;"
-          (click)="imageClick(imgModal, post.file, modalImg)"
+          src="https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png"
+          class="ImgProfile mx-2"
         />
-        <iframe
-          *ngIf="post.isVideo"
-          allowfullscreen
-          autoplay="0"
-          [src]="post.file | safe"
-          frameborder="0"
-          style="max-width: 100%;max-height: 330px;border-radius: 20px;cursor: pointer;"
-          class="mb-4"
-        ></iframe>
+        <a
+          style="cursor: pointer;"
+          [routerLink]="'/users/' + post.user.username"
+          routerLinkActive="router-link-active"
+          class="card-link font-weight-bold"
+          >{{ post.user.firstname }} {{ post.user.lastname }}
+        </a>
+        <hr class="my-2" />
       </div>
-      <div *ngIf="post.sharedpost && !bubble" class=" mb-4">
-        <app-bubble-post [post]="post.sharedpost"></app-bubble-post>
-
-      </div>
-      <!-- <p class="text-muted">{{ post.createdAt }}</p> -->
+    </a>
+    <p [routerLink]="'/posts/' + post._id" class="card-text clickable mx-2">
+      {{ post.content }}
+    </p>
+    <div class="col-12 text-center"></div>
+    <div style="width: 100%;" *ngIf="post.file && !post.sharedpost">
+      <img
+        *ngIf="!post.isVideo"
+        src="{{ post.file }}"
+        class="card-img-top mb-4"
+        alt="..."
+        style="width: 100%;max-height: 600px; object-fit: contain;border-radius: 20px;cursor: pointer;"
+        (click)="imageClick(imgModal, post.file, modalImg)"
+      />
+      <iframe
+        *ngIf="post.isVideo"
+        allowfullscreen
+        autoplay="0"
+        [src]="post.file | safe"
+        frameborder="0"
+        style="max-width: 100%;max-height: 330px;border-radius: 20px;cursor: pointer;"
+        class="mb-4"
+      ></iframe>
     </div>
-    <div class="card-body row p-1">
-      <!-- <div class="shadow"></div> -->
-      <!-- <img src="img_snow.jpg" alt="Snow" style="width:100%;max-width:300px"> -->
-      <div class="col-12 pl-0">
-        
-        <div  class="d-flex justify-content-around mb-2">
-          <!-- // Like Icon -->
-          <div>
-            <i
-              style="font-size:24px;"
-              [ngStyle]="{ color: post.isLiked ? 'teal' : 'grey' }"
-              class="fa clickable"
-              (click)="like()"
-              > <span style="font-size: 16px;">{{post.likesCount}}</span> &#xf087;</i
-            >
-          </div>
-                      <!-- // Comment Icon -->
+    <div *ngIf="post.sharedpost && !bubble" class=" mb-4">
+      <app-bubble-post [post]="post.sharedpost"></app-bubble-post>
+    </div>
+    <!-- <p class="text-muted">{{ post.createdAt }}</p> -->
+  </div>
+  <div class="card-body row p-1">
+    <!-- <div class="shadow"></div> -->
+    <!-- <img src="img_snow.jpg" alt="Snow" style="width:100%;max-width:300px"> -->
+    <div class="col-12 pl-0">
+      <div class="d-flex justify-content-around mb-2">
+        <!-- // Like Icon -->
+        <div>
+          <i
+            style="font-size:24px;"
+            [ngStyle]="{ color: post.isLiked ? 'teal' : 'grey' }"
+            class="fa clickable"
+            (click)="like()"
+          >
+            <span style="font-size: 16px;">{{ post.likesCount }}</span>
+            &#xf087;</i
+          >
+        </div>
+        <!-- // Comment Icon -->
 
-          <div>
-            <i style="font-size:24px;color: gray;" class="fa"> <span style="font-size: 16px;">{{post.commentsCount}}</span> &#xf0e5;</i>
-          </div>
-                      <!-- // Share Icon -->
+        <div>
+          <i style="font-size:24px;color: gray;" class="fa">
+            <span style="font-size: 16px;">{{ post.commentsCount }}</span>
+            &#xf0e5;</i
+          >
+        </div>
+        <!-- // Share Icon -->
 
-          <div>
-            <i *ngIf="post.isShared"
-              style="font-size:24px; color: teal;"
-              class="fa"
-              (click)="postToShare=post"
-              > <span style="font-size: 16px;">{{post.sharesCount}}</span> &#xf1e0;</i>
-            <i *ngIf="!post.isShared"
-              style="font-size:24px;color: gray;"
-              class="fa clickable"
-              (click)="postToShare=post"
-              data-toggle="modal" data-target="#sharePostModal2"
-              > <span style="font-size: 16px;">{{post.sharesCount}}</span> &#xf1e0;</i
-            >
-          </div>
+        <div>
+          <i
+            *ngIf="post.isShared"
+            style="font-size:24px; color: teal;"
+            class="fa"
+            (click)="postToShare = post"
+          >
+            <span style="font-size: 16px;">{{ post.sharesCount }}</span>
+            &#xf1e0;</i
+          >
+          <i
+            *ngIf="!post.isShared"
+            style="font-size:24px;color: gray;"
+            class="fa clickable"
+            (click)="postToShare = post"
+            data-toggle="modal"
+            data-target="#sharePostModal2"
+          >
+            <span style="font-size: 16px;">{{ post.sharesCount }}</span>
+            &#xf1e0;</i
+          >
+        </div>
 
-          <!--start nb comment-->
-          <!-- <div class="css-1dbjc4n r-xoduu5 r-1udh08x">
+        <!--start nb comment-->
+        <!-- <div class="css-1dbjc4n r-xoduu5 r-1udh08x">
                           <span
                             class="css-901oao css-16my406 r-1qd0xha r-ad9z0x r-1n0xq6e r-bcqeeo r-d3hbel r-1wgg2b2 r-axxi2z r-qvutc0"
                           >
@@ -103,38 +133,111 @@
                               >{{ post.commentsCount }}</span
                             >
                           </span> -->
-          <!-- </div> -->
-          <!-- end nb comment-->
-        </div>
+        <!-- </div> -->
+        <!-- end nb comment-->
       </div>
     </div>
+  </div>
 
-<!-- ////////////////////////   comments  //////////////////////////////// -->
-<!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
-<!------ Include the above in your HEAD tag ---------->
+  <!-- ////////////////////////   comments  //////////////////////////////// -->
+  <!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+  <!------ Include the above in your HEAD tag ---------->
 
-<!-- <div class="container"> -->
-  <hr>
-    <div class="row" >
-        <div style="width: 100%;" class="panel panel-default widget">
-            <div class="panel-heading">
-                <span class="glyphicon glyphicon-comment"></span>
-                <div class="container">
-                  <h6 class="text-muted">
-                      Recent Comments</h6>
-
-                </div>
-                <!-- <span class="label label-info">
+  <!-- <div class="container"> -->
+  <hr />
+  <div class="row">
+    <div style="width: 100%;" class="panel panel-default widget">
+      <div class="panel-heading">
+        <span class="glyphicon glyphicon-comment"></span>
+        <div class="container">
+          <h6 class="text-muted">
+            Recent Comments
+          </h6>
+        </div>
+        <!-- <span class="label label-info">
                     78</span> -->
-            </div>
-            <div class="panel-body">
-                <ul class="list-group">
-                  <!-- // new comment // -->
+      </div>
+      <div class="panel-body">
+        <ul class="list-group">
+          <!-- // new comment // -->
 
-                  <div class="form-group m-2 form-inline">
-                    <input type="text" [(ngModel)]="commentContent" class="form-control py-2 col" aria-describedby="emailHelp" placeholder="Write something...">
-                    <input type="submit" class="btn btn-primary ml-2" (click)="comment()">
+          <div class="form-group m-2 form-inline">
+            <input
+              style="border-color: #f8c296;"
+              type="text"
+              [(ngModel)]="commentContent"
+              class="form-control py-2 col"
+              aria-describedby="emailHelp"
+              placeholder="Write something..."
+            />
+            <input
+              type="submit"
+              class="btn btn-primary ml-2"
+              (click)="comment()"
+            />
+          </div>
+
+          <li
+            *ngFor="let comment of post.comments"
+            class="list-group-item unique"
+            style="border-color: #f8c296;"
+          >
+            <div class="row">
+              <div class="col-xs-2 col-md-1">
+                <img
+                  src="http://placehold.it/80"
+                  width="35"
+                  height="35"
+                  class="img-circle img-responsive"
+                  alt=""
+                />
+              </div>
+              <div class="col-xs-10 col-md-11">
+                <div>
+                  <a
+                    class="font-weight-bold"
+                    [routerLink]="'/users/' + comment.user.username"
+                    routerLinkActive="router-link-active"
+                  >
+                    {{ comment.user.firstname + " " + comment.user.lastname }}
+                  </a>
+                  <span class="text-muted">{{ comment._id | dateAgo }}</span>
+                </div>
+                <div class="comment-text">
+                  <h6>
+                    {{ comment.content }}
+                  </h6>
+                </div>
+                <div class="d-flex justify-content-start mb-2">
+                  <!-- // Like Icon -->
+                  <div class="mx-4">
+                    <i
+                      style="font-size:18px;"
+                      [ngStyle]="{ color: comment.isLiked ? 'teal' : 'grey' }"
+                      class="fa"
+                      (click)="likeComment(comment)"
+                    >
+                      <span style="font-size: 16px;">{{
+                        comment.likesCount
+                      }}</span>
+                      <span class="clickable"> &#xf087;</span>
+                    </i>
                   </div>
+                  <!-- // Comment Icon -->
+
+                  <div class="mx-4">
+                    <i
+                      (click)="moreReplies(comment)"
+                      style="font-size:18px;color: gray;"
+                      class="fa"
+                    >
+                      <span style="font-size: 16px;">{{
+                        comment.commentsCount
+                      }}</span
+                      ><span class="clickable"> &#xf112;</span>
+                    </i>
+                  </div>
+                </div>
 
                     <li *ngFor="let comment of post.comments" class="list-group-item unique">
                         <div class="row">
@@ -183,7 +286,8 @@
                                     <!-- // new comment // -->
                   
                                     <div class="form-group m-2 form-inline">
-                                      <input type="text" [(ngModel)]="comment.commentContent" class="form-control py-2 col" aria-describedby="emailHelp" placeholder="Write something...">
+                                      <input                         style="border-color: #f8c296;"
+                                      type="text" [(ngModel)]="comment.commentContent" class="form-control py-2 col" aria-describedby="emailHelp" placeholder="Write something...">
                                       <input type="submit" class="btn btn-primary ml-2" (click)="reply(comment)">
                                     </div>
                                         <li *ngFor="let comment of comment.comments" class="list-group-item unique">
@@ -237,50 +341,89 @@
                               </div>
 
                             </div>
+                            <!-- // Comment Icon -->
+                          </div>
+
+                          <!-- second storey -->
                         </div>
+                      </div>
                     </li>
-                   
-                </ul>
-                <a *ngIf="post.comments.length != post.commentsCount" (click)="moreComments()" style="color: white;" class="btn btn-primary btn-sm btn-block" role="button"><span class="glyphicon glyphicon-refresh"></span> More</a>
+                  </ul>
+                  <a
+                    *ngIf="comment.comments.length != comment.commentsCount"
+                    (click)="moreComments()"
+                    style="color: white;"
+                    class="btn btn-primary btn-sm btn-block"
+                    role="button"
+                    ><span class="glyphicon glyphicon-refresh"></span> More</a
+                  >
+                </div>
+              </div>
             </div>
-        </div>
+          </li>
+        </ul>
+        <a
+          *ngIf="post.comments.length != post.commentsCount"
+          (click)="moreComments()"
+          style="color: white;"
+          class="btn btn-primary btn-sm btn-block"
+          role="button"
+          ><span class="glyphicon glyphicon-refresh"></span> More</a
+        >
+      </div>
     </div>
-<!-- </div> -->
-
-
-
   </div>
+  <!-- </div> -->
+</div>
 
-
-
-
-
-
-  <div class="modal fade" id="sharePostModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div  class="modal-dialog" role="document">
+<div
+  class="modal fade"
+  id="sharePostModal2"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Share Post</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
         <form #sharePostForm="ngForm">
-
-          <input class="form-control" placeholder="Write something..." type="text" ngModel name="content">
-
+          <input
+            class="form-control"
+            placeholder="Write something..."
+            type="text"
+            ngModel
+            name="content"
+          />
         </form>
-          <app-bubble-post [post]='post'></app-bubble-post>
-        
+        <app-bubble-post [post]="post"></app-bubble-post>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button (click)="share(sharePostForm)" type="button" data-dismiss="modal" class="btn btn-primary mb-4">Share</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+        <button
+          (click)="share(sharePostForm)"
+          type="button"
+          data-dismiss="modal"
+          class="btn btn-primary mb-4"
+        >
+          Share
+        </button>
       </div>
     </div>
-  </div >
+  </div>
 </div>
 
 <!-- Add Post Modal -->
-

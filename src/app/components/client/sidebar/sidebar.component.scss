@@ -39,3 +39,34 @@ label {
 h5 {
   font-family: "Inconsolata", "monospace";
 }
+.main__avatar {
+  background-size: cover;
+  background-position: center;
+  width: 150px;
+  height: 150px;
+  display: block;
+  padding: 0;
+  // vertical-align: middle;
+  margin: 20px auto;
+  border-radius: 50%;
+  // overflow: hidden;
+}
+.main__avatar:hover .main__avatar--overlay {
+  opacity: 1;
+  border-radius: 50%;
+}
+
+.main__avatar--overlay {
+  opacity: 0;
+  color: #fff;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  margin: -1px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.image-upload > input {
+  display: none;
+}
