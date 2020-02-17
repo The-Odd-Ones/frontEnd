@@ -116,7 +116,7 @@
               class="list-group py-0"
               style="max-height: 300px; width: 250px; overflow-y: scroll;overflow-x: hidden;"
             >
-              <li *ngIf="!notifications.length" class="text-muted unique">
+              <li *ngIf="!notifications.length" class="text-muted unique m-2">
                 No notifications yet
               </li>
               <li
@@ -193,9 +193,10 @@
 <div style="display: flex;">
   <div style="flex:1"></div>
   <app-sidebar style="flex: 2;"></app-sidebar>
-  <div [ngStyle]="{ flex: extraDiv ? 8 : 13 }">
+  <div [ngStyle]="{ flex: extraDiv ? 8 : 15 }">
     <router-outlet></router-outlet>
   </div>
+
   <div *ngIf="extraDiv" style="flex: 5;" class="mx-4">
     <app-recommendations></app-recommendations>
   </div>
