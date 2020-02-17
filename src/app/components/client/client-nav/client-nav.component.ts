@@ -15,7 +15,8 @@ import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 export class ClientNavComponent implements OnInit {
   logout() {
     localStorage.clear();
-    this.router.navigate([""]);
+    // this.router.navigate([""]);
+    location.reload()
   }
   unseenCount: Number;
   $Community: Observable<any>;

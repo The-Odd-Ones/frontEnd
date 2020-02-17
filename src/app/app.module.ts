@@ -32,6 +32,7 @@ import { environment } from "../environments/environment";
 import { firebase } from "../environments/firebase";
 import { VerifyComponent } from './components/shared/verify/verify.component';
 import { CommunityComponent } from './components/community/community.component';
+import { NotfoundComponent } from './components/shared/notfound/notfound.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +56,8 @@ import { CommunityComponent } from './components/community/community.component';
     RecommendationsComponent,
     SearchComponent,
     VerifyComponent,
-    CommunityComponent
+    CommunityComponent,
+    NotfoundComponent
   ],
   imports: [
     BrowserModule,

@@ -9,7 +9,11 @@
       <a class="card-link col-12 p-0 p-1">
         <div class="col-12 pl-0">
           <img
-            src="https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png"
+          [src]="
+          post.user.file
+            ? post.user.file
+            : 'https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png'
+        "
             class="ImgProfile mx-2"
           />
           <a
@@ -135,7 +139,11 @@
                     <li *ngFor="let comment of post.comments" class="list-group-item unique">
                         <div class="row">
                             <div class="col-xs-2 col-md-1">
-                                <img src="http://placehold.it/80" width="35" height="35" class="img-circle img-responsive" alt="" /></div>
+                                <img   [src]="
+                                post.user.file
+                                  ? post.user.file
+                                  : 'https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png'
+                              " width="35" height="35" class="ImgProfile" alt="" /></div>
                             <div class="col-xs-10 col-md-11">
                                 <div>
                                     <a class="font-weight-bold" [routerLink]="'/users/' + comment.user.username" routerLinkActive="router-link-active" >
@@ -181,7 +189,11 @@
                                         <li *ngFor="let comment of comment.comments" class="list-group-item unique">
                                             <div class="row">
                                                 <div class="col-xs-2 col-md-1">
-                                                    <img src="http://placehold.it/80" width="35" height="35" class="img-circle img-responsive" alt="" /></div>
+                                                    <img   [src]="
+                                                    post.user.file
+                                                      ? post.user.file
+                                                      : 'https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png'
+                                                  " width="35" height="35" class="ImgProfile" alt="" /></div>
                                                 <div class="col-xs-10 col-md-11">
                                                     <div>
                                                         <a class="font-weight-bold" [routerLink]="'/users/' + comment.user.username" routerLinkActive="router-link-active" >

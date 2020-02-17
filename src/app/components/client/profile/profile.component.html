@@ -135,7 +135,11 @@
                   <div class="p-1 row">
                     <a class="card-link col-2 p-0 text-center">
                       <img
-                        src="https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png"
+                      [src]="
+                      follower.follower.file
+                        ? follower.follower.file
+                        : 'https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png'
+                    "
                         class="ImgProfile mx-4"
                       />
                     </a>
@@ -214,7 +218,11 @@
                   <div class="p-1 row">
                     <a class="card-link col-2 p-0 text-center">
                       <img
-                        src="https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png"
+                         [src]="
+                         following.followed.file
+              ?  following.followed.file
+              : 'https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png'
+          "
                         class="ImgProfile mx-4"
                       />
                     </a>
