@@ -1,15 +1,41 @@
-.parent{
-    border-right: solid rgba(214, 214, 214, 0.26) 3px;
-    display: flex;
-    flex-direction: column;
-    height: 90vh;
-    padding: 10px;
-    color: grey;
+.parent {
+  border-right: solid #f8c296 2px;
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  padding: 10px;
+  color: grey;
 }
 
-.parent p:hover{
-   
-    color: black;
-    cursor: pointer;
+.parent p:hover {
+  color: black;
+  cursor: pointer;
 }
 
+span {
+  border: 2px solid black;
+  border-radius: 7%;
+  padding-left: 35px;
+  font-family: "Inconsolata", "monospace";
+}
+
+span:hover {
+  background-color: black;
+  color: white;
+}
+.modal-footer {
+  padding: 20px;
+}
+h5 {
+  font-family: "Inconsolata", "monospace";
+  font-weight: bold;
+}
+p {
+  font-family: "Inconsolata", "monospace";
+}
+label {
+  font-family: "Inconsolata", "monospace";
+}
+h5 {
+  font-family: "Inconsolata", "monospace";
+}

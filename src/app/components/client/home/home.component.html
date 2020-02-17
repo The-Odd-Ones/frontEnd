@@ -1,14 +1,27 @@
 <div *ngIf="posts" class="container">
-    <h5 class="text-muted my-2">Home</h5>
-    <div class="row justify-content-around text-center">
-        <h4 style="cursor: pointer;" [ngClass]="{'text-muted': status == 'events'}" (click)="status = 'posts'" class="col">Posts</h4 >
-        <h4 style="cursor: pointer;" [ngClass]="{'text-muted': status == 'posts'}" (click)="status = 'events'" class="col">Events</h4>
-    </div>
-    <div *ngIf="status == 'posts'">
-        <app-posts  [posts]="posts"></app-posts>
-    </div>
-    <div *ngIf="status == 'events' && $events | async as events">
-        <app-events [events]="events"></app-events>
-    </div>
-
+  <h5 class="text-muted my-2">&nbsp;</h5>
+  <div class="row justify-content-around text-center">
+    <h4
+      style="cursor: pointer; "
+      [ngClass]="{ 'text-muted': status == 'events' }"
+      (click)="status = 'posts'"
+      class="col"
+    >
+      Posts
+    </h4>
+    <h4
+      style="cursor: pointer;"
+      [ngClass]="{ 'text-muted': status == 'posts' }"
+      (click)="status = 'events'"
+      class="col"
+    >
+      Events
+    </h4>
+  </div>
+  <div *ngIf="status == 'posts'">
+    <app-posts [posts]="posts"></app-posts>
+  </div>
+  <div *ngIf="status == 'events' && $events | async as events">
+    <app-events [events]="events"></app-events>
+  </div>
 </div>

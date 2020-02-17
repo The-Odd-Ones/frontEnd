@@ -82,16 +82,10 @@
 /*    Profile Page
 /*------------------------------------------------*/
 
-
 .profile-header-background {
   margin: -10px -20px 0 -20px;
   padding: 100px;
-  background-image: linear-gradient(
-    -225deg,
-    #aa4b6b 0%,
-    #6b6b83 29%,
-    #3b8d99 67%
-  );
+  background-image: linear-gradient(45deg, #8baaaa 0%, #ae8b9c 100%);
 }
 .profile-header-background img {
   width: 100%;
@@ -374,7 +368,6 @@
   z-index: 1;
 }
 
-
 .nav-pills-custom-minimal > li > a {
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
@@ -420,7 +413,7 @@
   display: inline-block;
   padding: 10px;
   border-radius: 6px;
-  font-family: sans-serif;
+  font-family: "Inconsolata", "monospace";
   cursor: pointer;
   z-index: 999;
 }
@@ -434,6 +427,6 @@
   display: inline-block;
   padding: 1rem;
   border-radius: 6px;
-  font-family: sans-serif;
+  font-family: "Inconsolata", "monospace";
   cursor: pointer;
 }
