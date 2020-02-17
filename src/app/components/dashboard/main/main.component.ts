@@ -577,7 +577,7 @@ export class DashboardComponent implements OnInit {
      
       this.labels = data['result'].map(one => (new Date(one._id).getDate()))
       this.data = data['result'].map(one => one.users)
-      this.registerAvg = Math.floor(this.data.reduce((one,acc)=>acc + one) / this.data.length)
+      this.registerAvg = this.data.reduce((one,acc)=>acc + one) / this.labels[this.labels.length-1] 
       this.updateOptions(this.usersChart, 'Users');
     })
     

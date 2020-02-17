@@ -222,7 +222,6 @@
                     <!-- <p class="text-muted">{{ post.createdAt }}</p> -->
                   </div>
                   <div
-                    *ngIf="following.followed.username !== currentUser.username"
                     class="media-body"
                   >
                     <a [routerLink]="'/users/' + following.followed.username"
