@@ -37,7 +37,7 @@ export class SidebarComponent implements OnInit {
         div.click();
 
         form.reset();
-        var inputValue = ((<HTMLInputElement>(
+        var inputVxalue = ((<HTMLInputElement>(
           document.getElementById("image")
         )).src = "");
       } else {
@@ -50,7 +50,7 @@ export class SidebarComponent implements OnInit {
       }
     });
   }
-  makeEvent(form) {
+  makeEvent(form, div) {
     console.log("before request");
     var formData = new FormData(form);
     console.log(formData);
@@ -63,7 +63,20 @@ export class SidebarComponent implements OnInit {
       console.log(data);
       if (data.success) {
         this.data.eventPusher.next(data.result);
+
+        div.click();
         form.reset();
+        (<HTMLElement>document.querySelector(".main__avatar")).style[
+          "background-image"
+        ] =
+          "https://www.belfercenter.org/themes/belfer/images/event-default-img-med.png";
+      } else {
+        Snackbar.show({
+          text: "fill all information about the event",
+          width: "200px",
+          pos: "top-center",
+          actionTextColor: "#BF223C"
+        });
       }
     });
   }
@@ -90,12 +103,16 @@ export class SidebarComponent implements OnInit {
       this.lng = data.coords.longitude;
     });
   }
-  upload(e: any, img) {
-    console.log(e);
+  upload(e: any, img, div) {
+    console.log(div);
     var input = e.target;
 
     if (input.files && input.files[0]) {
-      img.src = `${URL.createObjectURL(input.files[0])}`;
+      if (img) img.src = `${URL.createObjectURL(input.files[0])}`;
+      if (div)
+        div.style["background-image"] = `url(${URL.createObjectURL(
+          input.files[0]
+        )})`;
     }
   }
 }

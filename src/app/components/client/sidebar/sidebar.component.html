@@ -35,16 +35,6 @@
 >
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <!-- <div style="border: none;" class="modal-header">
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div> -->
       <div class="modal-body">
         <form #addPostForm>
           <input
@@ -161,19 +151,66 @@
               />
             </div>
           </div>
-          <input class="my-2" type="file" ngModel name="file" />
+          <div
+            #eventImagePlaceholder
+            class="main__avatar"
+            style="background-image: url(https://www.belfercenter.org/themes/belfer/images/event-default-img-med.png);"
+          >
+            <div class="main__avatar--overlay">
+              <div class="image-upload">
+                <label for="file-input">
+                  <img
+                    style="margin: 60px; cursor: pointer; width: 30px;"
+                    src="../../../assets/camera.png"
+                  />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <input
+            style="display: none;"
+            (change)="upload($event, null, eventImagePlaceholder)"
+            id="file-input"
+            class="my-2"
+            type="file"
+            ngModel
+            name="file"
+          />
+          <!-- div for image -->
+          <!-- <div
+            #image
+            class="main__avatar"
+            [ngStyle]="{
+              'background-image': user.file
+                ? 'url(' + user.file + ')'
+                : 'url(https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png)'
+            }"
+          > -->
+          <!-- <div class="main__avatar--overlay">
+              <div class="image-upload">
+                <label for="file-input">
+                  <img
+                    style="margin: 60px; cursor: pointer; width: 30px;"
+                    src="../../../assets/camera.png"
+                  />
+                </label>
+              </div>
+            </div> -->
+          <!-- </div> -->
+          <!-- ends here -->
           <app-maps [changeable]="true" [lat]="lat" [lng]="lng"></app-maps>
         </form>
       </div>
       <div style="border: none;" class="modal-footer">
         <button
-          (click)="makeEvent(makeEventForm)"
+          (click)="makeEvent(makeEventForm, eventDiv)"
           type="button"
-          data-dismiss="modal"
           class="btn btn-primary"
         >
           <h5 style="margin: 0;">Add</h5>
         </button>
+        <div #eventDiv data-dismiss="modal"></div>
       </div>
     </div>
   </div>
