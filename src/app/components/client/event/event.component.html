@@ -33,11 +33,20 @@
             </div>
           </div>
         </div>
-        <div style="display: flex;">
+        <div
+            style="display: flex; flex-direction: column; justify-content: center;"
+          >
+            <p style=" font-size: 10px;" class="text-muted text-center">{{
+              event.start | date:'short'
+            }}  |  {{
+              event.end | date:'short'
+            }}</p>
+          </div>
+        <div style="display: flex;justify-content: center;">
           <button
             *ngIf="!event.isEnrolled"
             (click)="enroll(event)"
-            class="btn btn-sm btn-outline-primary"
+            class="btn btn-outline-primary"
           >
             Go
           </button>
@@ -45,7 +54,7 @@
             (mouseenter)="hover = event._id"
             (mouseleave)="hover = null"
             *ngIf="event.isEnrolled"
-            class="btn btn-sm btn-primary"
+            class="btn btn-primary"
             (click)="enroll(event)"
             [ngClass]="{ 'btn-danger': hover == event._id }"
             style="color: white"
@@ -59,13 +68,7 @@
               {{ event.enrollsCount }} <i class="fa fa-users"></i>
             </p>
           </div>
-          <div
-            style="display: flex; flex-direction: column; justify-content: center;"
-          >
-            <span style=" font-size: 10px;" class="text-muted">{{
-              event.start | date
-            }}</span>
-          </div>
+          
         </div>
         <div style="height: fit-content;" class="description text-center">
           <p>
@@ -155,7 +158,7 @@
       src="{{ event.file }}"
       alt="Circle Image"
       style="object-fit: cover;"
-      class="img-raised rounded-circle img-fluid mx-4 my-2"
+      class="img-raised rounded-circle mx-4 my-2"
     />
     <div
       style="display: flex; flex-direction: column; justify-content: center;"
