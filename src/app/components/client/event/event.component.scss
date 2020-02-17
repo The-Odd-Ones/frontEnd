@@ -144,11 +144,7 @@ a .material-icons {
   border-radius: 50% !important;
 }
 
-.img-fluid,
-.img-thumbnail {
-  max-width: 100%;
-  height: auto;
-}
+
 
 .title {
   margin-top: 30px;
@@ -231,10 +227,6 @@ p {
   padding-bottom: 50px;
 }
 
-.profile-page .gallery img {
-  width: 100%;
-  margin-bottom: 2.142rem;
-}
 
 .profile-page .profile .name {
   margin-top: -80px;
@@ -249,23 +241,7 @@ img.rounded {
 }
 
 /*buttons*/
-.btn {
-  position: relative;
-  padding: 12px 30px;
-  margin: 0.3125rem 1px;
-  font-size: 0.75rem;
-  font-weight: 400;
-  line-height: 1.428571;
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 0;
-  border: 0;
-  border-radius: 0.2rem;
-  outline: 0;
-  transition: box-shadow 0.2s cubic-bezier(0.4, 0, 1, 1),
-    background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: box-shadow, transform;
-}
+
 
 .btn.btn-just-icon {
   font-size: 20px;
@@ -559,6 +535,8 @@ footer p a:hover {
   -webkit-border-radius: 2px;
   border-radius: 2px;
   width: 40px;
+  height: 40px;
+  object-fit: cover;
 }
 .user-follower a,
 .user-following a {

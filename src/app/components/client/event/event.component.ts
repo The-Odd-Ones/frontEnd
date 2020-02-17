@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Params } from "@angular/router";
 import { EventsComponent } from "../events/events.component";
 import { HttpService } from "src/app/services/http/http.service";
+import { DataService } from 'src/app/services/data/data.service';
 
 @Component({
   selector: "app-event",
@@ -14,6 +15,7 @@ export class EventComponent implements OnInit {
   postsState:boolean = false;
   user:any;
   friends:any;
+  id:any;
   hover:String = null;
   enroll(){
     this.http.get(`/events/${this.event._id}/enrollment`).subscribe(data => {
@@ -33,7 +35,8 @@ export class EventComponent implements OnInit {
   }
   constructor(
     private activatedRoute: ActivatedRoute,
-    private http: HttpService
+    private http: HttpService,
+    private data : DataService
   ) {}
 
   addPost(form) {
@@ -100,6 +103,12 @@ export class EventComponent implements OnInit {
     this.http.post(`/events/${this.event._id}/invite`, {invite}).subscribe(data => console.log(data))
   }
   ngOnInit() {
+
+    this.data.scrolled.subscribe(data =>{
+      if(/events/.test(data)){
+        this.getPosts(this.id)
+      }
+    })
     this.http.get('/users/profile').subscribe((data:any) => {
       if(data.success){
         this.user = data.result
@@ -111,15 +120,43 @@ export class EventComponent implements OnInit {
       }
     });
     this.activatedRoute.params.subscribe((params: Params) => {
+      this.id = params.id
       this.http.get(`/events/${params.id}`).subscribe(data => {
         console.log(data["result"])
         this.event = data["result"];
       });
-      this.http
-        .get(`/events/${params.id}/posts`)
-        .subscribe(data => {
-          this.posts = data["result"];
-        });
+      this.getPosts(this.id)
     });
   }
+
+
+  getPosts(id){
+    this.http.get(`/events/${id}/posts`, `?page=${this.posts.length}`).subscribe((data:any) => {
+      if(data.noCommunity){
+        this.data.noCommunity.next()
+        return null
+
+      }else {
+        data.result.map(post =>{ 
+          if(post.file){
+            if(/video\/upload/.test(post.file)){
+              post.isVideo = true
+            }
+          }else if(post.sharedpost){
+            if(post.sharedpost.file){
+              if(/video\/upload/.test(post.sharedpost.file)){
+                post.sharedpost.isVideo = true
+              }
+            }
+          }
+          return post
+        })
+        this.posts = [...this.posts, ...data.result]
+        this.data.fetching = false
+        if(!data.result.length) this.data.done = true
+
+      } 
+    })
+  }
+
 }

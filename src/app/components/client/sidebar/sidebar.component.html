@@ -2,18 +2,18 @@
   <p id="toggleCommunity" data-toggle="modal" data-target="#communityModal">
     Change Community
   </p>
-  <p data-toggle="modal" data-target="#addPostModal">Add new post</p>
-  <p data-toggle="modal" data-target="#makeEventModal">Make an event</p>
-
-  <p [routerLink]="['/settings']" routerLinkActive="router-link-active">
-    Settings
-  </p>
   <p
     style="font-family: 'Inconsolata', 'monospace'"
     routerLink="/profile"
     routerLinkActive="router-link-active"
   >
     Profile
+  </p>
+  <p data-toggle="modal" data-target="#addPostModal">Add new post</p>
+  <p data-toggle="modal" data-target="#makeEventModal">Make an event</p>
+
+  <p [routerLink]="['/settings']" routerLinkActive="router-link-active">
+    Settings
   </p>
 
   <p *ngIf="!dark" (click)="darken()">

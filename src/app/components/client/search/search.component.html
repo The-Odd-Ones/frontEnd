@@ -1,51 +1,57 @@
-<form class="form-inline d-flex dropdown w-100">
-  <input
-    autocomplete="off"
-    data-toggle="dropdown"
-    #search
-    id="keyword"
-    [formControl]="queryField"
-    class="searchbar"
-    placeholder="Search..."
-    autocomplete="off"
-  />
-  <!-- (focusout)="search.value = ''; results = null" -->
-  <a id="btnSearch" class="btn-search"><i class="fa fa-search"></i></a>
-  <ul
-    class="dropdown-menu unique w-100 "
-    role="menu"
-    aria-labelledby="keyword"
-    [ngStyle]="{ display: results ? 'inline-block' : 'none' }"
-  >
-    <li *ngIf="results">
-      <p
-        style="display: flex; justify-content: center; margin-top: 15px; font-family:'Inconsolata', 'monospace ;"
-        *ngIf="!results.length"
-      >
-        not found
-      </p>
-    </li>
-    <li
-      class="filter-select-list"
-      role="presentation"
-      *ngFor="let result of results"
+<div>
+  <form class="form-inline d-flex dropdown w-100">
+    <input
+      autocomplete="off"
+      data-toggle="dropdown"
+      #search
+      id="keyword"
+      [formControl]="queryField"
+      class="searchbar"
+      placeholder="Search..."
+      autocomplete="off"
+    />
+    <a id="btnSearch" class="btn-search"><i class="fa fa-search"></i></a>
+    <ul
+      class="dropdown-menu unique w-100 "
+      role="menu"
+      style="max-height: 300px; overflow-y: scroll;"
+      aria-labelledby="keyword"
+      [ngStyle]="{ display: results ? 'inline-block' : 'none' }"
     >
-      <img
-        [src]="
-          result.image
-            ? result.image
-            : 'https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png'
-        "
-        alt=""
-        width="50"
-        height="50"
-      />
+      <li *ngIf="results">
+        <p
+          style="display: flex; justify-content: center; margin-top: 15px; font-family:'Inconsolata', 'monospace ;"
+          *ngIf="!results.length"
+        >
+          not found
+        </p>
+      </li>
+      <li
+        class="filter-select-list"
+        role="presentation"
+        *ngFor="let result of results"
+        (blur)="search.value = ''; results = null"
+        (click)="search.value = ''; results = null"
+      >
+        <img
+          [src]="
+            result.image
+              ? result.image
+              : 'https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png'
+          "
+          alt=""
+          width="50"
+          height="50"
+        />
 
-      <a class="artist-name" [routerLink]="['/users/', result.username]">{{
-        result.name
-      }}</a>
-      <span class="tags"> {{ result.username }} </span>
-      <div *ngIf="results.length > 1" class="dropdown-divider"></div>
-    </li>
-  </ul>
-</form>
+        <a
+          class="artist-name"
+          [routerLink]="['/users/', result.username]"
+          routerLinkActive="router-link-active"
+          >{{ result.name }}</a
+        >
+        <span class="tags"> {{ result.username }} </span>
+      </li>
+    </ul>
+  </form>
+</div>
