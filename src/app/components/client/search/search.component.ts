@@ -28,9 +28,9 @@ export class SearchComponent implements OnInit {
         if (queryField) {
           console.log(queryField);
           this.results = queryField["results"];
-          var inputValue = ((<HTMLInputElement>(
-            document.getElementById("keyword")
-          )).value = "");
+          // var inputValue = ((<HTMLInputElement>(
+          //   document.getElementById("keyword")
+          // )).value = "");
         } else {
           return;
         }

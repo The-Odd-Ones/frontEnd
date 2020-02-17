@@ -4,6 +4,7 @@ import { HttpService } from "src/app/services/http/http.service";
 import { DataService } from "src/app/services/data/data.service";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
+import { __await } from "tslib";
 declare var Snackbar: any;
 
 @Component({
@@ -34,7 +35,11 @@ export class SidebarComponent implements OnInit {
         this.data.postPusher.next(data.result);
 
         div.click();
+
         form.reset();
+        var inputValue = ((<HTMLInputElement>(
+          document.getElementById("image")
+        )).src = "");
       } else {
         Snackbar.show({
           text: "write something",

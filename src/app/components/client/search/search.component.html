@@ -41,12 +41,9 @@
         height="50"
       />
 
-      <a
-        class="artist-name"
-        [routerLink]="['/users/', result.username]"
-        routerLinkActive="router-link-active"
-        >{{ result.name }}</a
-      >
+      <a class="artist-name" [routerLink]="['/users/', result.username]">{{
+        result.name
+      }}</a>
       <span class="tags"> {{ result.username }} </span>
       <div *ngIf="results.length > 1" class="dropdown-divider"></div>
     </li>
