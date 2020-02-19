@@ -42,7 +42,15 @@
         </div>
         <div style="display: flex;justify-content: center;">
           <button
-            *ngIf="!event.isEnrolled"
+          *ngIf="event.user.username == user.username"
+          data-toggle="modal" data-target=".bd-example-modal-sm"
+        
+          class="btn btn-danger"
+        >
+          Remove
+        </button>
+          <button
+            *ngIf="!event.isEnrolled && !(event.user.username == user.username)"
             (click)="enroll(event)"
             class="btn btn-outline-primary"
           >
@@ -51,7 +59,7 @@
           <a
             (mouseenter)="hover = event._id"
             (mouseleave)="hover = null"
-            *ngIf="event.isEnrolled"
+            *ngIf="event.isEnrolled && !(event.user.username == user.username)"
             class="btn btn-primary"
             (click)="enroll(event)"
             [ngClass]="{ 'btn-danger': hover == event._id }"
@@ -258,17 +266,7 @@
 >
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="inviteLabel">Invite</h5>
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
+    
       <div *ngIf="friends" class="modal-body">
         <div class="container p-4 card" style="padding-bottom: 0!important;">
           <div>
@@ -319,43 +317,11 @@
                   ></label>
                 </div>
               </div>
-              <!-- <button
-                (click)="unfollow(friend.followers,i)"
-                type="button"
-                class="btn btn-sm btn-primary 
-                pull-right"
-                *ngIf="friend.follower.followedByYou"
-                [ngClass]="{ 'btn-danger': hover == friend.follower._id }"
-                (mouseenter)="hover = friend.follower._id"
-                (mouseleave)="hover = null"
-                >
-                <i class="fa fa-checkmark-round" style="color: white">
-                  {{ hover == friend.follower._id ? "unfollow" : "Following" }}
-                </i>
-              </button> -->
-              <!-- 
-                <button
-                  *ngIf="!friend.follower.followedByYou"
-                  (click)="follow(friend.followers,i)"
-                  type="button"
-                  class="btn btn-sm btn-primary 
-            pull-right"
-                >
-                  <i *ngIf="friend.follower.followsYou" class="fa fa-checkmark-round">
-                    Follow back
-                  </i>
-                  <i *ngIf="!friend.follower.followsYou" class="fa fa-checkmark-round">
-                    Follow
-                  </i>
-                </button> -->
             </div>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">
-          Close
-        </button>
         <button
           type="button"
           class="btn btn-primary"
@@ -364,6 +330,26 @@
         >
           Invite
         </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- delete event modal -->
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    
+      <div class="modal-footer">
+       
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="removeEvent()">Remove</button>
       </div>
     </div>
   </div>

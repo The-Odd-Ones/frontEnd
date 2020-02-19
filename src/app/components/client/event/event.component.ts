@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { EventsComponent } from "../events/events.component";
 import { HttpService } from "src/app/services/http/http.service";
 import { DataService } from "src/app/services/data/data.service";
@@ -41,7 +41,8 @@ export class EventComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private http: HttpService,
-    private data: DataService
+    private data: DataService,
+    private router : Router
   ) {}
 
   addPost(form, div) {
@@ -129,8 +130,10 @@ export class EventComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       this.id = params.id;
       this.http.get(`/events/${params.id}`).subscribe(data => {
-        console.log(data["result"]);
-        this.event = data["result"];
+        if(data["success"]){
+          this.event = data["result"];
+
+        }else this.router.navigate(['404'])
       });
       this.getPosts(this.id);
     });
@@ -164,4 +167,15 @@ export class EventComponent implements OnInit {
         }
       });
   }
+
+ 
+  removeEvent(){
+    this.http.delete(`/events/${this.event._id}`).subscribe(data =>{
+      console.log(data)
+      if(data['success']){
+      this.router.navigate([''])
+      } 
+    })  
+  }
+
 }

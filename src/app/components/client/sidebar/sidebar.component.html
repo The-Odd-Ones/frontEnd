@@ -1,9 +1,12 @@
 <div class="parent">
-  <p id="toggleCommunity" data-toggle="modal" data-target="#communityModal">
-    Change Community
+
+  <p
+    routerLink="/"
+    routerLinkActive="router-link-active"
+  >
+    Home
   </p>
   <p
-    style="font-family: 'Inconsolata', 'monospace'"
     routerLink="/profile"
     routerLinkActive="router-link-active"
   >
@@ -11,7 +14,9 @@
   </p>
   <p data-toggle="modal" data-target="#addPostModal">Add new post</p>
   <p data-toggle="modal" data-target="#makeEventModal">Make an event</p>
-
+  <p id="toggleCommunity" data-toggle="modal" data-target="#communityModal">
+    Change Community
+  </p>
   <p [routerLink]="['/settings']" routerLinkActive="router-link-active">
     Settings
   </p>
@@ -56,6 +61,17 @@
 
           <div>
             <img id="image" #image src="" width="100%" />
+            <!-- <video
+            
+            width="100%"
+            height="330"
+            class="mb-4"
+            controls
+          >
+            <source src="" #mp4 type="video/mp4" />
+            <source src="" #avi type="video/avi" />
+            <source src="" #mkv type="video/mkv" />
+          </video> -->
           </div>
         </form>
       </div>

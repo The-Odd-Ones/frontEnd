@@ -42,6 +42,7 @@ export class HomeComponent implements OnInit {
         this.posts = [...this.posts, ...data.posts]
         this.data.fetching = false
         if(!data.posts.length) this.data.done = true
+        console.log(this.posts[0].sharedpost , this.posts[1].sharedpost)
 
       } 
     })

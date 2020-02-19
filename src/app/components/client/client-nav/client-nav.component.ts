@@ -46,6 +46,7 @@ export class ClientNavComponent implements OnInit {
     this.data.Community.subscribe(data => {
       this.http.get("/notifications").subscribe(data => {
         if (data["success"]) {
+          // console.log(data)
           this.notifications = data["result"];
           this.unseenCount = data["unseenCount"];
         }

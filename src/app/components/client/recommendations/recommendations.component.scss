@@ -101,7 +101,6 @@
     object-fit: cover;
   }
   .profile-info-left h2 {
-    font-family: "josefinslab-semibold";
     margin-bottom: 30px;
   }
   .profile-info-left .section {
@@ -408,7 +407,6 @@
     display: inline-block;
     padding: 10px;
     border-radius: 6px;
-    font-family: sans-serif;
     cursor: pointer;
     z-index: 999;
   }
@@ -424,7 +422,6 @@
     display: inline-block;
     padding: 1rem;
     border-radius: 6px;
-    font-family: sans-serif;
     cursor: pointer;
   }
   
@@ -461,4 +458,7 @@
     height: 55px;
     object-fit: cover;
     border-radius: 50px;
+  }
+   div{
+    border-color: #f8c296;
   }
