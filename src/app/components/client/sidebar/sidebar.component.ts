@@ -32,6 +32,10 @@ export class SidebarComponent implements OnInit {
     this.http.post("/posts", formData).subscribe((data: any) => {
       console.log(data);
       if (data.success) {
+          if(/video\/upload/.test(data.result.file)){
+            data.result.isVideo = true
+          }
+        
         this.data.postPusher.next(data.result);
 
         div.click();
@@ -104,11 +108,17 @@ export class SidebarComponent implements OnInit {
     });
   }
   upload(e: any, img, div) {
-    console.log(div);
     var input = e.target;
-
+    
     if (input.files && input.files[0]) {
-      if (img) img.src = `${URL.createObjectURL(input.files[0])}`;
+      let isVideo = /mp4|mkv|avi/.test(input.files[0].name)
+      if (img && !isVideo) img.src = `${URL.createObjectURL(input.files[0])}`;
+      // if (vid && isVideo) vid.forEach(one => {
+      //   one.src = `${URL.createObjectURL(input.files[0])}` 
+      //   console.log(one.src)
+
+      // })
+
       if (div)
         div.style["background-image"] = `url(${URL.createObjectURL(
           input.files[0]

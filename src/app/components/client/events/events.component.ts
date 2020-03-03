@@ -11,6 +11,7 @@ export class EventsComponent implements OnInit {
   @Input() events = []
   constructor(private http: HttpService,private data : DataService) {}
   hover:String = null;
+  user:any;
   enroll(event){
     this.http.get(`/events/${event._id}/enrollment`).subscribe(data => {
       if(data['success']){
@@ -29,6 +30,12 @@ export class EventsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.http.get("/users/profile").subscribe((data: any) => {
+      if (data.success) {
+        this.user = data.result;
+        
+      }
+    });
     this.data.eventPusher.subscribe((data:Object)=>{
       if(/home/.test(location.href) || /profile/.test(location.href)){
         this.events.unshift(data)

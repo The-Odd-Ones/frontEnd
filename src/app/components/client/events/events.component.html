@@ -20,7 +20,7 @@ style="max-height: 80vh;overflow-y:scroll"
       "
       class="card-img-top"
       alt="Event Image"
-      style="object-fit: contain;"
+      style="object-fit: contain; margin-top: 10px;"
     />
     <div class="card-body">
       <!-- <em style="float:right"
@@ -35,10 +35,10 @@ style="max-height: 80vh;overflow-y:scroll"
       <p style="height: 70px;overflow: hidden;" class="card-text text-muted">
         {{ event.description }}
       </p>
-      <div style="display: flex;">
+      <div style="display: flex; margin-bottom: 12px">
         <button
-          *ngIf="!event.isEnrolled"
-          (click)="enroll()"
+          *ngIf="!event.isEnrolled && (event.user !== user._id)"
+          (click)="enroll(event)"
           class="btn btn-outline-primary"
         >
           Go
@@ -46,11 +46,11 @@ style="max-height: 80vh;overflow-y:scroll"
         <a
           (mouseenter)="hover = event._id"
           (mouseleave)="hover = null"
-          *ngIf="event.isEnrolled"
+          *ngIf="event.isEnrolled && (event.user !== user._id)"
           class="btn btn-primary"
           (click)="enroll(event)"
           [ngClass]="{ 'btn-danger': hover == event._id }"
-          style="color: white"
+          style="color: white; "
         >
           {{ hover == event._id ? "Leave" : "Going" }}
         </a>

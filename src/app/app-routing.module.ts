@@ -17,6 +17,7 @@ import { PostComponent } from "./components/client/post/post.component";
 import { EventComponent } from "./components/client/event/event.component";
 import { VerifyComponent } from "./components/shared/verify/verify.component";
 import { CommunityComponent } from "./components/community/community.component";
+import { NotfoundComponent } from './components/shared/notfound/notfound.component';
 
 const routes: Routes = [
   { path: "", component: EntranceComponent, canActivate: [AuthGuardGuest] },
@@ -30,7 +31,8 @@ const routes: Routes = [
       { path: "profile", component: ProfileComponent },
       { path: "users/:username", component: ProfileComponent },
       { path: "events/:id", component: EventComponent },
-      { path: "settings", component: SettingsComponent }
+      { path: "settings", component: SettingsComponent },
+      { path: "404", component:NotfoundComponent }
     ]
   },
   {

@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import Chart from "chart.js";
 import { HttpService } from "src/app/services/http/http.service";
 import { NgForm } from "@angular/forms";
+import { ThrowStmt } from '@angular/compiler';
 
 // @Component({
 //   selector: "app-main",
@@ -577,7 +578,8 @@ export class DashboardComponent implements OnInit {
      
       this.labels = data['result'].map(one => (new Date(one._id).getDate()))
       this.data = data['result'].map(one => one.users)
-      this.registerAvg = this.data.reduce((one,acc)=>acc + one) / this.labels[this.labels.length-1] 
+      this.registerAvg = (this.data.reduce((one,acc)=>acc + one) / this.labels[this.labels.length-1] ) * 100
+      this.registerAvg = parseInt(this.registerAvg) / 100
       this.updateOptions(this.usersChart, 'Users');
     })
     
@@ -605,7 +607,8 @@ export class DashboardComponent implements OnInit {
       this.activityData = true
       this.labels = data['result'].map(one => (this.months[new Date(one._id).getMonth()] + ' - ' + new Date(one._id).getDate()))
       this.data = data['result'].map(one => one.users)
-      this.activeAvg = Math.floor(this.data.reduce((one,acc)=>acc + one) / this.data.length)
+      this.activeAvg = (this.data.reduce((one,acc)=>acc + one) / this.data.length) * 100
+      this.activeAvg = parseInt(this.activeAvg) / 100
       this.updateOptions(this.activityChart, 'Users');
      
      })

@@ -36,11 +36,13 @@ export class SettingsComponent implements OnInit {
     });
   }
   upload(e: any, div) {
+    console.log('called')
     var input = e.target;
 
     if (input.files && input.files[0]) {
       div.style["background-image"] =
         "url(" + URL.createObjectURL(input.files[0]) + ")";
+        console.log(div, input.files[0])
     }
   }
   ngOnDestroy(): void {

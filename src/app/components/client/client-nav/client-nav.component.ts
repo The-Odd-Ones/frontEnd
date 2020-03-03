@@ -15,7 +15,8 @@ import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 export class ClientNavComponent implements OnInit {
   logout() {
     localStorage.clear();
-    this.router.navigate([""]);
+    // this.router.navigate([""]);
+    location.reload()
   }
   unseenCount: Number;
   $Community: Observable<any>;
@@ -45,6 +46,7 @@ export class ClientNavComponent implements OnInit {
     this.data.Community.subscribe(data => {
       this.http.get("/notifications").subscribe(data => {
         if (data["success"]) {
+          // console.log(data)
           this.notifications = data["result"];
           this.unseenCount = data["unseenCount"];
         }

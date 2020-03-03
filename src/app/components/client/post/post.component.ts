@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { HttpService } from 'src/app/services/http/http.service';
 import { NgForm } from '@angular/forms';
+import { DataService } from 'src/app/services/data/data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: "app-post",
@@ -13,6 +15,7 @@ export class PostComponent implements OnInit {
   post:any;
   user:any;
   commentContent:String= "";
+  communitySubscription:Subscription;
   comment(){
     if(this.commentContent){
       this.http.post(`/posts/${this.post._id}/comment` , {content : this.commentContent}).subscribe((data:any) =>{
@@ -50,7 +53,9 @@ export class PostComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private http: HttpService
+    private http: HttpService,
+    private data : DataService,
+    private router:Router
   ) {}
  
   like(){
@@ -108,27 +113,31 @@ export class PostComponent implements OnInit {
     this.http.get('/users/profile').subscribe(data =>{
       this.user = data['result']
     })
-    this.activatedRoute.params.subscribe(param => {
-      this.http.get(`/posts/${param["id"]}`).subscribe((data:any)=>{
-        let post = data.result
-        if(post.file){
-          if(/video\/upload/.test(post.file)){
-            post.isVideo = true
-          }
-        }
-        this.post = post
-        console.log(this.post)
+    this.communitySubscription = this.data.Community.subscribe(data => {
+      console.log('Im jerk still listening')
+      this.activatedRoute.params.subscribe(param => {
+        this.http.get(`/posts/${param["id"]}`).subscribe((data:any)=>{
+          if(data.result){
+            let post = data.result
+            if(post.file){
+              if(/video\/upload/.test(post.file)){
+                post.isVideo = true
+              }
+            }
+            this.post = post
+          }else this.router.navigate(['404'])
+  
+        })
+  
+  
+        // this.singlePost.post_id = param["post_id"];
+      });
 
-      })
+    })
 
-
-      // this.singlePost.post_id = param["post_id"];
-    });
-
-    // would be replaced by get post by id when the backend is ready
-    // this.http.get(this._url).subscribe(data => {
-    //   this.post = data;
-    //   console.log("daaaaaaaaaa", this.post._user.username);
-    // });
+  }
+  ngOnDestroy(): void {
+    this.communitySubscription.unsubscribe()
+    
   }
 }

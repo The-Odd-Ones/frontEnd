@@ -1,12 +1,18 @@
 <div
-  *ngIf="post"
   class="row col-12 p-0 m-0 clickable"
   style="justify-content: center; display: flex; width: 100%"
-  [routerLink]="'/posts/' + post._id"
-  routerLinkActive="router-link-active"
->
+  >
+  <!-- [routerLink]="'/posts/' + post._id"
+  routerLinkActive="router-link-active" -->
   <div routerLinkActive="router-link-active" class="card col-12">
-    <div class=" row p-2">
+    <div *ngIf="post === null">
+      <h5
+       class="p-4 text-muted fontToBe">Post Is Not Available</h5>
+    </div>
+    <div *ngIf="post" class=" row p-2"
+     [routerLink]="'/posts/' + post._id"
+      routerLinkActive="router-link-active" 
+    >
       <a class="card-link col-12 p-0 p-1">
         <div class="col-12 pl-0">
           <img

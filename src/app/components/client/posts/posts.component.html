@@ -106,7 +106,7 @@
             <source [src]="post.file | safe" type="video/mkv" />
           </video>
         </div>
-        <div *ngIf="post.sharedpost && !bubble" class=" mb-4">
+        <div *ngIf="(post.sharedpost || post.sharedpost === null ) && !bubble" class=" mb-4">
           <app-bubble-post [post]="post.sharedpost"></app-bubble-post>
         </div>
         <div *ngIf="!bubble" class="d-flex justify-content-around mb-2">
