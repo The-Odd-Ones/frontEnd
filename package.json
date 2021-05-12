@@ -24,7 +24,7 @@
     "@angular/router": "~8.2.14",
     "angular2-flash-messages": "^3.0.1",
     "angularfire2": "^5.4.2",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "chartjs": "^0.3.24",
     "firebase": "^7.8.1",
     "jwt-decode": "^2.2.0",
